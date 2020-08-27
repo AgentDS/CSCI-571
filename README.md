@@ -55,3 +55,7 @@ USC CSCI 571 2020 fall, Web Technologies, by Prof. Marco Papa
 - Create the Table of Exercises using [ScrambleThisTable.html](./Assignment/HW2/ScrambleThisTable.html) in your repo and rename it as ``[randomstring].html``
 - Push all changed to GitHub remote repo
 
+
+
+### Homework 3
+

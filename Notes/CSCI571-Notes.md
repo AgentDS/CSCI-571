@@ -268,3 +268,181 @@ __Internet Explorer Browser Caching:__
   - IoT, Wearables, Cloud computing, Serverless Arch (Baas, Faas)
   - JS Frameworks, AWS, GCP, Azure, Microservices containers
 
+
+
+## Lec2 Internet Trends and Web Basics
+
+### Internet Trends
+
+- Internet:__ a global digital infrastructurethat connects computers
+
+- __WWW:__ a mechanism that unifies the retrieval and display of a subset of data on the Internet
+
+- __Intranet:__ a local/global information structure that connects an organization internally. (also use Web technologies now)
+- __Extranet:__ a private network that uses the public telecommunication system to securely share part of a business's information/operations
+
+
+
+__Recent trends in Internet Development:__
+
+- Growth:
+  - number of users connected 
+  - Smartphone use (iOS/Android)
+  - digital data (photo/video)
+  - Social media
+  - Internet use from Mobile/tablet (平板和移动端) over desktop/laptop
+  - use of cloud
+- Derease: dominance of Microsoft Windows
+
+
+
+Host counts in 2019 > 1,012 million
+
+
+
+### IoT
+
+__IoT:__ the Internet of Things
+
+#### IoT Protocols
+
+- Device/thing to Gateway:
+  - ZigBee: Wireless sensors
+  - BLE: Wireless sensors
+  - ModBus (Serial or TCP)
+- Gateway to Server:
+  - ModBus TCP: common
+  - OPC: common for industrial assets
+  - HTTP: JSON over HTTP
+  - MQTT: Consumer oriented, promising
+
+
+
+#### IoT platforms
+
+- Amazon IoT
+  - Physical/Shadow Device (Persisted JSON State)
+  - MQTT Endpoint
+  - Rules
+  - AWS Connectivity
+- GE Predix 2.0 (PaaS)
+  - CloudFoundry, HDP
+  - Asset Model, Machine Connectivity, Time Series DB, Analystics Plugin (BPMN)
+- PTC ThingWorx
+  - Originally HMI for TCP-connected devices
+- Xively
+  - Device connectivity, time series database, connectivity to applications
+  - Popular with Arduino developers
+
+
+
+### Domain Name System (DNS)
+
+__DNS resolution:__
+
+- when visit a website, the computer need to perform DNS lookup
+- Complex pages require multiple DNS lookups before loading 
+- DNS latency mainly from:
+  - round-trip time to make the request and get the response, due to network congestion, overloaded servers, denial-of-service attacks 
+  - Cache misses which cause recursive querying of other name servers 
+- Google has introduced **Google Public DNS** 
+  - use 8.8.8.8 and 8.8.4.4 
+  - handles more than 70 billion requests ***a day!*** 
+  - Google also has IPv6 addresses 
+- Another alternative is **opendns.com**
+  - a global network of DNS resolvers to speed resolution
+  - Free for basic service, but upgrades cost
+
+
+
+
+
+### Internet Domain Names
+
+- DNS is a mapping to/from IP addresses to domain names
+  - Defined in RFC 1034, 1035
+- 13 top level root name services
+- founded in 1998, ICANN is the organization in charge of maintaining the DNS system
+
+
+
+#### Top Level Domain Names (TLDs)
+
+- __In 1984__, __originally__ divided into __6__ logical categories
+  - com
+  - edu
+  - gov
+  - mil
+  - net
+  - org
+- __In 2001__ new top level domain added:
+  - biz, info, name, musem, coop, aero, pro, xxx 
+- __In 2009__ ICANN agreed to accept internationalized domain names, encoded as Unicode
+- __In 2011__ ICANN announced expansion of TLDs, giving requirements for anyone wanting to establish one
+
+<u>In 2019 ``.com``, ``.net`` are the most popular top name domain.</u>
+
+
+
+### World Wide Web
+
+Define:
+
+- A wide-area hypertext, multimedia information retrieval system that provides access to a large universe of documents 
+- A uniform way of accessing and viewing some information on the Internet 
+- WWW subsumes the capabilities of ftp, gopher, wars, and news
+
+<img src='./graphWWW.png' height=250>
+
+#### Major Technology Components
+
+- Client/server architecture: client programs interact with web
+  servers
+- Network protocol: HTTP understood by browsers and web servers
+- Addressing system (Uniform Resource Locators)
+- Markup Language: support HyperText and multimedia
+
+
+
+#### WWW server
+
+- Web browsers/servers communicate according to a protocol (HTTP)
+  - current HTTP is version 1.1
+- The Web server is a software system running on a machine often called the Web server 
+- A web server __can__
+
+  - receive/reply to HTTP requests
+
+  - retrieve documents from specified directories 
+  - run programs in specified directories
+
+  - handle limited forms of security 
+- A web server __does not__
+  - know about the contents of a document, links in a document, images in a document or whether a particular file, e.g. a *.gif file, is in the correct format
+
+
+
+#### Uniform Resource Locator (URL)
+
+- A mechanism whereby an Internet resource can be specified in a single line of ASCII text
+- RFC 1738
+
+
+
+__General description of URL:__
+
+1. Scheme
+   - http:, ftp:, news:, wais:
+2. Double dash //
+3. Internet domain name: usc.edu
+4. Port number (optimal)
+5. Path
+
+
+
+#### Markup Languages
+
+- HTML: hypertext markup language, specifies document layout and the specification of hypertext links to text, graphics and other objects 
+- Browsers display text and graphics using the markup as guidance 
+
+> HyperText: Regular text, with the additional feature of links to related documents
