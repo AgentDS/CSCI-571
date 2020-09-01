@@ -1,7 +1,7 @@
 # CSCI-571
 USC CSCI 571 2020 fall, Web Technologies, by Prof. Marco Papa
 
-
+[toc]
 
 - Course homepage:
   - __Username:__ csci571
@@ -60,6 +60,16 @@ USC CSCI 571 2020 fall, Web Technologies, by Prof. Marco Papa
 ### Homework 3
 
 
-- To find the similar fonts:
+- Final result: https://youtu.be/eI-YjCv1w9M
+- To find the similar fonts (use FireFox for review):
   - https://www.myfonts.com/WhatTheFont/
   - https://fonts.google.com/
+- Use hyperlinks for images, rather than local images
+  - https://csci571.com/hw/hw3/images/Bathroom.png
+  - https://csci571.com/hw/hw3/images/Kitchen.png
+  - https://csci571.com/hw/hw3/images/Bedroom.png
+  - https://csci571.com/hw/hw3/images/Decor.png
+  - https://csci571.com/hw/hw3/images/Cutlery.png
+- Use ``CSS`` to _'crop'_ the images if needed
+- Use browser tools to get the __identical colors__ used in example
+
