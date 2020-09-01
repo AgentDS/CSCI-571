@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/exploded-aar/com.baoyz.swipemenulistview/library/1.3.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="8ec8378e8d7aa3104f60823e6350f2728d3609ba">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.baoyz.swipemenulistview-library-1.3.0_2e49db351e06e0f69ba33f5450f229a2222a47bc/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.11.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="86da97c30f50a67ddabe2cf7040713ad17153fce">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.facebook.android-facebook-android-sdk-4.11.0_dbb562e3cd87933fa8d5d9d58ed0e68a4910e46c/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.2.1/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="cb86970df0f0f25f766d320b279c7858c1ca0003">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-cardview-v7-23.2.1_65d8de8844b172c5091decb95952693826d42427/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.3.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-23.3.0_250ff21f32091c07b4de8b6621cc072319665e4d/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.6.2/f1bc476cc167b18e66c297df599b2377131a8947/gson-2.6.2.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="f1bc476cc167b18e66c297df599b2377131a8947">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.6.2_f656f4341b3361009ca56c7c708c8ec7b28e183d/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/exploded-aar/com.hudomju/swipe-to-dismiss-undo/1.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="c934830482473cb298c02f9eb55da67548b9db40">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.hudomju-swipe-to-dismiss-undo-1.0_ee4e372b5989d96229977f2cf59c0b240795ae86/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/exploded-aar/com.github.chrisbanes.photoview/library/1.2.4/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="98b5309c8d368a7c83ca5f90e0c905044c195edd">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.github.chrisbanes.photoview-library-1.2.4_859098a2fb343aa68b98f15381eccda945675224/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/bolts-tasks-1.4.0_c41c765be5cefd65d09878145008c426bfcd19cf/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="52a8310ab16a87945bc73259c55c7f60427ce8dd">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_25585cf691b88ee7eb4dfa7ca4d0414b7403a722/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="4ab790be5a5b99bfe16ec7a593c63463543cffce">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_41983180a6ce835e256ab155fe6e2c3c5df00798/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.3.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-23.3.0_dc4911236a370671368d1946960f609de9972c06/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.3.0/jars/libs/internal_impl-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.3.0_d51523557d41b1392a8cbe416afc1a4e225879c4/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.4.1/f5aa318bda4c6c8d688c9d00b90681dcd82ce636/httpcore-4.4.1.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="f5aa318bda4c6c8d688c9d00b90681dcd82ce636">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/httpcore-4.4.1_a098d40dfc450a6fe9acf3705f6f95fc57660400/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.4.0/8ad21bf21784dacce5f2043afb97218cc377e835/bolts-applinks-1.4.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/bolts-applinks-1.4.0_228b3bde64b104b7e5ec2b0011f7aebb24d1f056/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.3.0_e156c3c2882845e68197ecb5315570d78de2086e/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/.gradle/caches/modules-2/files-2.1/org.ocpsoft.prettytime/prettytime/4.0.1.Final/5537d74e2102a82fd937dd9b8a652e3b26026a7a/prettytime-4.0.1.Final.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="5537d74e2102a82fd937dd9b8a652e3b26026a7a">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/prettytime-4.0.1.Final_c73977ba9301868a89cd8e6710845c084fbb2842/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/exploded-aar/com.android.support/customtabs/23.2.1/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="0e5a66a941515d873a34065fe44fbba6ef422a1b">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-customtabs-23.2.1_41ca35cd7c5794070e1a27c6a88335cde93b78e7/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.3.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.3.0_240518d9e1a461070886b44fdc3d7888d1140943/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/exploded-aar/com.koushikdutta.urlimageviewhelper/UrlImageViewHelper/1.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="25462484cada238dff16126b59a4a27f1981a811">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.koushikdutta.urlimageviewhelper-UrlImageViewHelper-1.0.2_c3b18ca8e96a34db164b2ae0515e4a192abf6a46/classes.dex" />
+    </item>
+    <item
+        jar="/home/vt/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.3.0/support-annotations-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="/home/vt/Dropbox/HW9/Version 3/StockViewer/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.3.0_e09374662130ec4fb40399b567112de1cf23e8c9/classes.dex" />
+    </item>
+
+</items>

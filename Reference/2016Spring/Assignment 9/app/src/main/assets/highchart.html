@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Stock Market Search</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"-->
+    <!--link rel="stylesheet" type="text/css" href="bootstrap-3.3.6-dist/css/bootstrap.min.css"-->
+    <!--link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"-->
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <!--link rel="stylesheet" type="text/css" href="stock.css"-->
+
+    <script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="http://code.highcharts.com/stock/highstock.js"></script>
+    <script>
+            var valid = false;
+           /* $(document).ready(function () {
+                PopulateHistoryChart('AAPL');
+            });
+*/
+			var StkSymbol="AAPL";
+            function init(StkSymbol) {
+                new HighCharts.StockDetailsChart(StkSymbol, 600);
+            }
+            ;
+
+			function loadVariables(urlString){
+    // if it is not the default URL
+    if(urlString!="www.yoururl.com")
+    {
+        //console.log("loadVariables: " + urlString);
+        // parse the URL using a javascript url parser (here I use purl.js)
+
+        var source = $(location).attr('href');
+        //var query = $.url(urlString).attr('query');
+		var n=source.indexOf("?s=");
+		var symbol=source.substring(n+1);
+        console.log("URL SOURCE = "+source);
+		init(symbol);
+        //do something with the variables
+    }
+}
+
+            </script>
+    <script>
+            var HighCharts = {};
+            HighCharts.StockDetailsChart = function (symbol, duration) {
+                this.symbol = symbol.toUpperCase();
+                this.duration = duration;
+                this.PlotChart();
+            };
+
+            HighCharts.StockDetailsChart.prototype.PlotChart = function () {
+
+                var params = {
+                    parameters: JSON.stringify(this.getInputParams())
+                };
+
+                $.ajax({
+                    beforeSend: function () {
+                        $("#HighCharts").text("Loading chart...");
+                    },
+                    data: params,
+                    url: "http://www-scf.usc.edu/~adsule/HW9/stock.php",
+                    dataType: "jsonp",
+                    context: this,
+                    success: function (json) {
+                        //Catch errors
+                        if (!json || json.Message) {
+                            console.error("Error: ", json.Message);
+                            return;
+                        }
+                        this.render(json);
+                    },
+                    error: function (response, txtStatus) {
+                        console.log(response, txtStatus);
+                    }
+                });
+            };
+
+            HighCharts.StockDetailsChart.prototype.getInputParams = function () {
+                return {
+                    Normalized: false,
+                    NumberOfDays: this.duration,
+                    DataPeriod: "Day",
+                    Elements: [
+                        {
+                            Symbol: this.symbol,
+                            Type: "price",
+                            Params: ["ohlc"] //ohlc, c = close only
+                        }
+                    ]
+                };
+            };
+
+            HighCharts.StockDetailsChart.prototype.fixDate = function (dateIn) {
+                var dat = new Date(dateIn);
+                return Date.UTC(dat.getFullYear(), dat.getMonth(), dat.getDate());
+            };
+
+            HighCharts.StockDetailsChart.prototype.getPriceOHLC = function (json) {
+                var dates = json.Dates || [];
+                var elements = json.Elements || [];
+                var chartSeries = [];
+
+                if (elements[0]) {
+
+                    for (var i = 0, datLen = dates.length; i < datLen; i++) {
+                        var dat = this.fixDate(dates[i]);
+                        var pointData = [
+                            dat,
+                            elements[0].DataSeries['open'].values[i],
+                            elements[0].DataSeries['high'].values[i],
+                            elements[0].DataSeries['low'].values[i],
+                            elements[0].DataSeries['close'].values[i]
+                        ];
+                        chartSeries.push(pointData);
+                    }
+                    ;
+                }
+                return chartSeries;
+            };
+
+            HighCharts.StockDetailsChart.prototype.render = function (data) {
+                var ohlc = this.getPriceOHLC(data);
+                // create the chart
+                $('#HighCharts').highcharts('StockChart', {
+                    rangeSelector: {
+                        buttons: [{
+                                type: 'week',
+                                count: 1,
+                                text: '1W'
+                            }, {
+                                type: 'month',
+                                count: 1,
+                                text: '1M'
+                            }, {
+                                type: 'month',
+                                count: 3,
+                                text: '3M'
+                            }, {
+                                type: 'month',
+                                count: 6,
+                                text: '6M'
+                            }, {
+                                type: 'year',
+                                count: 1,
+                                text: '1Y'
+                            }, {
+                                type: 'ytd',
+                                count: 1,
+                                text: 'YTD'
+                            }, {
+                                type: 'all',
+                                count: 1,
+                                text: 'All'
+                            }],
+                        selected: 0,
+                        inputEnabled: false
+                    },
+                    title: {
+                        text: this.symbol + ' Stock Value'
+                    },
+                    tooltip: {
+                        valuePrefix: '$'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Stock Value'
+                        }
+                    },
+                    series: [{
+                            name: this.symbol + ' Stock Value',
+                            data: ohlc,
+                            type: 'area',
+                            threshold: null,
+                            tooltip: {
+                                valueDecimals: 2
+                            },
+                            fillColor: {
+                                linearGradient: {
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 0,
+                                    y2: 1
+                                },
+                                stops: [
+                                    [0, Highcharts.getOptions().colors[0]],
+                                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                ]
+                            }
+                        }],
+                    credits: {
+                        enabled: false
+                    }
+                });
+            };
+        </script>
+</head>
+<body>
+<div id="HistoricalCharts" class="tab-pane fade">
+    <div id="HighCharts"></div>
+</div>
+</body>
+</html>

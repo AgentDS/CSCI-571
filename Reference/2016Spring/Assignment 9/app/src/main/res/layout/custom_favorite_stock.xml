@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:paddingBottom="10dip"
+    android:paddingLeft="10dip"
+    android:paddingTop="10dip" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/fav_symbol"
+            android:layout_width="wrap_content"
+            android:textSize="20dp"
+            android:text="devesh"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/fav_lastprice"
+            android:layout_width="wrap_content"
+            android:textSize="20dp"
+            android:text="amlan"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/fav_comapnyName"
+            android:layout_toLeftOf="@+id/fav_change"
+            android:layout_toStartOf="@+id/fav_change"
+            android:layout_marginRight="48dp"
+
+            android:layout_marginEnd="48dp" />
+        <TextView
+            android:id="@+id/fav_change"
+            android:layout_width="wrap_content"
+            android:textSize="20dp"
+            android:text=""
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/fav_comapnyName"
+            android:layout_width="wrap_content"
+            android:textSize="15dp"
+            android:text=""
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/fav_MarketCap"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentStart="true" />
+
+
+        <TextView
+            android:id="@+id/fav_MarketCap"
+            android:layout_width="wrap_content"
+            android:textSize="15dp"
+            android:text="Vipin"
+
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fav_change"
+            android:layout_toLeftOf="@+id/fav_change"
+            android:layout_toStartOf="@+id/fav_change"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
+
+

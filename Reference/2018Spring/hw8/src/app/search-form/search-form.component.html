@@ -1,0 +1,59 @@
+<div class="container" id="search-form-div">
+  <div class="jumbotron col-sm-10 offset-sm-1">
+    <div class="">
+      <form (ngSubmit)="onSubmit()" #searchForm=ngForm>
+        <div id="form-header">
+          <p>Travel and Entertainment Search</p>
+        </div>
+        <div class="form-group row">
+          <label for="keyword" class="col-sm-2 col-form-label">Keyword <span class="required">*</span></label>
+          <div class="col-sm-10">
+            <input [ngClass]="{'form-control': true, 'is-invalid': keyword.invalid && (keyword.dirty || keyword.touched)}" type="text"
+              name="keyword" id="keyword" required noWhitespace [(ngModel)]="form.keyword" #keyword="ngModel">
+            <div class="invalid-feedback">Please enter a keyword.</div>
+            <!-- <div *ngIf="keyword.errors.required">no keyword!</div> -->
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="category" class="col-sm-2 col-form-label">Category</label>
+          <div class="col-sm-10">
+            <select class="custom-select" name="category" id="category" [(ngModel)]="form.category" #category="ngModel">
+              <option *ngFor="let type of searchTypes" [value]="type|capToVar">{{type}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="distance" class="col-sm-2 col-form-label">Distance (miles)</label>
+          <div class="col-sm-10">
+            <input class="form-control" type="text" name="distance" id="distance" placeholder="10" value="" [(ngModel)]="form.distance"
+              #distance="ngModel">
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">From<span class="required">*</span></legend>
+          <div class="col-sm-10">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="is_user_input" checked [value]="false" [(ngModel)]="form.isUserInput">
+              <label class="form-check-label" for="here">Current location</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="is_user_input" [value]="true" [(ngModel)]="form.isUserInput">
+              <label class="form-check-label" for="other">Other, Please specify:</label>
+            </div>
+            <input [ngClass]="{'form-control': true, 'is-invalid': location.invalid && (location.dirty || location.touched)}" type="text"
+              name="loc-input" id="loc-input" required noWhitespace [disabled]="!form.isUserInput" placeholder="Enter a location" [(ngModel)]="form.location"
+              #location="ngModel" appAutocomplete (setAddress)="getAddressOnChange($event, location)">
+            <div class="invalid-feedback">Please enter a location</div>
+          </div>
+        </div>
+        <div class="form-group row" id="search-btn-group">
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary" id="search-btn" [disabled]="!gotgeojson || searchForm.invalid">
+              <i class="fas fa-search"></i>Search</button>
+            <button type="reset" class="btn btn-outline-secondary" id="clear-btn" (click)="clear()">Clear</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

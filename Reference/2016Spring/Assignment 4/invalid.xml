@@ -1,0 +1,48 @@
+
+<?xml version="1.0"?>
+<Workbook>
+  <Table>
+   <Header>
+    <Data>Call Sign</Data>
+    <Data>Frequency</Data>
+    <Data>City / School</Data>
+    <Data>Format</Data>
+    <Data>HomePage</Data>
+    <Data>Logo</Data>
+   </Header>
+   <Row>
+    <CallSign>KKJZ</CallSign>
+    <Frequency>88.1 FM</Frequency>
+    <Location>
+        <City>Long Beach, CA</City>
+        <School>California State University – Long Beach</School>
+    </Location>
+    <Format>Jazz</Format>
+    <HomePage>http://www.jazzandblues.org</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/KKJZ_logo.png</Logo>
+   </Row>
+
+   <Row>
+    <CallSign>KLOS</CallSign>
+    <Frequency>95.5 FM </Frequency>
+    <Location>
+        <City>Los Angeles, CA</City>
+    </Location>
+    <Format>Classic Rock</Format>
+    <HomePage>http://www.955klos.com</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/KLOS_logo.png</Logo>
+   </Row>
+
+   <Row>
+    <CallSign>KUSC</CallSign>
+    <Frequency>91.5 FM</Frequency>
+    <Location>
+        <City>Los Angeles</City>
+        <School>University of Southern California</School>
+    </Location>
+    <Format>Classical</Format>
+    <HomePage>http://www.kusc.org</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/KUSC_logo.png</Logo>
+   </Row>
+  </Table>
+<Workbook>

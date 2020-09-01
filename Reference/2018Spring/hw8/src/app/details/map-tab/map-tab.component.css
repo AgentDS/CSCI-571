@@ -1,0 +1,16 @@
+#map {
+    height: 500px;
+}
+
+#buttonImg {
+    height: 38px;
+    width: 38px;
+}
+
+#get-direction {
+    display: block;
+}
+
+#dir-end {
+    font-weight: bold;
+}

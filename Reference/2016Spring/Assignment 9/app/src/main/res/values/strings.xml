@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Stock Market Viewer</string>
+    <string name="facebook_app_id">1533542040282423</string>
+    <string name="stockActivity">StockActivity</string>
+    <string name="stock_market_viewer">Stock Market Viewer</string>
+    <string name="saved">stock has been marked as favourite</string>
+    <string name="notSaved">stock has been removed from favourite</string>
+
+</resources>

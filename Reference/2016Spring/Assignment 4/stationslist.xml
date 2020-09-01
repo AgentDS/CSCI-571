@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<Workbook>
+  <Table>
+   <Header>
+    <Data>Call Sign</Data>
+    <Data>Frequency</Data>
+    <Data>City / School</Data>
+    <Data>Format</Data>
+    <Data>HomePage</Data>
+    <Data>Logo</Data>
+   </Header>
+   <Row>
+    <CallSign>KKJZ</CallSign>
+    <Frequency>88.1 FM</Frequency>
+    <Location>
+        <City>Long Beach, CA</City>
+        <School>California State University – Long Beach</School>
+    </Location>
+    <Format>Jazz</Format>
+    <HomePage>http://www.jazzandblues.org</HomePage>
+    <HomePage>http://www.jazzandblues.org</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/KKJZ_logo.png</Logo>
+   </Row>
+
+   <Row>
+    <CallSign>KLOS</CallSign>
+    <Frequency>95.5 FM </Frequency>
+    <Location>
+        <City>Los Angeles, CA</City>
+    </Location>
+    <Format>Classic Rock</Format>
+    <HomePage>http://www.955klos.com</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/KLOS_logo.png</Logo>
+   </Row>
+
+   <Row>
+    <CallSign>KUSC</CallSign>
+    <Frequency>91.5 FM</Frequency>
+    <Location>
+        <City>Los Angeles</City>
+        <School>University of Southern California</School>
+    </Location>
+    <Format>Classical</Format>
+    <HomePage>http://www.kusc.org</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/KUSC_logo.png</Logo>
+   </Row>
+   
+   <Row>
+    <CallSign>KCSN</CallSign>
+    <Frequency>88.5 FM</Frequency>
+    <Location>
+        <City>Northridge, CA</City>
+        <School>California State University - Northridge</School>
+    </Location>
+    <Format>Adult Album Alternative</Format>
+    <HomePage>http://www.kcsn.org/</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/KCSN_logo.png</Logo>
+   </Row>
+   
+   <Row>
+    <CallSign>KSPC</CallSign>
+    <Frequency>88.7 FM</Frequency>
+    <Location>
+        <City>Claremont, CA</City>
+        <School>Pomona College</School>
+    </Location>
+    <Format>Alternative</Format>
+    <HomePage>http://kspc.org/</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/KSPC_logo.png</Logo>
+   </Row>
+   
+   <Row>
+    <CallSign>KRRL</CallSign>
+    <Frequency>92.3 FM</Frequency>
+    <Location>
+        <City>Los Angeles, CA</City>
+    </Location>
+    <Format>Hip Hop</Format>
+    <HomePage>http://www.real923la.com/</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/KRRL_logo.png</Logo>
+   </Row>
+   
+   <Row>
+    <CallSign>KRTH</CallSign>
+    <Frequency>101.1 FM</Frequency>
+    <Location>
+        <City>Los Angeles, CA</City>
+    </Location>
+    <Format>Classic Hits</Format>
+    <HomePage>http://kearth101.cbslocal.com/</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/KRTH_logo.png</Logo>
+   </Row>
+   
+   <Row>
+    <CallSign>KALI</CallSign>
+    <Frequency>106.3 FM</Frequency>
+    <Location>
+        <City>Santa Ana, CA</City>
+    </Location>
+    <Format>Asian</Format>
+    <HomePage>http://mrbi.net/</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/KALI_logo.png</Logo>
+   </Row>
+  </Table>
+</Workbook>

@@ -59,3 +59,7 @@ USC CSCI 571 2020 fall, Web Technologies, by Prof. Marco Papa
 
 ### Homework 3
 
+
+- To find the similar fonts:
+  - https://www.myfonts.com/WhatTheFont/
+  - https://fonts.google.com/

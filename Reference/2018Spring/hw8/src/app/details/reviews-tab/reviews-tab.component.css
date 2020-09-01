@@ -1,0 +1,28 @@
+#review-results {
+    height: 100px;
+}
+
+.avatar>a>img {
+    height: 64px;
+    width: 64px;
+}
+
+.card {
+    word-wrap: normal;
+    padding: 20px;
+    margin: 10px;
+}
+
+.spanpad {
+    display: inline-block;
+    height: 18px;
+}
+
+.review-time {
+    color: gray;
+    font-size: 14px;
+}
+
+.dropdown {
+    margin: 10px;
+}

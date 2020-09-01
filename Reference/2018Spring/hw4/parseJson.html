@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="referrer" content="no-referrer">
+    <meta name="author" content="Xiaoyi He">
+    <title>parse json</title>
+    <style>
+      h3 {
+        text-align: center;
+        margin-top: 100px;
+      }
+
+      #inputbox {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      #button {
+        text-align: center;
+      }
+    </style>
+    <script type="text/javascript">
+      var jsonFile;
+      function loadJson(url) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.overrideMimeType('application/json');
+        xmlhttp.onerror = function () {
+          alert("Network error!");
+        }
+        try {
+          xmlhttp.open("GET", url, false);
+          xmlhttp.send();
+          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            json = JSON.parse(xmlhttp.responseText);
+          }
+          else {
+            json = null;
+          }
+        } catch (error) {
+          json = null;
+        }
+        return json;
+      }
+
+      function processCompany(company) {
+        return "<td>" + company + "</td>";
+      }
+
+      function processServices(services) {
+        return "<td>" + services + "</td>";
+      }
+
+      function processHubs(hubs) {
+        var hub = hubs["Hub"];
+        if (hub.length == 0) {
+          return "<td></td>";
+        }
+        var hubsText = "<td><ul>";
+        var firstline = true;
+        for (var line of hub) {
+          if (firstline) {
+            hubsText += "<li><b>";
+            hubsText += line;
+            hubsText += "</b></li>";
+            firstline = false;
+          }
+          else {
+            hubsText += "<li>";
+            hubsText += line;
+            hubsText += "</li>";
+          }
+        }
+        hubsText += "</ul></td>";
+        return hubsText;
+      }
+
+      function processRevenue(revenue) {
+        return "<td>" + revenue + "</td>";
+      }
+
+      function processHomepage(homepage) {
+        return "<td><a href='" + homepage + "'>" + homepage + "</a></td>";
+      }
+
+      function processLogo(logourl) {
+        var logoText = "<td><img src='" + logourl + "' style='width: 200px'></td>";
+        return logoText;
+      }
+
+      function generateRow(row) {
+        rowText = "<tr>";
+        for (property in row) {
+          switch (property) {
+            case "Company": rowText += processCompany(row[property]); break;
+            case "Services": rowText += processServices(row[property]); break;
+            case "Hubs": rowText += processHubs(row[property]); break;
+            case "Revenue": rowText += processRevenue(row[property]); break;
+            case "HomePage": rowText += processHomepage(row[property]); break;
+            case "Logo": rowText += processLogo(row[property]); break;
+            default: alert("Unrecognised key!");
+          }
+        }
+        rowText += "</tr>";
+        return rowText;
+      }
+
+      function MakeHTML(json) {
+        htmlText = "<!DOCTYPE html><html><head><meta charset='utf-8'><meta name='referrer' content='no-referrer'><title>Top Trucking Companies</title></head><body>";
+        htmlText += "<table border=1><tbody>";
+        // write the headers
+        htmlText += "<tr>";
+        for (var headerText of json.Mainline.Table.Header.Data) {
+          htmlText += "<th>";
+          htmlText += headerText;
+          htmlText += "</th>";
+        }
+        htmlText += "</tr>";
+        // write body
+        for (var row of json.Mainline.Table.Row) {
+          htmlText += generateRow(row);
+        }
+        htmlText += "</tbody></table>";
+        htmlText += "</body></html>";
+        return htmlText;
+      }
+      
+      function viewXML(form) {
+        url = form.url.value;
+        if (url == '') {
+          alert("Input url blank! Please input a url!");
+          return;
+        }
+        var json = loadJson(url);
+        if (json == null) {
+          alert("Can not load json file! Please check your input!");
+          return;
+        }
+        if (!json.Mainline.Table.hasOwnProperty("Row")) {
+          alert("The json file contain no trucking company!");
+          return;
+        }
+        htmlText = MakeHTML(json);
+        newWindow = window.open("", "Trucking list", "height=600, width=1000");
+        newWindow.document.write(htmlText)
+        newWindow.document.close()
+      }
+    </script>
+  </head>
+  <body>
+    <h3>Enter URL for Trucking List JSON File</h3>
+    <form method="POST">
+        <div id="inputbox">
+            <input type="text" name="url">
+        </div>
+        <div id="button">
+            <input type="button" name="submit" value="Submit Query" onclick="viewXML(this.form)">
+        </div>
+    </form>
+    <p id="json"></p>
+  </body>
+  
+</html>

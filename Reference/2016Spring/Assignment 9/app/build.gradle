@@ -1,0 +1,44 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "com.example.vt.stockviewer"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+android {
+
+
+    useLibrary 'org.apache.http.legacy'
+
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'org.apache.httpcomponents:httpcore:4.4.1'
+    compile 'org.apache.httpcomponents:httpclient:4.5'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'org.json:json:20160212'
+    compile 'com.koushikdutta.urlimageviewhelper:UrlImageViewHelper:1.0.2'
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.baoyz.swipemenulistview:library:1.3.0'
+    compile 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
+    compile 'com.hudomju:swipe-to-dismiss-undo:1.0'
+
+
+}

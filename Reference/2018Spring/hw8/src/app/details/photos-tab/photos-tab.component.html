@@ -1,0 +1,33 @@
+<div id="photos-div">
+  <div class="photos-container" *ngIf="photos" class="row">
+    <div id="photo-col-1" class="col-sm-3 photo-col">
+      <div *ngIf="col1">
+        <a *ngFor="let photo of col1" [href]="photo.getUrl({'maxWidth': photo.width})" target="_blank">
+          <img class="img-thumbnail" [src]="photo.getUrl({'maxWidth': displayWidth})" alt="">
+        </a>
+      </div>
+    </div>
+    <div id="photo-col-2" class="col-sm-3 photo-col">
+      <div *ngIf="col2"><a *ngFor="let photo of col2" [href]="photo.getUrl({'maxWidth': photo.width})" target="_blank">
+          <img class="img-thumbnail" [src]="photo.getUrl({'maxWidth': displayWidth})" alt="">
+        </a></div>
+    </div>
+    <div id="photo-col-3" class="col-sm-3 photo-col">
+      <div *ngIf="col3"><a *ngFor="let photo of col3" [href]="photo.getUrl({'maxWidth': photo.width})" target="_blank">
+          <img class="img-thumbnail" [src]="photo.getUrl({'maxWidth': displayWidth})" alt="">
+        </a></div>
+    </div>
+    <div id="photo-col-4" class="col-sm-3 photo-col">
+      <div *ngIf="col4"><a *ngFor="let photo of col4" [href]="photo.getUrl({'maxWidth': photo.width})" target="_blank">
+          <img class="img-thumbnail" [src]="photo.getUrl({'maxWidth': displayWidth})" alt="">
+        </a></div>
+    </div>
+  </div>
+  <div class="alert alert-warning" role="alert" *ngIf="!photos">No photos!</div>
+
+  <!-- <div *ngFor="let photo of photos" class="photo-container">
+    <a [href]="photo.getUrl({'maxWidth': photo.width})" target="_blank">
+      <img class="img-thumbnail" [src]="photo.getUrl({'maxWidth': 400})" alt="">
+    </a>
+  </div> -->
+</div>

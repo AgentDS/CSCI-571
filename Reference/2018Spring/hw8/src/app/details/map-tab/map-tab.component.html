@@ -1,0 +1,31 @@
+<div id="map-div">
+  <form id="get-direction" (ngSubmit)="onSubmit()" #getRoute="ngForm">
+    <div class="row">
+      <div class="form-group col-sm-3">
+        <label for="dir-start" class="form-label">From</label>
+        <input type="text" placeholder="Your location" class="form-control " id="dir-start" name="start" [(ngModel)]="startInput"
+          #dirStart="ngModel" appAutocomplete (setAddress)="getAddressOnChange($event)" value={{directions.start.text}} required noWhitespace>
+      </div>
+      <div class="form-group col-sm-3">
+        <label for="dir-end" class="form-label">To</label>
+        <input type="text" value={{directions.end.text}} disabled class="form-control " id="dir-end" name="end">
+      </div>
+      <div class="form-group col-sm-3">
+        <label for="travel-mode">Travel Mode</label>
+        <select name="mode" id="travel-mode" class="custom-select " [(ngModel)]="modeChosen">
+          <option *ngFor="let mode of modes" [value]="mode.value">{{mode.text}}</option>
+        </select>
+      </div>
+      <div class="form-group col-sm-3">
+        <label for="get-direction">&nbsp;</label>
+        <button [disabled]="getRoute.invalid" type="submit" class="btn btn-primary" id="get-direction">Get Directions</button>
+      </div>
+    </div>
+  </form>
+  <button type="button" (click)="showPanorama()" class="btn btn-light">
+    <img id="buttonImg" [src]="buttonImgUrl" alt="view">
+  </button>
+  <div id="map"></div>
+  <div id="route-panel"></div>
+  <br>
+</div>

@@ -1,0 +1,36 @@
+.pagination button {
+    margin: auto;
+    margin-top: 30px;
+    text-align: center;
+}
+
+#results-div {
+    /* overflow: scroll; */
+    margin: auto;
+    margin-top: 30px;
+}
+
+.details-btn {
+    text-align: right;
+    margin-bottom: 10px;
+    width: 100%;
+    display: block;
+}
+
+.category-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.favorited {
+    color: orange;
+}
+
+.btn-outline {
+    border: 1px solid;
+    border-color: darkgray
+}
+
+.table {
+    overflow: scroll;
+}

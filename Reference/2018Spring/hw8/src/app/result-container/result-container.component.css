@@ -1,0 +1,36 @@
+#result-and-favorite {
+    text-align: center;
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+#slide-container {
+    width: 100%;
+    /* display: flex; */
+    /* right: 0; */
+    position: absolute;
+    overflow: hidden;
+}
+
+@media (max-width: 600px) {
+    #slide-container {
+        width: 100%;
+        /* display: flex; */
+        right: 0;
+        position: absolute;
+        overflow: hidden;
+    }
+}
+
+.slide-div {
+    flex: 1;
+    position: relative;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}

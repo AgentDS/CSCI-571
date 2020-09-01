@@ -1,0 +1,46 @@
+<div id="details" *ngIf="details">
+  <div id="place-name">
+    <h3>{{details.name}}</h3>
+  </div>
+  <div id="details-button">
+    <div class="left">
+      <button class="btn btn-outline-secondary" (click)="slideDetail()">
+        <i class="fas fa-angle-left"></i>List</button>
+    </div>
+    <div class="right">
+      <button class="btn btn-outline" (click)="setFavorite()" [class.favorited]="isFavorited">
+        <i class="fas fa-star" ></i>
+      </button>
+      <button class="btn tweet" (click)="tweet()">
+        <img id="tweet" src="http://cs-server.usc.edu:45678/hw/hw8/images/Twitter.png" alt="tweet">
+      </button>
+
+    </div>
+  </div>
+  <nav>
+    <div class="nav nav-tabs justify-content-end" id="nav-tabs" role="tablist">
+      <a href="#" *ngFor="let tab of tabs" [id]="tab.id" class="nav-item nav-link" [class.active]="tab.id === activeId" role="tab"
+        data-toggle="tab" [attr.aria-controls]="tab.id+'-panel'" (click)="setActive(tab.id)">{{tab.title}}</a>
+    </div>
+  </nav>
+  <br>
+  <!-- <div class="tab-content" id="nav-tab-content">
+    <div *ngFor="let tab of tabs" class="tab-pane" [class.active]="tab.id === activeId" role="tabpanel" [id]="tab.id+'-panel'" [attr.aria-labelledby]="tab.id">
+      <ng-container *ngComponentOutlet="tab.component"></ng-container>
+    </div>
+  </div> -->
+  <div class="tab-content" id="nav-tab-content">
+    <div class="tab-pane" [class.active]="activeId==='info-tab'" role="tabpanel" id="info-tab-panel" aria-labelledby="info-tab">
+      <app-info-tab [info]="infoJson"></app-info-tab>
+    </div>
+    <div class="tab-pane" [class.active]="activeId==='photos-tab'" role="tabpanel" id="photos-tab-panel" aria-labelledby="photos-tab">
+      <app-photos-tab [photos]="photoJson"></app-photos-tab>
+    </div>
+    <div class="tab-pane" [class.active]="activeId==='map-tab'" role="tabpanel" id="map-tab-panel" aria-labelledby="map-tab">
+      <app-map-tab [directions]="mapJson"></app-map-tab>
+    </div>
+    <div class="tab-pane" [class.active]="activeId==='reviews-tab'" role="tabpanel" id="reviews-tab-panel" aria-labelledby="reviews-tab">
+      <app-reviews-tab [ggReviews]="reviewJson"></app-reviews-tab>
+    </div>
+  </div>
+</div>

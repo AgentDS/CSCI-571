@@ -1,0 +1,3 @@
+<div class="progress" *ngIf="show">
+  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [attr.aria-valuenow]="loaderService.progress$|async" aria-valuemin="0" aria-valuemax="100" [style.width]="(loaderService.progress$|async) + '%'"></div>
+</div>

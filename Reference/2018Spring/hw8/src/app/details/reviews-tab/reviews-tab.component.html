@@ -1,0 +1,69 @@
+<div id="review-div">
+  <div class="row review-buttons">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="choose-review" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">{{reviewTypes[selectedReviewType]}}</button>
+      <div class="dropdown-menu" aria-labelledby="choose-review">
+        <a *ngFor="let type of reviewTypes; index as i" (click)="setReviewType(i)" class="dropdown-item">{{type}}</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="choose-order" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">{{orderTypes[selectedOrderType]}}</button>
+      <div class="dropdown-menu" aria-labelledby="choose-order">
+        <a *ngFor="let type of orderTypes; index as i" (click)="setOrderType(i)" class="dropdown-item">{{type}}</a>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-warning" role="alert" *ngIf="(!ggReviews && selectedReviewType == 0)|| (yelpReviews === null && selectedReviewType == 1)">
+    No record!
+  </div>
+  <div class="alert alert-danger" role="alert" *ngIf="error">
+      Something goes wrong!
+  </div>
+  <div [@fadeInAnimation]="selectedReviewType">
+    <div *ngIf="selectedReviewType == 0 && ggReviews" id="gg-reviews">
+      <div *ngFor="let reviewIdx of ggReviewOrderPointer" class="card">
+        <div class="media">
+          <div class="avatar mr-3">
+            <a [href]="ggReviews[reviewIdx].author_url">
+              <img [src]="ggReviews[reviewIdx].profile_photo_url">
+            </a>
+
+          </div>
+          <div class="media-body">
+            <a [href]="ggReviews[reviewIdx].author_url" class="mt-0">{{ggReviews[reviewIdx].author_name}}</a>
+            <br>
+            <span class="spanpad" [style.width]="ggReviews[reviewIdx].rating*15 + 'px'">
+              <app-star [rating]="ggReviews[reviewIdx].rating"></app-star>
+            </span>
+            <span class="review-time">{{ggReviews[reviewIdx].time | dateTime}}</span>
+            <div>{{ggReviews[reviewIdx].text}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="selectedReviewType == 1 && yelpReviews" id="yelp-reviews">
+      <div *ngFor="let reviewIdx of yelpReviewOrderPointer" class="card">
+        <div class="media">
+          <div class="avatar mr-3">
+            <a [href]="yelpReviews[reviewIdx].url">
+              <img [src]="yelpReviews[reviewIdx].user.image_url" class="rounded-circle">
+            </a>
+          </div>
+          <div class="media-body">
+            <a [href]="yelpReviews[reviewIdx].url" class="mt-0">{{yelpReviews[reviewIdx].user.name}}</a>
+            <br>
+            <span class="spanpad" [style.width]="yelpReviews[reviewIdx].rating*15 + 'px'">
+              <app-star [rating]="yelpReviews[reviewIdx].rating"></app-star>
+            </span>
+            <span class="review-time">{{yelpReviews[reviewIdx].time_created}}</span>
+            <div>{{yelpReviews[reviewIdx].text}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

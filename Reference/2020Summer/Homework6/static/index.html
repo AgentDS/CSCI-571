@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homework6</title>
+    <link rel="stylesheet" type="text/css" href="./static/ebaycss.css">
+    <script type="text/javascript" src="./static/ebayjs.js"></script>
+</head>
+
+<body>
+    <div class="headerBar">
+            <a href="https://www.ebay.com/" target="_blank"><img src="./static/img/eBayLogo.png" class="logo" id="ebayLogo" ></a>
+        <span class="headerName"><b style="font-size: 25px;">Shopping</b></span>
+    </div>
+    <div class="dataTable">
+        <form id="searchForm" action="" onsubmit="return check()">
+            <table align="center" >
+                <tr>
+                    <td>
+                        <b>Key Words <span style="color: red">*</span>:</b>
+                        <input type="text" id="keyWords" name="keyWords" autocomplete="on" required >
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Price Range:</b>
+                        &nbsp From
+                        <input type="number" size="7px" id="minPrice" name="minPrice" step="0.1">
+                        &nbsp to &nbsp
+                        <input type="number" size="7px" id="maxPrice" name="maxPrice" step="0.1">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Condition:</b>&nbsp
+                        <input type="checkbox" id="conditionNew" name="new" value="true">New
+                        <input type="checkbox" id="conditionUsed" name="used" value="true">Used
+                        <input type="checkbox" id="conditionVeryGood" name="veryGood" value="true">Very Good
+                        <input type="checkbox" id="conditionGood" name="good" value="true">Good
+                        <input type="checkbox" id="conditionAcceptable" name="acceptable" value="true">Acceptable
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Seller:</b>
+                        <input type="checkbox" id="returnAccepted" name="returnAccepted" value="true">Return Accepted
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Shipping:</b>
+                        <input type="checkbox" id="freeShipping" name="freeShipping" value="true">Free
+                        <input type="checkbox" id="expeditedShipping" name="expeditedShipping" value="true">Expedited
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Sort by:</b>
+                        <select id="sortBy" name="sortBy">
+                            <option value="BestMatch" selected>Best Match</option>
+                            <option value="CurrentPriceHighest">Price: highest first</option>
+                            <option value="PricePlusShippingHighest">Price + Shipping: highest first</option>
+                            <option value="PricePlusShippingLowest">Price + Shipping: lowest first</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="buttonLine" >
+                    <td>
+                        <input type="button" class="button button1" value="Clear" onclick="clearForm()">
+                        <input type="submit" class="button button1" value="Search" id="subButton">
+                    </td>
+                </tr>
+
+            </table>
+        </form>
+    </div>
+
+        <div id="resultDescription" class="resultDescription"></div>
+        <div id="resultShow"></div>
+        <div id="moreItemInfo"></div>
+        <div style="text-align: center" id="showButton"></div>
+</body>
+</html>
