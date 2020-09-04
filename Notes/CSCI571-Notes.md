@@ -446,3 +446,111 @@ __General description of URL:__
 - Browsers display text and graphics using the markup as guidance 
 
 > HyperText: Regular text, with the additional feature of links to related documents
+
+
+
+
+
+## Lec3 HTML
+
+#### What is HTML?
+
+- hypertext markup language (HTML) can describe:
+  - The display and format of text
+  - The display of graphics
+  - Pointers to other html files
+  - Pointers to files containing graphics, digitized video and sound
+  - Forms that capture information from the viewer
+- HTML: by __Tim Berners-Lee__ of CERN around 1990
+- understand by WWW browsers
+
+
+
+#### Version of HTML
+
+- 1990 V0: original one
+- V1: highlighting & images
+- 1995 V2: V0 + V1 + forms
+- 1997 V3.2: released by W3CW, tables
+- 1999 HTML4.01
+- 2014 HTML5: vocabulary & APIs
+- 2017 HTML5.2
+- 2019: __HTML Living Standard__ 
+- W3C & WHATWG agreement
+
+
+
+#### HTML General Structure
+
+- HTML documents have a __head__ and __body__
+
+- A leading line indicates the version of HTML
+
+  ```html
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+  ```
+
+- __comments in HTML:__ ``<!--this is comment-->``, cannot be nested
+
+> IE/Firefox are tolerant browsers:
+>
+> - not insist that the HTML document begin and end with ``<HTML>``
+> -  ``<HEAD>`` and/or ``<BODY>`` tags are not required
+
+- HTML chracter set
+
+  - HTML uses __Universal Character Set (UCS)__, defined in ISO10646
+  - Character references:
+    - __numeric__
+    - character __entity__
+
+- HTML anchor
+
+  - to designate a **link to another document** or to a specific place in the **same document**
+  - anchor ``name``: __Unique__ & __String matching__
+  - anchor using ``id`` attribute: use ``href=#id`` where ``id`` is from other tag
+  - ``id`` and ``name`` attributes share the same name space (cannot use same as each other)
+
+- Universal Resource Identifier (__URI__): 
+
+  - **scheme** of the mechanism used to access the resource
+  - name of the machine **hosting** the resource
+  - name of the **resource** itself, given as a **path**
+
+  > - *Fragment identifiers* are URIs that refer to a location within a resource
+  >
+  >   e.g. http://www.usc.edu/dept/cs/index.html**#section2**
+
+- ``link`` element in ``<head>`` part: provide a variety of information to search engines
+
+  - Links to **alternate versions** of a document, written in another human language
+  - Links to alternate versions of a document, designed for **different media**
+  - Links to the starting page of a collection of documents
+  - Links to style sheets and “**media queries**” used in Responsive Web Design
+
+- Create graphic:
+
+  - image source:
+    - digital camera/phone
+    - graphic editor
+    - scanner
+  - image format:
+    - __x-pixelmaps__: 256 colors
+    - __GIP__
+    - __JPEG__: includes image compression; for photographic images
+    - __PNG__ (portable network graphics): lossless compression; patent-free compared with GIF & TIFF
+  - why ``alt`` attribute in ``<img>`` tag? replace an image with text, if the image is unavailable or a text browser is used
+  - active image: with a border around it and the cursor changes shape when passed over
+  - ``usemap`` attribute in ``<img>`` tag
+
+- ``<meta>`` element: insert Name/Value pairs describing document properties
+
+  - ``<meta>`` & robotic exclusion: ``<meta name="robots" content="[no]index,[no]follow">``
+    - index: whether the search engine can index the page
+    - follow: whether the web crawler can follow links contained by the page
+
+- Why validate HTML?
+
+  - Browsers display HTML differently
+  - Browsers treat HTML errors differently
+
