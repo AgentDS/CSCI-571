@@ -61,7 +61,7 @@ USC CSCI 571 2020 fall, Web Technologies, by Prof. Marco Papa
 
 
 - Final result: https://youtu.be/eI-YjCv1w9M
-- To find the similar fonts (use FireFox for review):
+- To find the similar fonts (use FireFox for review) and size as possible as you can:
   - https://www.myfonts.com/WhatTheFont/
   - https://fonts.google.com/
 - Use hyperlinks for images, rather than local images
@@ -71,5 +71,23 @@ USC CSCI 571 2020 fall, Web Technologies, by Prof. Marco Papa
   - https://csci571.com/hw/hw3/images/Decor.png
   - https://csci571.com/hw/hw3/images/Cutlery.png
 - Use ``CSS`` to _'crop'_ the images if needed
-- Use browser tools to get the __identical colors__ used in example
+- Use browser tools to get the __identical colors__ used in example:
+  - in firefox, use Tool->Web Developer->Eyedropper to get the color
+- no response for any part of the web page
+- Special character and its unicode (needed for ``Ö``): 
+  - https://www.htmlsymbols.xyz/unicode
+  - https://www.martinstoeckli.ch/fontmap/fontmap.html?mode=hex
+
+
+
+
+
+#### Grading
+
+1. To test your hw#3, please view your web page using Firefox. Resize your browser window to the same size as the Home Page PNG image and then see if you have used the correct font, color and size, and if the position of text is correct. As long as the various items on the pages are “proportionally” correct, you will get full points.
+2. Resize the browser so it show your top picture , plus the extra white space as in in the video and snapshots. Then they will scroll vertically to see if the rest of the site follows the same "proportions". Lastly they will check if the site is "static" vs. "responsive", by lowering the horizontal size. The site should "crop" and no items should move with respect to each other.
+3. You can decide on your "horizontal" size and then proportionally place each component on the page. If all the components are placed similarly, you will get full points.
+4. Graders will resize the browse window "horizontally" to contain all your site.
+5. Smaller horizontally should "crop". Larger horizontally should either 1) let the site be flush left, with a single white band on right, or 2) cenbter the site with 2 identical white bands on each side.
+6. Websites are responsive, not CSS. CSS is just a tool to design the website. You can use CSS to design responsive and non responsive websites. For example, I used flexbox to design the website, but __made the website non-responsive by setting a fixed width in pixels on the body__
 
