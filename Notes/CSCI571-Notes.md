@@ -554,3 +554,240 @@ __General description of URL:__
   - Browsers display HTML differently
   - Browsers treat HTML errors differently
 
+
+
+
+
+## Lec4 HTML: Style Sheets
+
+- start from HTML4.x
+
+- style sheets specify:
+
+  - the amount of white space between text or between lines
+  - the amount lines are indented
+  - the colors for text/backgrounds
+  - font size and text style
+  - the precise position of text/graphics
+
+- Style sheet language: ``CSS``, ``XSL``
+
+- express style within HTML:
+
+  - ``<style>`` element and ``style`` attribute
+
+  - ``<link>`` to point to external style sheets
+
+    - combining style information from multiple sources, called cascading
+
+      > There is a defined order of precedence where the definitions of a style element conflict
+
+> **Pre-defined color** names
+>
+> Black="#000000"                   Silver="#C0C0C0" 
+>
+> Gray="#808080"                    White="#FFFFFF" 
+>
+> Maroon="#800000"              Red="#FF0000" 
+>
+> Purple="#800080"                Fuschia="#FF00FF"
+>
+> Green="#008000"                 Lime="#00FF00" 
+>
+> Olive="#808000"                   Yellow="#FFFF00" 
+>
+> Navy="#000080"                   Blue="#0000FF" 
+>
+> Teal="#008080"                    Aqua="#00FFFF"
+
+
+
+#### Use inline stle attribute
+
+```html
+<HTML>
+   <HEAD>
+   <TITLE>Setting Body Attributes</TITLE> 
+   </HEAD>
+   <BODY style="font-size: 20pt;background: green; color: fuchsia"> 
+   The nine planets of the solar system ...
+   </BODY>
+</HTML>
+```
+
+
+
+#### Use ``<style>`` element
+
+```html
+<HTML>
+<HEAD>
+  <TITLE>The Solar System</TITLE> 
+  <STYLE type="text/css">
+    BODY {text-align: center} 
+  </STYLE>
+</HEAD>
+  
+<BODY>
+  <P>The nine planets of the solar system are <B>mercury, venus, earth, mars, jupiter, saturn, uranus, neptune and pluto.</B></P>
+  <P>The very nearest star is about <I>7,000</I> times farther away than pluto is to our sun.</P>
+</BODY> 
+</HTML>
+```
+
+- ``ID`` attribute can only be used once in the entire document
+- ``class`` rule preceded by  ``.`` and applied to multiple elements
+- Values assigned to ``ID`` and ``class`` are case sensitive
+
+
+
+#### Composite Styles
+
+```html
+font-family: Verdana, Arial, Helvetica, sans-serif; font-size:small;
+font-style:normal;
+font-variant:small-caps;
+font-weight:bold; 
+line-height:2em;
+```
+
+is equal to
+
+```html
+font: normal small-caps bold small/2em Verdana, Arial, Helvetica, sans-serif;
+```
+
+
+
+#### ``DOCTYPE`` directive
+
+- Instructs modern browsers to work in ‘standards compliant mode
+  - Your web page will look the same in **all** browsers – Browsers turn off their proprietary extensions
+  - Fonts are rendered in the same way
+    - For example, **font-size: small**, is rendered the same size on all browsers
+
+- **HOWEVER**, if you do not specify a ``!DOCTYPE``, browsers work in ``Quirks`` mode
+  - Internet Explorer will display fonts larger than standards mode
+  - IE Uses the ‘broken box model’
+    - Measures the dimensions of a box using the inner size, not the outer size as in standard mode
+
+
+
+#### Style Sheet Media Types
+
+- Enable authors to create documents for different media types:
+
+```html
+<HEAD>
+<STYLE type=text/css media=projection>
+H1 {color:blue}
+</STYLE>
+<STYLE type=text/css media=print>
+H1 {text-align:center} 
+</STYLE>
+</HEAD>
+```
+
+- Used in CSS3 for __media queries__
+
+```html
+<style>
+@media all and (min-width:500px) { ... } 
+@media (min-width:500px) { ... } 
+</style>
+```
+
+```html
+<link rel="stylesheet" type="text/css" media="screen and (max-device- width: 480px)" href="min.css" />
+```
+
+- recognized media types:
+
+  ``all``, ``braille``, ``embossed``, ``handheld``, ``print``, ``projection``, ``screen``, ``speech``, ``tty``, ``tv``, ``3d-glasses``
+
+
+
+#### Pseudo Elements and Classes
+
+- pseudo-classes
+
+  - **:link** – a normal, un-visited link
+  - **:visited** – a link the user has visited
+  - **:hover** - a link when the user mouses over it
+  - **:active** - a link the moment it is clicked
+  - __:lang__ - selects every ``<p>`` element with a lang attribute
+  - __:focus__ - selects the input element which has the focus
+  - __:first-child__ - select every ``<p>`` elements that is the first child of its parent
+
+- pseudo elements
+
+  - **:first-line**, add a special style to the first line of a text
+
+  - **:first-letter**, add a special style to the first letter of a text
+  - **:before**, to insert some content before the content of an element
+  - **:after**, to insert some content after the content of an element
+
+
+
+### Properties of Style Setting
+
+#### 1. Inheriting Style Properties
+
+__Some CSS property values set on parent elements are _inherited by their child elements_, and some aren’t.__
+
+- ``<DIV>`` and ``<SPAN>`` tags have no initial presentation properties
+  - **exception**, line break before and after a ``<DIV>`` tag – ``<SPAN>`` applies to **inline** elements (example: ``<b>``)
+  - ``<DIV>`` applies to **block** elements (example: ``<p>``)
+- With CSS, properties such as text-align are “inherited” from the parent element
+
+#### 2. Precedence (specificity)
+
+__Specificity is how the browser decides which rule applies _if multiple rules have different selectors_ but could still apply to the same element.__
+
+- The more precise a specification is, the higher the precedence
+- a style for tag.class has higher precedence than one for .class, which has higher precedence than a style for the tag itself
+- styles defined using a ``style`` attribute (inline) have highest precedence
+- styles defined using ``<STYLE>`` element have next highest precedence
+- styles defined in a separate file, e.g. special.css, have lowest precedence
+
+#### 3. Cascade
+
+__At a very simple level this means that the _order of CSS rules matter_; when two rules apply that have equal specificity the one that comes _last_ in the CSS is the one that will be used.__
+
+
+
+### Box Model
+
+Each box has a **content** *area* (e.g., text, an image, etc.) and optional surrounding **padding**, **border**, and **margin** areas.![boxmodel](/Users/liangsiqi/Desktop/CSCI-571/Notes/boxmodel.png)
+
+```css
+margin: 10px 5px 15px 20px;
+```
+
+means:
+
+top margin is 10px
+right margin is 5px
+bottom margin is 15px
+left margin is 20px
+
+
+
+### CSS Vendor Prefixes
+
+The CSS browser prefixes are:
+
+- –  Android: -webkit-
+- –  Chrome: -webkit-
+- –  Firefox: -moz-
+- –  Internet Explorer: -ms-
+- –  iOS: -webkit-
+- –  Opera: -o-
+- –  Safari: -webkit-
+
+
+
+### Reset CSS
+
+- A **CSS Reset** is a short, often compressed (minified) set of CSS rules that *resets* the styling of all HTML elements to a consistent baseline.
+- The goal of a reset stylesheet is to reduce browser inconsistencies in things like default line heights, margins and font sizes of headings, and so on.
