@@ -91,3 +91,91 @@ USC CSCI 571 2020 fall, Web Technologies, by Prof. Marco Papa
 5. Smaller horizontally should "crop". Larger horizontally should either 1) let the site be flush left, with a single white band on right, or 2) cenbter the site with 2 identical white bands on each side.
 6. Websites are responsive, not CSS. CSS is just a tool to design the website. You can use CSS to design responsive and non responsive websites. For example, I used flexbox to design the website, but __made the website non-responsive by setting a fixed width in pixels on the body__
 
+
+
+### Homework 5
+
+- [AWS & Python](./Assignment/HW5/HW5_AWS_Python.pdf)
+- [Azure & Python](./Assignment/HW5/HW5_Azure_Python.pdf): conda environment ``csci571``
+- [Google & Python](./Assignment/HW5/HW5_Google_Python.pdf): conda environment ``gcp571``
+
+
+
+### Homework 6
+
+- Final result: https://youtu.be/hqK1ZE5bwFM
+
+- Python 3.7
+
+- Flask framework
+
+-  HTML, CSS, JavaScript, DOM, JSON format and XMLHJpRequest object
+
+- [Tiingo](https://www.tiingo.com/) Stocks API and [newsapi.org](https://newsapi.org/)’s News API
+
+  - the results will be displayed in both tabular format and charts format using [HighCharts](https://www.highcharts.com/)
+
+  - provide news ar;cles for the selected stock using the News API
+
+- Getting hands-on experience in GCP, AWS or Azure
+
+
+
+
+
+Tips:
+
+1. search button:
+
+   - front-end JavaScript script will make a request to your web server providing it with the form data that was entered (the ticker symbol)
+
+   - use ``GET`` to transfer the form data to your web server
+
+     > (do not use POST, as you would be unable to provide a sample link to your cloud services)
+
+   -  Python script using Flask will retrieve the data and send it to the Tiingo Stocks API, use the *Flask* Python framework to make all the API calls
+
+   - **Using XMLHNpRequest or any other JavaScript calls for anything other than calling your own “cloud” backend will lead to a 4-point penalty**. **Do not call the Tiingo Stocks API directly from JavaScript.**
+
+   - If the user clicks on the **Search** buJon without providing a value in the field, an alert should pop up “Please fill out this field”
+
+2. Clear button: clear the result area and the text field
+
+
+
+__Resources:__
+
+- https://api.tiingo.com/
+  - user name: siqiliang
+  - email: liangsiq@usc.edu
+  - password: liangsiqi1101
+  - API token: ``be37d86b75ad931e483aaab61f620653921a7517``
+- https://newsapi.org/docs
+  - First name: Siqi
+  - email: liangsiq@usc.edu
+  - password: liangsiqi1101
+  - API token: ``166945ff132b43c2a1a395898628ab48``
+- Arrow up: https://csci571.com/hw/hw6/images/GreenArrowUp.jpg
+- Arrow down: https://csci571.com/hw/hw6/images/RedArrowDown.jpg
+
+
+
+#### Grading
+
+- the homework will be tested on __Firefox__ and __Chrome__
+- search form
+  - __Clear__ button
+  - __Search__ button
+- search result
+  - **Display company outlook information tab**
+  - **Display stock information tab**
+  - **Display the stock quote/volume charts tab**
+- __Important__
+  - Do not call APIs directly from JavaScript!!!!!!
+  - Do not use jQuery!!!!!
+  - use Python!!!!!
+  - use cloud server!!!!
+    - will be verified with an additional link in the Table of exercises, showing a sample API call to your “cloud” service and verifying the corresponding JSON result  __<u>what is this...????</u>__
+
+
+

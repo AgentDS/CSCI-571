@@ -791,3 +791,177 @@ The CSS browser prefixes are:
 
 - A **CSS Reset** is a short, often compressed (minified) set of CSS rules that *resets* the styling of all HTML elements to a consistent baseline.
 - The goal of a reset stylesheet is to reduce browser inconsistencies in things like default line heights, margins and font sizes of headings, and so on.
+
+
+
+## Lec5 JavaScript Basics
+
+- JavaScript has 2 distinct systems
+  - server-side JavaScript runs on Web servers
+  - client-side JavaScript runs on Web browsers\
+- JavaScript syntax resembles C, C++, and Java
+- Developed in 10 days by **Brendan Eich**, in __May 1995__
+- originally named as __Mocha__
+- renamed as __LiveScript__, then __JavaScript__
+
+
+
+JavaScript is embedded in HTML:
+
+- in the body
+
+  ```html
+  <HTML>
+  <HEAD>
+  </HEAD>
+  <BODY>
+  <SCRIPT LANGUAGE="JavaScript">
+  document.write("Last updated on " + document.lastModified + ". ")
+  </SCRIPT>
+  </BODY>
+  </HTML>
+  ```
+
+- in the ``<head>`` as a deferred script
+
+  ```html
+  <HTML>
+  <HEAD>
+  <SCRIPT LANGUAGE="JavaScript">
+  //the Javascript here creates functions for later use </SCRIPT>
+  </HEAD>
+  <BODY>
+  </BODY>
+  </HTML>
+  ```
+
+
+
+#### Event Handlers
+
+- Mouse events
+  - ``onclick``
+  - ``onblclick``
+  - ``onmouseover``
+  - ``onmouseout``
+- Keyboard events
+  - ``onkeydown``
+  - ``onkeyup``
+- Object events
+  - ``onload``
+  - ``onunload``
+  - ``onresize``
+  - ``onscroll``
+
+
+
+#### What JavaScript can do?
+
+Designed for __manipulating web pages__, but can also be general-purpose language.
+
+- Control Web page appearance and content (intended)
+- Control the Web browser, open windows, test for browser properties
+- Interact with document content
+- Retrieve and manipulate all hyperlinks
+- Interact with the user, sensing mouse clicks, mouse moves, keyboard actions
+- Read/write client state with cookies
+
+
+
+__Limitations of Client-side JavaScript:__
+
+- __was__ difficult to draw graphics
+  - <u>has been dramatically improved in the latest versions</u>
+- No access to the underlying file system or operating system
+- Unable to open and use arbitrary network connections
+- No support for multithreading
+- __was__ not suitable for computationally intensive applications
+  - <u>has been improved in the latest versions</u>
+
+
+
+### JavaScript
+
+#### Basics of the Language
+
+- __case-sensitive__ (HTML is not case-sensitive)
+- __ignores__ spaces, tabs, newlines (can be __minified__)
+- Semicolon is optional
+- C and C++ style comments are supported
+
+
+
+#### Literals
+
+- __numbers__
+
+- __boolean__
+
+- __strings__: <u>immutable</u> (cannot be changed after created)
+  - string properties: ``str.length``, ``str.tolowerCase``, ``str.toupperCase``, ``str.indexOf``, ``str.charAt``, ``str.substring``
+
+
+
+#### Variables
+
+- __scope__: 
+  - Any variable outside a function is a **global** variable and can be referenced by any statement in the document
+  - Variables declared in a function as “var” are **local** to the function
+    - if var is omitted, the variable becomes global
+
+
+
+#### Arrays
+
+- **array properties**: 1 dimensional, indexed from zero
+- ``arr.length``
+- Arrays are **sparse**: most elements are not allocated after initiation
+- loop
+  - ``for (i=0; i<len; i++) {}``
+  - ``for (x in person) {}``
+  -  ``while (condition) {}``
+- built-in methods:
+  - ``concat()``
+  - ``indexOf()``
+  - ``pop()``
+  - ``push()``
+  - ``reverse()``
+
+#### Object
+
+- Objects can be nested within objects
+- predefined object:
+  - ``Array object``
+  - ``Date object``
+  - ``Function object``
+  - ``Math object``
+  - ``RegExp object``
+  - ``String object``
+
+#### Popup Boxes
+
+- ``alert()``, ``confirm()``, ``prompt()``
+
+
+
+### Common mistakes 
+
+- **Undefined may not be null** : use ``!==`` to test, will fail if use ``!=`` 
+-  **cannot overload a function**: the latest-defined version of function will be used
+- **Undeclared variables are global** : if a variable is NOT declared using ``var``, then it is global
+
+
+
+### ECMAScript
+
+- JavaScript now controlled by the ECMA standard body
+- **ECMA** stands for **European Computer Manufacturers**
+- First language specification, ECMA-262, a.k.a. ECMAScript, approved in 1997, closely resembles Netscape JavaScript 1.1
+- Current language specification is **ECMA-262, 10****th** **Edition, June 2019, ECMAScript © 2019**
+
+
+
+## Lec6 JavaScript Object Notation （JSON）
+
+
+
