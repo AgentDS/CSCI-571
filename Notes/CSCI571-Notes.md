@@ -963,5 +963,118 @@ __Limitations of Client-side JavaScript:__
 
 ## Lec6 JavaScript Object Notation （JSON）
 
+#### What is JSON?
 
+- **JSON**, short for **JavaScript Object Notation**, is a lightweight data interchange format
+- JSON format is often used for transmitting structured data over a network connection in a process called __serialization__
+
+
+
+#### Brief History
+
+- JSON was based on a subset of the JavaScript programming language
+
+
+
+#### How to use the JSON format?
+
+A JSON file allows one to load data from the server or to send data to it.
+
+Working with JSON involves three steps: 
+
+1. the browser processing: the content of a JSON file or the definition of JSON data is assigned variavle, and this variable becomes an object of the program
+
+2. the server processing: a JSON file on the server can be operate upon by various programming languages, and may even convert it into classes and attributes of the language
+
+3. the data exchange between them: 
+
+   - loading JSON file from the server may be accomplished in JavaScript in several  ways:
+     - directly including the file into the HTML page, as a JavaScript .json external file
+     - loading by a JavaScript command
+     - using XMLHttpRequest
+
+   - To convert JSON into an object, it can be passed to the JavaScript eval() function
+   - Sending the file to the server may be accomplished by XMLHttpRequest. The file is sent as a text file and processed by the parser of the programming language that uses it
+
+
+
+### JSON Basic Data Types
+
+- String
+- Numbers
+- Booleans
+- Object: __unordered__ containers of __key/value__ pairs
+- Array: __ordered__ sequences of values, indexing is not mentioned in JSON (an implementation can start array indexing at 0 or 1)
+- Null
+
+> __Array vs Object__
+>
+> - Use objects when the key names are <u>arbitrary</u> strings
+> - Use arrays when the key names are <u>sequential</u> integers
+
+<u>__JSON is Not XML !!!__</u>
+
+<u>JSON uses less data to represent the same information than XML!!</u>
+
+#### Rules for JSON Parsers
+
+- the decoder must accept all well-formed JSON text
+- the decoder may also accept non-JSON text
+- the encoder must only produce well-formed JSON text
+
+
+
+### Same  Origin Policy
+
+- ``same protocol`` + ``same host`` + ``same port``
+- Same origin policy is a security feature that browsers apply to client-side scripts
+- It prevents a document or script loaded from one “origin” from getting or setting properties of a document from a different “origin”
+
+
+
+### JSON: the Cross-Domain Hack
+
+- JSON and the ``<script>`` tag provide a way to get around the Same Origin Policy
+- The src attribute of a script tag can be set to a URL from any server, and every browser will go and retrieve it, and read it into your page
+- So a script tag can be set to point at a URL on another server with JSON data in it, and that JSON will become a global variable in the webpage
+- So JSON can be used to grab data from other servers, without the use of a server-side proxy
+- available in HTML since 1994
+
+
+
+#### XMLHttpRequest Compared to the Dynamic Script Tag
+
+<img src="./XMLHttpRequest-DynamicScriptTag.png">
+
+
+
+### Arguments against JSON
+
+- JSON doesn't have namespaces
+- JSON has no validator
+  - Every application is responsible for validating its inputs
+- JSON is not extensible
+- JSON is not XML
+  - but a JavaScript compiler is a JSON decoder
+
+
+
+<u>``Eval()`` is fast but very dangerous!</u>
+
+To help guard the browser from insecure JSON input, use **JSON.parse()** instead of ``eval`` ; e.g.  ``JSON.parse()``  is used this way
+
+`````json
+var myObject = JSON.parse(JSONtext [, reviver]);
+`````
+
+``eval()`` will execute the string content but ``json.parse()`` will not.
+
+
+
+### JSONP
+
+- "JSON with padding", a JSON extension wherein the name of a callback function is specified as an input argument of the call  itself
+- It is now used by many Web 2.0 applications such as Dojo Toolkit Applications or Google Toolkit Applications
+- JSONP may be inappropriate to carry sensitive data (make use of script tags, and open to the world)
+- supported by jQuery
 

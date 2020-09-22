@@ -103,7 +103,7 @@ USC CSCI 571 2020 fall, Web Technologies, by Prof. Marco Papa
 
 ### Homework 6
 
-- Final result: https://youtu.be/hqK1ZE5bwFM
+- Final result: \- https://youtu.be/1vOis6BxYq4
 
 - Python 3.7
 
