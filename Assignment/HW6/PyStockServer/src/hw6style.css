@@ -3,14 +3,14 @@ body {
     border: 0;
     margin: 0;
     width: 1409px;
-    background: rgb(95,98,164);
+    background: rgb(95, 98, 164);
 }
 
 div.search_area {
-    background: rgb(235,235,235);
-    display:inline-block;
+    background: rgb(235, 235, 235);
+    display: inline-block;
     display: -moz-inline-block;
-    text-align:center;
+    text-align: center;
     padding: 0;
     border: 0;
     margin: 0;
@@ -18,7 +18,7 @@ div.search_area {
     margin-top: 30px;
     height: 260px;
     width: 950px;
-    border-radius:3px;
+    border-radius: 3px;
 }
 
 
@@ -41,7 +41,7 @@ div.line {
     background: transparent;
     padding: 0;
     border: 0;
-    border-bottom: 1.5px solid rgb(235,235,235);
+    border-bottom: 1.5px solid rgb(235, 235, 235);
     margin: 0;
     margin-left: 18%;
     margin-top: 20px;
@@ -77,6 +77,8 @@ form.search_form label span {
 
 input.search_text[type=text] {
     padding: 0;
+    padding-right: 5px;
+    padding-left: 5px;
     border: 0;
     margin: 0;
     height: 25px;
@@ -85,9 +87,11 @@ input.search_text[type=text] {
     margin-bottom: 25px;
     margin-left: 20px;
     border-radius: 5px;
-    box-sizing: border-box;
     outline: none;
     font-size: 16px;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box;
 }
 
 input.search_text[type=text]:focus {
