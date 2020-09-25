@@ -8,12 +8,15 @@ body {
 
 div.search_area {
     background: rgb(235,235,235);
+    display:inline-block;
+    display: -moz-inline-block;
+    text-align:center;
     padding: 0;
     border: 0;
     margin: 0;
     margin-left: 18%;
-    margin-top: 40px;
-    height: 300px;
+    margin-top: 30px;
+    height: 260px;
     width: 950px;
     border-radius:3px;
 }
@@ -38,11 +41,72 @@ div.line {
     background: transparent;
     padding: 0;
     border: 0;
-    border-bottom: 2px solid rgb(235,235,235);
+    border-bottom: 1.5px solid rgb(235,235,235);
     margin: 0;
     margin-left: 18%;
     margin-top: 20px;
     height: 0;
     width: 950px;
+}
 
+
+form.search_form {
+    padding: 10px;
+    border: 0;
+    margin: 0;
+}
+
+form.search_form label {
+    background: transparent;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    margin-bottom: 25px;
+    color: black;
+    font-size: 20px;
+    font-weight: 50;
+    font-family: 'Roboto', sans-serif;
+}
+
+form.search_form label span {
+    color: red;
+
+    /*display: -moz-inline-block;*/
+    /*display: inline-block;*/
+}
+
+input.search_text[type=text] {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    height: 25px;
+    width: 180px;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    margin-left: 20px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 16px;
+}
+
+input.search_text[type=text]:focus {
+    border: 2px solid black;
+}
+
+input.input_button {
+    padding: 0;
+    border: 0;
+    margin: 20px;
+    height: 35px;
+    width: 100px;
+    background: white;
+    color: black;
+    border-radius: 5px;
+
+    text-align: center;
+    text-align: -moz-center;
+    text-align: -webkit-center;
+    
+    font-size: 15px;
 }

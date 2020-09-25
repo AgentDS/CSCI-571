@@ -115,7 +115,7 @@ USC CSCI 571 2020 fall, Web Technologies, by Prof. Marco Papa
 
   - the results will be displayed in both tabular format and charts format using [HighCharts](https://www.highcharts.com/)
 
-  - provide news ar;cles for the selected stock using the News API
+  - provide news articles for the selected stock using the News API
 
 - Getting hands-on experience in GCP, AWS or Azure
 

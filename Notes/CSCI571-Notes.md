@@ -1078,3 +1078,24 @@ var myObject = JSON.parse(JSONtext [, reviver]);
 - JSONP may be inappropriate to carry sensitive data (make use of script tags, and open to the world)
 - supported by jQuery
 
+
+
+
+
+## Lec7 Python
+
+- Variables assigned values inside a class declaration are **class variables**
+- Variables assigned values in class methods are **instance variables**
+- **Note:** Python **DOES NOT** support ‘++’ and ‘--’ notation for auto increments and decrement
+- Strings are **immutable**
+
+
+
+### Flask
+
+- Flask is a lightweight **WSGI** (**Web Server Gateway Interface**) web application framework
+- WSGI specifies a standard interface between web servers and Python web applications or frameworks
+- Flask offers suggestions but doesn't enforce any dependencies or project layout
+
+
+
