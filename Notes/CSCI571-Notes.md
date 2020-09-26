@@ -1096,6 +1096,95 @@ var myObject = JSON.parse(JSONtext [, reviver]);
 - Flask is a lightweight **WSGI** (**Web Server Gateway Interface**) web application framework
 - WSGI specifies a standard interface between web servers and Python web applications or frameworks
 - Flask offers suggestions but doesn't enforce any dependencies or project layout
+- ``render_template()``
+- ``send_static_file()``
 
 
+
+
+
+## Lec8 Document Object Model (DOM)
+
+- __DOM__ : programming interface for XML documents (<u>access</u> & <u>manipulate</u>), includes HTML documents
+- XML DOM is designed to be used with **any programming language** and any **operating system**
+- DOM represents an XML file as a tree
+  - top-level: ``documentElement``
+
+
+
+### Useful DOM Functions
+
+- ``document`` **is the root element**
+- ``document.getElementById("sample")``
+- ``document.getElementsByTagName("font")``
+- ``innerHTML``： 
+  - first introduced as non-standard extension in IE
+  - widely used in Ajax-based site
+  - Elements that do not have both an opening and closing tag cannot have an ``innerHTML`` property
+  - ``innerHTML`` has been added to the HTML5 specification
+- ``style.left``, ``style.color`` properties
+- Newer browsers use “Synchronous” XMLHttpRequest
+
+
+
+### ``XMLHTTPRequest`` Object
+
+- an XMLHttpRequest object can
+  - Update a web page without reloading the page
+  - Request data from a server after page has loaded
+  - Receive data from a server after page has loaded
+  - Send data to a server in the background
+- "Synchronous" XMLHttpRequest is in process of being removed from web platform (will take many years)
+
+
+
+> **Firefox and I.E. Represent DOM Structures Differently**
+>
+> Firefox view space as nodes in DOM tree too!
+
+
+
+## Lec9 Forms and Common Gateway Interface Mechanism
+
+### Forms
+
+- ``AUTOCOMPLETE``: input history
+- ``ONRESET=Script``
+- ``ONSUBMIT=Script``
+- ``<input>`` tag
+  - type: ``submit``, ``reset``, ``text``, ``textarea`` (multiline input), ....
+- ``<select>`` tag
+  - ``<option>`` tag
+
+#### Form Control Group: ``fieldset``
+
+```html
+<FIELDSET> <LEGEND ACCESSKEY=O>...</LEGEND>
+...
+</FIELDSET>
+```
+
+
+
+### Common Gateway Interface (CGI)
+
+#### Purpose of CGI
+
+- used to create dynamic Web documents
+  - Scripts are placed in a server directory often named cgi-bin
+  - Scripts can deliver information that is not directly readable by clients
+  - Scripts dynamically convert data from a non- Web source (e.g. DBMS) into a Web-compatible document
+- __common gateway__ : programs act as gateways between the ``WWW`` and other type of data/service
+
+
+
+#### CGI Script Environment Variables
+
+- a set of pre-defined dynamic values that can affect a running program
+- part of the operating environment
+- ``UNIX``/``Windows`` use these as a means of passing information about the environment of a process
+- created by the web server and set before web server executes a gateway script
+- Can be classified into two major categories
+  - **Non-request-specific**: ``SERVER_NAME``, ``SERVER_PORT``, ``SERVER_SOFTWARE``, ``SERVER_PROTOCOL``, ``GATEWAY_INTERFACE``
+  - **Request-specific**: ``PATH_INFO``, ``REQUEST_METHOD``, ``SCRIPT_NAME``, ``QUERY_STRING``
 

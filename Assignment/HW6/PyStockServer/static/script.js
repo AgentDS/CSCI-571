@@ -4,15 +4,15 @@ const ResetButton = document.getElementById('reset_but');
 
 
 function obtain_stock_name(event) {
-    let tickerName = TextArea.value;
+    let tickerName = TextArea.value.trim();
     let tickerNameLen = tickerName.length;
     if (tickerNameLen >= 1) {
         event.preventDefault();
-        var xhr = new XMLHttpRequest();
-        var ll = "/api/v1.0/search"
-        xhr.open("GET", ll)
+        let xhr = new XMLHttpRequest();
+        let ll = "/api/v1.0/search?symbol=" + tickerName;
+        xhr.open("GET", ll) // TODO: Synchronous or not?
         console.log("URL: " + ll)
-        xhr.send("ticker_name=" + tickerName);
+        xhr.send();
         console.log("XMLHTTPRequest is sent: \'ticker_name=" + tickerName + "\'");
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
@@ -25,8 +25,6 @@ function obtain_stock_name(event) {
                 }
             }
         }
-
-
     }
     // else {
     //     event.preventDefault();

@@ -4,8 +4,7 @@
 # @Contact : zszxlsq@gmail.com
 # @File    : app.py
 # @Software: PyCharm
-from flask import Flask, jsonify, render_template, abort, request
-import os
+from flask import Flask, jsonify, abort, request
 
 app = Flask(__name__,
             static_folder='static')
@@ -16,11 +15,12 @@ app = Flask(__name__,
 def index():
     return app.send_static_file('hw6_StockSearch.html')
 
-@app.route('/api/v1.0/search')
-def search_begin():
-    return 'The entered ticker is %s' % 'dgafdg'  # ticker_name
 
-# ticker_name = request.form["ticker_name"]
+@app.route('/api/v1.0/search?symbol=<tickerName>')
+def search_begin(tickerName):
+    ticker_name = tickerName
+    return 'The entered ticker is %s' % ticker_name
+
 
 
 if __name__ == '__main__':
