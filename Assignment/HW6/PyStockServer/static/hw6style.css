@@ -92,15 +92,17 @@ input.search_text[type=text] {
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box; /* Firefox, other Gecko */
     box-sizing: border-box;
+    box-shadow:none;
 }
 
 input.search_text[type=text]:focus {
     border: 2px solid black;
+    box-shadow:none;
 }
 
-input.input_button {
+input[type=submit], input[type=reset] {
     padding: 0;
-    border: 0;
+    border: none;
     margin: 20px;
     height: 35px;
     width: 100px;
@@ -113,4 +115,14 @@ input.input_button {
     text-align: -webkit-center;
 
     font-size: 15px;
+    cursor: pointer;
+}
+
+input[type=submit]:focus, input[type=reset]:focus {
+    outline: none; /* important!! */
+    border: 2px solid black;
+}
+
+input[type=submit]:hover, input[type=reset]:hover {
+    background: rgb(199, 199, 199);
 }
