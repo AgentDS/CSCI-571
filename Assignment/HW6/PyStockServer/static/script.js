@@ -9,7 +9,8 @@ function obtain_stock_name(event) {
     if (tickerNameLen >= 1) {
         event.preventDefault();
         // let latest_news = get_news(tickerName);
-        let company_outlook = get_company_outlook(tickerName);
+        // let company_outlook = get_company_outlook(tickerName);
+        let stock_summary = get_stock_summary(tickerName);
     }
     // else {
     //     event.preventDefault();
@@ -44,6 +45,24 @@ function get_company_outlook(tickerName) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             console.log("Outlook Response: " + xhr.responseText);
+            return xhr.responseText;
+        } else {
+            console.error(xhr.statusText);
+            return false;
+        }
+    }
+}
+
+
+function get_stock_summary(tickerName) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "/api/v1.0/iex/" + tickerName, true);
+    console.log("Stock Summary URL: " + "/api/v1.0/iex/" + tickerName);
+    xhr.send();
+    console.log("Stock Summary XHR sent: \'ticker_name=" + tickerName + "\'");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log("Stock Summary Response: " + xhr.responseText);
             return xhr.responseText;
         } else {
             console.error(xhr.statusText);
