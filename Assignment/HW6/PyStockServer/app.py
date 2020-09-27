@@ -4,7 +4,8 @@
 # @Contact : zszxlsq@gmail.com
 # @File    : app.py
 # @Software: PyCharm
-from flask import Flask, jsonify, abort, request
+from flask import Flask, jsonify, abort, request, Response
+import json
 from stockAPI import *
 
 app = Flask(__name__,
@@ -18,10 +19,16 @@ def index():
 
 
 @app.route("/api/v1.0/news/<string:ticker_name>", methods=['GET'])
-def search_begin(ticker_name):
+def send_news(ticker_name):
     latest_news = newsAPI(ticker_name)  # list of news dict
-    return 'The entered ticker is %s' % ticker_name
+    return jsonify({'latest_news': latest_news})
+
+
+@app.route("/api/v1.0/outlook/<string:ticker_name>", methods=['GET'])
+def send_outlook(ticker_name):
+    company_outlook = company_outlookAPI(ticker_name)
+    return company_outlook  # TODO: jsonify or not?
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=True)
