@@ -147,8 +147,11 @@ div.tab {
     text-align: -webkit-center;
     text-align: -moz-center;
 
-    display: block;
+    display: flex;
+    display: -webkit-flex;
+    display: -moz-flex;
     vertical-align: middle;
+    align-items: center;
 }
 
 div.tab button {
@@ -157,11 +160,11 @@ div.tab button {
     border: none;
     outline: none;
     padding: 0;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
     cursor: pointer;
 
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 50;
     font-family: 'Roboto', sans-serif;
     text-align: center;
