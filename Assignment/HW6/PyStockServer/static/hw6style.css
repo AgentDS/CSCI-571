@@ -45,6 +45,7 @@ div.line {
     margin: 0;
     margin-left: 18%;
     margin-top: 20px;
+    margin-bottom: 20px;
     height: 0;
     width: 950px;
 }
@@ -92,12 +93,12 @@ input.search_text[type=text] {
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box; /* Firefox, other Gecko */
     box-sizing: border-box;
-    box-shadow:none;
+    box-shadow: none;
 }
 
 input.search_text[type=text]:focus {
     border: 2px solid black;
-    box-shadow:none;
+    box-shadow: none;
 }
 
 input[type=submit], input[type=reset] {
@@ -115,7 +116,7 @@ input[type=submit], input[type=reset] {
     text-align: -webkit-center;
 
     font-size: 15px;
-    cursor: pointer;
+    cursor: default;
 }
 
 input[type=submit]:focus, input[type=reset]:focus {
@@ -125,4 +126,48 @@ input[type=submit]:focus, input[type=reset]:focus {
 
 input[type=submit]:hover, input[type=reset]:hover {
     background: rgb(199, 199, 199);
+}
+
+div.search_result {
+    border: 0;
+    margin: 0;
+    margin-left: 18%;
+    background: transparent;
+    width: 950px;
+}
+
+div.tab {
+    overflow: hidden;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: rgb(235, 235, 235);
+    height: 40px;
+    text-align: center;
+    text-align: -webkit-center;
+    text-align: -moz-center;
+
+    display: block;
+    vertical-align: middle;
+}
+
+div.tab button {
+    background: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    padding: 0;
+    padding-right: 10px;
+    padding-left: 10px;
+    cursor: pointer;
+
+    font-size: 20px;
+    font-weight: 50;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    text-align: -webkit-center;
+    text-align: -moz-center;
+
+    display: inline-block;
+    display: -moz-inline-block;
 }
