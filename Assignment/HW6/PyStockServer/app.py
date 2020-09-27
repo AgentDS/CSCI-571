@@ -20,14 +20,14 @@ def index():
 
 @app.route("/api/v1.0/news/<string:ticker_name>", methods=['GET'])
 def send_news(ticker_name):
-    latest_news = newsAPI(ticker_name)  # list of news dict
-    return jsonify({'latest_news': latest_news})
+    latest_news = newsAPI(ticker_name)
+    return jsonify({'latest_news': latest_news})  # jsonify the list of dict
 
 
 @app.route("/api/v1.0/outlook/<string:ticker_name>", methods=['GET'])
 def send_outlook(ticker_name):
     company_outlook = company_outlookAPI(ticker_name)
-    return jsonify(company_outlook)  # TODO: jsonify or not?
+    return jsonify(company_outlook)  # jsonify the dict
 
 
 if __name__ == '__main__':
