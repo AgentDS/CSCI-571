@@ -27,7 +27,7 @@ def send_news(ticker_name):
 @app.route("/api/v1.0/outlook/<string:ticker_name>", methods=['GET'])
 def send_outlook(ticker_name):
     company_outlook = company_outlookAPI(ticker_name)
-    return company_outlook  # TODO: jsonify or not?
+    return jsonify(company_outlook)  # TODO: jsonify or not?
 
 
 if __name__ == '__main__':
