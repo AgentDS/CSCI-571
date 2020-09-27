@@ -9,16 +9,15 @@ function obtain_stock_name(event) {
     if (tickerNameLen >= 1) {
         event.preventDefault();
         let xhr = new XMLHttpRequest();
-        let ll = "/api/v1.0/search?symbol=" + tickerName;
-        xhr.open("GET", ll) // TODO: Synchronous or not?
-        console.log("URL: " + ll)
+        xhr.open("GET", "/api/v1.0/news/" + tickerName, true) // TODO: Synchronous or not?
+        console.log("URL: " + "/api/v1.0/news/" + tickerName)
         xhr.send();
         console.log("XMLHTTPRequest is sent: \'ticker_name=" + tickerName + "\'");
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 console.log("HTTP request from script finished");
                 if (xhr.status === 200) {
-                    console.log("status=200, response text: " + xhr.responseText);
+                    console.log("status=200, success text: " + xhr.responseText);
                 } else {
                     console.log("status != 200")
                     console.error(xhr.statusText);

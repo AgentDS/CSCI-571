@@ -31,13 +31,13 @@ def newsAPI(keyword):
     :param keyword: also called q, is the stock ticker
     :return:
     """
-    APIkey = '83d88b3f4f9d44ccad89772a6ef0e218'  # zsxx56.12@163.com
-    # APIkey = '166945ff132b43c2a1a395898628ab48'  # liangsiq@usc.edu
+    # APIkey = '83d88b3f4f9d44ccad89772a6ef0e218'  # zsxx56.12@163.com
+    APIkey = '166945ff132b43c2a1a395898628ab48'  # liangsiq@usc.edu
     newsapi = NewsApiClient(api_key=APIkey)
     null = None
     candidate_articles = []
     try:
-        all_articles = newsapi.get_everything(q=keyword)
+        all_articles = newsapi.get_everything(q=keyword, page=5, page_size=3)
         totalResults = all_articles['totalResults']
         for i in range(totalResults):
             article = extract_keys(all_articles['articles'][i])
@@ -49,7 +49,7 @@ def newsAPI(keyword):
                 continue
     except NewsAPIException:
         print("No News Available")
-        
+
     return candidate_articles
 
 
