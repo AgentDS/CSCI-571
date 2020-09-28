@@ -187,10 +187,12 @@ div.tab button:active {
 }
 
 div.tabcontent {
-    background: white;
+    background: transparent;
     padding: 0;
     border: none;
     margin: 0;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 img.table-img {
@@ -199,24 +201,25 @@ img.table-img {
     margin-top: 3px;
     margin-left: 10px;
     padding: 0;
-    background: transparent;
+    background: white;
     height: 15px;
 }
 
-table.summary-table, table.outlook-table {
+table {
     width: 100%;
+    outline: none;
     border: 0;
     padding: 0;
     margin: 0;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    /*margin-top: 40px;*/
+    /*margin-bottom: 40px;*/
     border-spacing: 0;
     border-collapse: collapse;
     border-style: hidden; /* hide the outside border of table*/
 }
 
 
-table.summary-table th {
+table th {
     padding: 0;
     padding-left: 5px;
     margin: 0;
@@ -235,7 +238,7 @@ table.summary-table th {
     height: 100%;
 }
 
-table.summary-table td {
+table td {
     padding: 0;
     margin: 0;
     border: 1.5px solid rgb(204, 204, 204);
@@ -250,19 +253,23 @@ table.summary-table td {
     /*text-wrap: normal;*/
 
     height: 100%;
+
+    background: white;
 }
 
-table.summary-table tr {
+table tr {
     padding: 0;
     margin: 0;
     border: 0;
     height: 25px;
     line-height: 25px;
     border-image-width: 0;
+
+    background: transparent;
 }
 
 
-table.summary-table tr td p {
+table tr td p {
     margin: 0;
     border: 0;
     padding: 0;
@@ -273,4 +280,91 @@ table.summary-table tr td p {
     -webkit-line-clamp: 5;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+div.news-box {
+    margin: 0;
+    margin-bottom: 20px;
+    padding: 0;
+    border: 0;
+    border-radius: 3px;
+    background: rgb(235, 235, 235);
+
+    height: 100px;
+    width: 100%;
+    /*align-items: center; !* For vertical align *!*/
+    display: flex;
+
+}
+
+div.center-crop-img {
+    margin: 0;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 10px;
+    padding: 0;
+    border: 0;
+
+    vertical-align: middle;
+
+    float: left;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    position: relative;
+}
+
+img.news-img {
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    height: 100%;
+    width: auto;
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    left: 50%;
+    top: 50%;
+}
+
+div.news-text {
+    padding: 0;
+    padding-bottom: 1px;
+    margin: 0;
+    margin-top: 10px;
+    border: 0;
+
+    vertical-align: top;
+    float: left;
+    height: 60px;
+}
+
+div.news-text p {
+    padding: 0;
+    border: 0;
+    margin: 0;
+
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
+}
+
+div.news-text p b {
+    padding: 0;
+    border: 0;
+    margin: 0;
+
+    font-size: 16px;
+    font-family: "Microsoft Sans Serif", arial, sans-serif;
+    font-weight: bolder;
+}
+
+div.news-text p span {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    margin-left: 8px;
 }
