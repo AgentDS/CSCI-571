@@ -1,74 +1,59 @@
 const TextArea = document.getElementsByName('ticker_name')[0];
 const SubmitButton = document.getElementById('submit_but');
 const ResetButton = document.getElementById('reset_but');
+var latest_news;
+var stock_summary;
+var company_outlook;
 
 
 function obtain_stock_name(event) {
     let tickerName = TextArea.value.trim();
     let tickerNameLen = tickerName.length;
+
     if (tickerNameLen >= 1) {
         event.preventDefault();
-        // let latest_news = get_news(tickerName);
-        // let company_outlook = get_company_outlook(tickerName);
-        let stock_summary = get_stock_summary(tickerName);
+        // get_news(tickerName);
+        // get_company_outlook(tickerName);
+        get_stock_summary(tickerName);
     }
     // else {
     //     event.preventDefault();
     //     alert('prevent is checked!')
     // }
 }
+//
+// function writeStockSummary(response) {
+//
+// }
+
+
+function serverRequest(url, reqType, writeFunc) {
+    let xhr = new XMLHttpRequest();
+    console.log(reqType + " URL: " + url);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(reqType + " Response: " + xhr.responseText);
+            writeFunc(xhr.responseText);
+        } else {
+            console.error(xhr.statusText);
+        }
+    };
+    xhr.open("GET", url, true);
+    xhr.send();
+}
 
 
 function get_news(tickerName) {
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", "/api/v1.0/news/" + tickerName, true);
-    console.log("news URL: " + "/api/v1.0/news/" + tickerName);
-    xhr.send();
-    console.log("News XHR sent: \'ticker_name=" + tickerName + "\'");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log("News Response: " + xhr.responseText);
-            return xhr.responseText;
-        } else {
-            console.error(xhr.statusText);
-            return false;
-        }
-    }
+    serverRequest("/api/v1.0/news/" + tickerName, "news");
 }
 
 function get_company_outlook(tickerName) {
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", "/api/v1.0/outlook/" + tickerName, true);
-    console.log("Company outlook URL: " + "/api/v1.0/outlook/" + tickerName);
-    xhr.send();
-    console.log("Outlook XHR sent: \'ticker_name=" + tickerName + "\'");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log("Outlook Response: " + xhr.responseText);
-            return xhr.responseText;
-        } else {
-            console.error(xhr.statusText);
-            return false;
-        }
-    }
+    serverRequest("/api/v1.0/outlook/" + tickerName, "outlook");
 }
 
 
 function get_stock_summary(tickerName) {
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", "/api/v1.0/iex/" + tickerName, true);
-    console.log("Stock Summary URL: " + "/api/v1.0/iex/" + tickerName);
-    xhr.send();
-    console.log("Stock Summary XHR sent: \'ticker_name=" + tickerName + "\'");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log("Stock Summary Response: " + xhr.responseText);
-            return xhr.responseText;
-        } else {
-            console.error(xhr.statusText);
-            return false;
-        }
-    }
+    serverRequest("/api/v1.0/iex/" + tickerName, "summary");
 }
 
 
