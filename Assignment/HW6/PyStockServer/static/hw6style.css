@@ -203,7 +203,7 @@ img.table-img {
     height: 15px;
 }
 
-table.summary-table {
+table.summary-table, table.outlook-table {
     width: 100%;
     border: 0;
     padding: 0;
@@ -215,7 +215,8 @@ table.summary-table {
     border-style: hidden; /* hide the outside border of table*/
 }
 
-th {
+
+table.summary-table th {
     padding: 0;
     padding-left: 5px;
     margin: 0;
@@ -234,7 +235,7 @@ th {
     height: 100%;
 }
 
-td {
+table.summary-table td {
     padding: 0;
     margin: 0;
     border: 1.5px solid rgb(204, 204, 204);
@@ -245,15 +246,31 @@ td {
     font-family: 'Roboto', sans-serif;
     font-weight: bolder;
     font-size: 16px;
+    /*word-wrap: break-word;*/
+    /*text-wrap: normal;*/
 
     height: 100%;
 }
 
-tr {
+table.summary-table tr {
     padding: 0;
     margin: 0;
     border: 0;
     height: 25px;
     line-height: 25px;
     border-image-width: 0;
+}
+
+
+table.summary-table tr td p {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    width: 630px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
