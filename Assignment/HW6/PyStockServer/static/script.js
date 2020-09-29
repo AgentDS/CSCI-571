@@ -19,6 +19,7 @@ function search(event) {
         event.preventDefault();
         get_company_outlook(tickerName);
         get_stock_summary(tickerName);
+        get_charts(tickerName);
         get_news(tickerName);
 
     }
@@ -38,7 +39,7 @@ function writeCompanyOutlook(response) {
         showErrorResult("on");
     } else {
         showOutlook("on");
-        var outlookTable = "<table>";
+        let outlookTable = "<table>";
         outlookTable += "<tr><th>Company Name</th><td>" + response["name"] + "</td></tr>";
         outlookTable += "<tr><th>Stock Ticker Symbol</th><td>" + response["ticker"] + "</td></tr>";
         outlookTable += "<tr><th>Stock Exchange Code</th><td>" + response["exchangeCode"] + "</td></tr>";
@@ -46,6 +47,8 @@ function writeCompanyOutlook(response) {
         outlookTable += "<tr><th rowspan=\'5\'>Description</th><td rowspan=\'5\'><p>" + response["description"] + "</p></td></tr>";
         outlookTable += "<tr></tr><tr></tr><tr></tr><tr></tr></table>";
         outlookContent.innerHTML = outlookTable;
+
+        resetTabLinks();
         showResult("on");
     }
 }
@@ -111,7 +114,7 @@ function writeCharts(response) {
 
     let charts = "";
 
-    chartsContent.innerHTML = charts;
+    // chartsContent.innerHTML = response;
 }
 
 function serverRequest(url, reqType, writeFunc) {
@@ -143,6 +146,10 @@ function get_company_outlook(tickerName) {
 
 function get_stock_summary(tickerName) {
     serverRequest("/api/v1.0/summary/" + tickerName, "summary", writeStockSummary);
+}
+
+function get_charts(tickerName) {
+    writeCharts(null);  // TODO: need to replace with serverRequest
 }
 
 function showErrorResult(state) {
@@ -223,6 +230,7 @@ function openTab(evt, tabName) {
         for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].style.display = "none";
         }
+
         tablinks = document.getElementsByClassName("tablinks");
         for (i = 0; i < tablinks.length; i++) {
             tablinks[i].className = tablinks[i].className.replace(" active", "");
@@ -230,6 +238,16 @@ function openTab(evt, tabName) {
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.className += " active";
     }
+}
+
+function resetTabLinks() {
+    let tablinks, i, outlookLink;
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    outlookLink = document.getElementsByClassName("tablinks")[0];
+    outlookLink.className = "tablinks active";
 }
 
 

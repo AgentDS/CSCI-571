@@ -122,7 +122,9 @@ input[type=submit], input[type=reset] {
 input[type=submit]:focus, input[type=reset]:focus {
     outline: none; /* important!! */
     border: 2px solid black;
+    box-shadow: none;
 }
+
 
 input[type=submit]:hover, input[type=reset]:hover {
     background: rgb(199, 199, 199);
@@ -182,8 +184,8 @@ div.tab {
     align-items: center;
 }
 
-div.tab button {
-    background: inherit;
+button.tablinks {
+    background: rgb(235, 235, 235);
     float: left;
     height: 100%;
     border: none;
@@ -203,16 +205,17 @@ div.tab button {
     display: inline-block;
     display: -moz-inline-block;
 
-    /*transition: 0.3s;*/
+    transition: 0.4s;
 }
 
-div.tab button:hover {
-    background: rgb(224, 224, 224);
+button.tablinks:hover {
+    background: #ddd;
 }
 
-div.tab button:active {
-    background: rgb(204, 204, 204);
+button.active {
+    background: #ccc;
 }
+
 
 div.tabcontent {
     background: transparent;
@@ -240,8 +243,6 @@ table {
     border: 0;
     padding: 0;
     margin: 0;
-    /*margin-top: 40px;*/
-    /*margin-bottom: 40px;*/
     border-spacing: 0;
     border-collapse: collapse;
     border-style: hidden; /* hide the outside border of table*/
