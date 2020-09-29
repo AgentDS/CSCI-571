@@ -4,12 +4,11 @@ const ResetButton = document.getElementById('reset_but');
 const urlArrowDown = "/static/img/RedArrowDown.jpg";
 const urlArrowUp = "/static/img/GreenArrowUp.jpg";
 
-
 var searchResult = document.getElementsByClassName("search_result")[0];
 var searchErrorResult = document.getElementsByClassName("error_search_result")[0];
 
 
-function obtain_stock_name(event) {
+function search(event) {
     let tickerName = TextArea.value.trim();
     let tickerNameLen = tickerName.length;
 
@@ -23,6 +22,13 @@ function obtain_stock_name(event) {
     //     event.preventDefault();
     //     alert('prevent is checked!')
     // }
+}
+
+function reset(event) {
+    // event.preventDefault();
+    showResult("off");
+    showErrorResult("off");
+
 }
 
 function writeCompanyOutlook(response) {
@@ -90,7 +96,8 @@ function serverRequest(url, reqType, writeFunc) {
     console.log(reqType + " URL: " + url);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log(reqType + " Response: " + xhr.responseText);
+            console.log(reqType + " response received");
+            console.log(reqType + " response length: " + xhr.responseText.length);
             writeFunc(JSON.parse(xhr.responseText));
         } else {
             console.error(xhr.statusText);
@@ -119,6 +126,8 @@ function showErrorResult(state) {
         searchErrorResult.style.display = "block";
     } else if (state === "off") {
         searchErrorResult.style.display = "none";
+    } else {
+        throw new Error("\'on\' or \'off\'");
     }
 }
 
@@ -127,12 +136,14 @@ function showResult(state) {
         searchResult.style.display = "block";
     } else if (state === "off") {
         searchResult.style.display = "none";
+    } else {
+        throw new Error("\'on\' or \'off\'");
     }
 }
 
 
-SubmitButton.addEventListener("click", obtain_stock_name, false)
-// ResetButton.addEventListener('click')
+SubmitButton.addEventListener("click", search, false)
+ResetButton.addEventListener('click', reset, false)
 
 
 
