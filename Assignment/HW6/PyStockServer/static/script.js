@@ -1,9 +1,8 @@
 const TextArea = document.getElementsByName('ticker_name')[0];
 const SubmitButton = document.getElementById('submit_but');
 const ResetButton = document.getElementById('reset_but');
-var latest_news;
-var stock_summary;
-var company_outlook;
+const urlArrowDown = "/static/img/RedArrowDown.jpg";
+const urlArrowUp = "/static/img/GreenArrowUp.jpg";
 
 
 function obtain_stock_name(event) {
@@ -21,10 +20,37 @@ function obtain_stock_name(event) {
     //     alert('prevent is checked!')
     // }
 }
-//
-// function writeStockSummary(response) {
-//
-// }
+
+function writeStockSummary(response) {
+    var summaryContent = document.getElementById("summary-content");
+    var summaryTable = document.createElement('table');
+    var tableInner = "";
+    tableInner += "<tr><th>Stock Ticker Symbol</th><td>" + response["ticker"] + "</td></tr>";
+    tableInner += "<tr><th>Trading Day</th><td>" + response["timestamp"] + "</td></tr>";
+    tableInner += "<tr><th>Previous Closing Price</th><td>" + response["prevClose"] + "</td></tr>";
+    tableInner += "<tr><th>Opening Price</th><td>" + response["open"] + "</td></tr>";
+    tableInner += "<tr><th>High Price</th><td>" + response["high"] + "</td></tr>";
+    tableInner += "<tr><th>Low Price</th><td>" + response["low"] + "</td></tr>";
+    tableInner += "<tr><th>Last Price</th><td>" + response["last"] + "</td></tr>";
+    tableInner += "<tr><th>Change</th><td>" + response["change"];
+    if (response["change"][0] === "-") {
+        tableInner += "<img src=\'" + urlArrowDown + "\' alt=\'ArrowDown\' ";
+    } else {
+        tableInner += "<img src=\'" + urlArrowUp + "\' alt=\'ArrowUp\' ";
+    }
+    tableInner += "class=\'table-img\'></td></tr>";
+    tableInner += "<tr><th>Change Percent</th><td>" + response["changePercent"];
+    if (response["changePercent"][0] === "-") {
+        tableInner += "<img src=\'" + urlArrowDown + "\' alt=\'ArrowDown\' ";
+    } else {
+        tableInner += "<img src=\'" + urlArrowUp + "\' alt=\'ArrowUp\' ";
+    }
+    tableInner += "class=\'table-img\'></td></tr>";
+    tableInner += "<tr><th>Number of Shared Traded</th><td>" + response["volume"] + "</td></tr>";
+
+    summaryTable.innerHTML = tableInner;
+    summaryContent.appendChild(summaryTable);
+}
 
 
 function serverRequest(url, reqType, writeFunc) {
@@ -33,7 +59,7 @@ function serverRequest(url, reqType, writeFunc) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             console.log(reqType + " Response: " + xhr.responseText);
-            writeFunc(xhr.responseText);
+            writeFunc(JSON.parse(xhr.responseText));
         } else {
             console.error(xhr.statusText);
         }
@@ -53,7 +79,7 @@ function get_company_outlook(tickerName) {
 
 
 function get_stock_summary(tickerName) {
-    serverRequest("/api/v1.0/iex/" + tickerName, "summary");
+    serverRequest("/api/v1.0/iex/" + tickerName, "summary", writeStockSummary);
 }
 
 

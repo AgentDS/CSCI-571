@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="/static/hw6style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script src="/static/script.js" defer></script>
+</head>
+<body>
+<div class="search_area">
+    <div class="search_header">Stock Search</div>
+    <form class="search_form" action="">
+        <label for="name">Enter Stock Ticker Symbol <span>*</span></label>
+        <input class="search_text" type="text" value="" name="ticker_name" autocomplete="off" required/>
+        <br>
+        <input class="input_button" type="submit" value="Search" id="submit_but"/>
+        <input class="input_button" type="reset" value="Clear" id="reset_but"/>
+    </form>
+</div>
+
+<div class="line"></div>
+
+<div class="search_result">
+    <div class="tab">
+        <button class="tablinks" onclick="showOutlook()">Company Outlook</button>
+        <button class="tablinks" onclick="showStockSummary()">Stock Summary</button>
+        <button class="tablinks" onclick="showCharts()">Charts</button>
+        <button class="tablinks" onclick="showLatestNews()">Latest News</button>
+    </div>
+
+    <div id="outlook-content" class="tabcontent">
+        <table>
+            <tr>
+                <th>Company Name</th>
+                <td>Apple Inc</td>
+            </tr>
+            <tr>
+                <th>Stock Ticker Symbol</th>
+                <td>AAPL</td>
+            </tr>
+            <tr>
+                <th>Stock Exchange Code</th>
+                <td>NASDAQ</td>
+            </tr>
+            <tr>
+                <th>Company Start Date</th>
+                <td>2020-09-18</td>
+            </tr>
+            <tr>
+                <th rowspan="5">Description</th>
+                <td rowspan="5"><p>International Business Machines (IBM), is a global
+                    technology.</p></td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+        </table>
+    </div>
+
+    <div id="summary-content" class="tabcontent">
+        <table>
+            <tr>
+                <th>Stock Ticker Symbol</th>
+                <td>IBM</td>
+            </tr>
+            <tr>
+                <th>Trading Day</th>
+                <td>2020-09-18</td>
+            </tr>
+            <tr>
+                <th>Previous Closing Price</th>
+                <td>124.94</td>
+            </tr>
+            <tr>
+                <th>Opening Price</th>
+                <td>124.94</td>
+            </tr>
+            <tr>
+                <th>High Price</th>
+                <td>124.94</td>
+            </tr>
+            <tr>
+                <th>Low Price</th>
+                <td>122.04</td>
+            </tr>
+            <tr>
+                <th>Last Price</th>
+                <td>122.75</td>
+            </tr>
+            <tr>
+                <th>Change</th>
+                <td>-2.16<img src="/static/img/RedArrowDown.jpg" alt="ArrowDown" class="table-img"></td>
+            </tr>
+            <tr>
+                <th>Change Percent</th>
+                <td>-1.73%<img src="/static/img/RedArrowDown.jpg" alt="ArrowDown" class="table-img"></td>
+            </tr>
+            <tr>
+                <th>Number of Shared Traded</th>
+                <td>123456</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="charts-content" class="tabcontent">
+        <p>Charts will be showed here.</p>
+    </div>
+
+    <div id="news-content" class="tabcontent">
+        <div class="news-box">
+            <div class="center-crop-img">
+                <img class="news-img"
+                     src="https://globalnews.ca/wp-content/uploads/2019/01/2018-12-06t013654z_432040173_rc159624fde0_rtrmadp_3_australia-security-data-e1597855009842.jpg?quality=85&strip=all&w=720"/>
+            </div>
+            <div class="news-text">
+                <p><b>Apple is now worth $2 trillion</b></p>
+                <p>Published Date: <span>08/19/2020</span></p>
+                <p><a href="https://globalnews.ca/news/7285909/apple-two-trillion-value" target="_blank">See Original
+                    Post</a></p>
+            </div>
+        </div>
+
+        <div class="news-box">
+            <div class="center-crop-img">
+                <img class="news-img"
+                     src="https://images.macrumors.com/t/OPbePGYvi-XOlsgJJBq1gKjX4oQ=/1600x0/filters:quality(90)/article-new/2020/08/top_stories_22aug2020.jpg"/>
+            </div>
+            <div class="news-text">
+                <p><b>Top Stories: Epic vs. Apple Escalates, AAPL Worth $2T, iOS 14 Beta 5 Changes</b></p>
+                <p>Published Date: <span>08/22/2020</span></p>
+                <p><a href="https://www.macrumors.com/2020/08/22/top-stories-epic-apple-escalation/" target="_blank">See
+                    Original Post</a></p>
+            </div>
+        </div>
+
+        <div class="news-box">
+            <div class="center-crop-img">
+                <img class="news-img"
+                     src="https://images.macrumors.com/t/OPbePGYvi-XOlsgJJBq1gKjX4oQ=/1600x0/filters:quality(90)/article-new/2020/08/top_stories_22aug2020.jpg"/>
+            </div>
+            <div class="news-text">
+                <p><b>Top Stories: Epic vs. Apple Escalates, AAPL Worth $2T, iOS 14 Beta 5 Changes</b></p>
+                <p>Published Date: <span>08/22/2020</span></p>
+                <p><a href="https://www.macrumors.com/2020/08/22/top-stories-epic-apple-escalation/" target="_blank">See
+                    Original Post</a></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
