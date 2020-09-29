@@ -325,6 +325,7 @@ div.news-box {
 
 }
 
+/*crop and resize the image from the center of image, given fixed height & width*/
 div.center-crop-img {
     margin: 0;
     margin-left: 15px;
