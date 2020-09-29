@@ -6,6 +6,10 @@ const urlArrowUp = "/static/img/GreenArrowUp.jpg";
 
 var searchResult = document.getElementsByClassName("search_result")[0];
 var searchErrorResult = document.getElementsByClassName("error_search_result")[0];
+var outlookContent = document.getElementById("outlook-content");
+var summaryContent = document.getElementById("summary-content");
+var chartsContent = document.getElementById("charts-content");
+var newsContent = document.getElementById("news-content");
 
 
 function search(event) {
@@ -15,8 +19,13 @@ function search(event) {
     if (tickerNameLen >= 1) {
         event.preventDefault();
         get_news(tickerName);
-        // get_company_outlook(tickerName);
-        // get_stock_summary(tickerName);
+        get_company_outlook(tickerName);
+        // if company_outlook has already 'on' the searchErrorResult, then no need for later require
+        // if (checkErrorResultDisplay() === "off") {  // have problem with asynchronous require!!
+        get_stock_summary(tickerName);
+        get_news(tickerName);
+        // }
+
     }
     // else {
     //     event.preventDefault();
@@ -30,6 +39,7 @@ function reset(event) {
     showErrorResult("off");
 }
 
+// write and show outlook at first
 function writeCompanyOutlook(response) {
     if (Object.keys(response).length === 0) {
         console.log("Empty JSON, no such stock");
@@ -37,8 +47,7 @@ function writeCompanyOutlook(response) {
         showErrorResult("on");
     } else {
         showErrorResult("off");
-        showResult("on");
-        var outlookContent = document.getElementById("outlook-content");
+        showOutlook("on");
         var outlookTable = "<table>";
         outlookTable += "<tr><th>Company Name</th><td>" + response["name"] + "</td></tr>";
         outlookTable += "<tr><th>Stock Ticker Symbol</th><td>" + response["ticker"] + "</td></tr>";
@@ -49,17 +58,20 @@ function writeCompanyOutlook(response) {
 
         outlookContent.innerHTML = outlookTable;
     }
+    showResult("on");
 }
 
+
+// write but not show summary at first
 function writeStockSummary(response) {
     if (Object.keys(response).length === 0) {
         console.log("Empty JSON, no such stock");
-        showResult("off");
-        showErrorResult("on");
+        // showResult("off");
+        // showErrorResult("on");
     } else {
         showErrorResult("off");
         showResult("on");
-        var summaryContent = document.getElementById("summary-content");
+        showSummary("off");
         var summaryTable = "<table>";
         summaryTable += "<tr><th>Stock Ticker Symbol</th><td>" + response["ticker"] + "</td></tr>";
         summaryTable += "<tr><th>Trading Day</th><td>" + response["timestamp"] + "</td></tr>";
@@ -89,17 +101,17 @@ function writeStockSummary(response) {
     }
 }
 
+// write but not show news at first
 function writeLatestNews(response) {
     console.log("response type: " + typeof (response));
-    var newsArray = response["latest_news"];
+    let newsArray = response["latest_news"];
     showErrorResult("off");
-    showResult("on");
-    var newsContent = document.getElementById("news-content");
-    var latestNews = "";
+    showNews("off");
+    let latestNews = "";
     let newsNum = newsArray.length;
+    let i;
     console.log("news length: " + newsNum);
-
-    for (var i = 0; i < newsNum; i++) {
+    for (i = 0; i < newsNum; i++) {
         latestNews += "<div class=\'news-box\'><div class=\'center-crop-img\'>";
         latestNews += "<img class=\'news-img\' src=\'" + newsArray[i]["urlToImage"] + "\'/></div>";
         latestNews += "<div class=\'news-text\'><p><b>" + newsArray[i]["title"] + "</b></p>";
@@ -108,6 +120,19 @@ function writeLatestNews(response) {
         latestNews += "</div></div>";
     }
     newsContent.innerHTML = latestNews;
+    showResult("on");
+}
+
+function writeCharts(response) {
+    console.log("response type: " + typeof (response));
+
+    showErrorResult("off");
+    showCharts("off");
+
+    var charts = "";
+
+    chartsContent.innerHTML = charts;
+    showResult("on");
 }
 
 function serverRequest(url, reqType, writeFunc) {
@@ -147,7 +172,7 @@ function showErrorResult(state) {
     } else if (state === "off") {
         searchErrorResult.style.display = "none";
     } else {
-        throw new Error("\'on\' or \'off\'");
+        throw new Error("searchErrorResult state \'on\' or \'off\'");
     }
 }
 
@@ -157,8 +182,72 @@ function showResult(state) {
     } else if (state === "off") {
         searchResult.style.display = "none";
     } else {
-        throw new Error("\'on\' or \'off\'");
+        throw new Error("searchResult state \'on\' or \'off\'");
     }
+}
+
+function showSummary(state) {
+    if (state === "on") {
+        summaryContent.style.display = "block";
+    } else if (state === "off") {
+        summaryContent.style.display = "none";
+    } else {
+        throw new Error("summaryContent state \'on\' or \'off\'");
+    }
+}
+
+function showNews(state) {
+    if (state === "on") {
+        newsContent.style.display = "block";
+    } else if (state === "off") {
+        newsContent.style.display = "none";
+    } else {
+        throw new Error("newsContent state \'on\' or \'off\'");
+    }
+}
+
+function showOutlook(state) {
+    if (state === "on") {
+        outlookContent.style.display = "block";
+    } else if (state === "off") {
+        outlookContent.style.display = "none";
+    } else {
+        throw new Error("outlookContent state \'on\' or \'off\'");
+    }
+}
+
+function showCharts(state) {
+    if (state === "on") {
+        chartsContent.style.display = "block";
+    } else if (state === "off") {
+        chartsContent.style.display = "none";
+    } else {
+        throw new Error("chartsContent state \'on\' or \'off\'");
+    }
+}
+
+function checkErrorResultDisplay() {
+    if (searchErrorResult.style.display === "block") {
+        return "on";
+    } else if (searchErrorResult.style.display === "none") {
+        return "off";
+    } else {
+        throw new Error("Invalid searchErrorResult.style.display=" + searchErrorResult.style.display + ", should be \'none\' or \'block\'")
+    }
+}
+
+function openTab(evt, tabName) {
+    let i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
 }
 
 
