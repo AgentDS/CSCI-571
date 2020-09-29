@@ -24,34 +24,40 @@ function obtain_stock_name(event) {
 function writeStockSummary(response) {
     var summaryContent = document.getElementById("summary-content");
     var summaryTable = document.createElement('table');
-    var tableInner = "";
-    tableInner += "<tr><th>Stock Ticker Symbol</th><td>" + response["ticker"] + "</td></tr>";
-    tableInner += "<tr><th>Trading Day</th><td>" + response["timestamp"] + "</td></tr>";
-    tableInner += "<tr><th>Previous Closing Price</th><td>" + response["prevClose"] + "</td></tr>";
-    tableInner += "<tr><th>Opening Price</th><td>" + response["open"] + "</td></tr>";
-    tableInner += "<tr><th>High Price</th><td>" + response["high"] + "</td></tr>";
-    tableInner += "<tr><th>Low Price</th><td>" + response["low"] + "</td></tr>";
-    tableInner += "<tr><th>Last Price</th><td>" + response["last"] + "</td></tr>";
-    tableInner += "<tr><th>Change</th><td>" + response["change"];
+    var summaryTableInner = "";
+    summaryTableInner += "<tr><th>Stock Ticker Symbol</th><td>" + response["ticker"] + "</td></tr>";
+    summaryTableInner += "<tr><th>Trading Day</th><td>" + response["timestamp"] + "</td></tr>";
+    summaryTableInner += "<tr><th>Previous Closing Price</th><td>" + response["prevClose"] + "</td></tr>";
+    summaryTableInner += "<tr><th>Opening Price</th><td>" + response["open"] + "</td></tr>";
+    summaryTableInner += "<tr><th>High Price</th><td>" + response["high"] + "</td></tr>";
+    summaryTableInner += "<tr><th>Low Price</th><td>" + response["low"] + "</td></tr>";
+    summaryTableInner += "<tr><th>Last Price</th><td>" + response["last"] + "</td></tr>";
+    summaryTableInner += "<tr><th>Change</th><td>" + response["change"];
     if (response["change"][0] === "-") {
-        tableInner += "<img src=\'" + urlArrowDown + "\' alt=\'ArrowDown\' ";
+        summaryTableInner += "<img src=\'" + urlArrowDown + "\' alt=\'ArrowDown\' ";
     } else {
-        tableInner += "<img src=\'" + urlArrowUp + "\' alt=\'ArrowUp\' ";
+        summaryTableInner += "<img src=\'" + urlArrowUp + "\' alt=\'ArrowUp\' ";
     }
-    tableInner += "class=\'table-img\'></td></tr>";
-    tableInner += "<tr><th>Change Percent</th><td>" + response["changePercent"];
+    summaryTableInner += "class=\'table-img\'></td></tr>";
+    summaryTableInner += "<tr><th>Change Percent</th><td>" + response["changePercent"];
     if (response["changePercent"][0] === "-") {
-        tableInner += "<img src=\'" + urlArrowDown + "\' alt=\'ArrowDown\' ";
+        summaryTableInner += "<img src=\'" + urlArrowDown + "\' alt=\'ArrowDown\' ";
     } else {
-        tableInner += "<img src=\'" + urlArrowUp + "\' alt=\'ArrowUp\' ";
+        summaryTableInner += "<img src=\'" + urlArrowUp + "\' alt=\'ArrowUp\' ";
     }
-    tableInner += "class=\'table-img\'></td></tr>";
-    tableInner += "<tr><th>Number of Shared Traded</th><td>" + response["volume"] + "</td></tr>";
+    summaryTableInner += "class=\'table-img\'></td></tr>";
+    summaryTableInner += "<tr><th>Number of Shared Traded</th><td>" + response["volume"] + "</td></tr>";
 
-    summaryTable.innerHTML = tableInner;
+    summaryTable.innerHTML = summaryTableInner;
     summaryContent.appendChild(summaryTable);
 }
 
+
+function writeCompanyOutlook(response) {
+    var outlookContent = document.getElementById("outlook-content");
+    var outlookTable = document.createElement('table');
+    var outlookTableInner = "";
+}
 
 function serverRequest(url, reqType, writeFunc) {
     let xhr = new XMLHttpRequest();
