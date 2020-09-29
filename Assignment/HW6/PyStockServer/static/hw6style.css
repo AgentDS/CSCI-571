@@ -134,6 +134,17 @@ div.search_result {
     margin-left: 18%;
     background: transparent;
     width: 950px;
+    display: none; /*initial hidden*/
+}
+
+div.error_search_result {
+    border: 0;
+    margin: 0;
+    margin-left: 18%;
+    background: transparent;
+    width: 950px;
+
+    display: none; /*initial hidden*/
 }
 
 div.error_msg {

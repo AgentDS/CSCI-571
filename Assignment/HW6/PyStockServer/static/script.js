@@ -5,6 +5,10 @@ const urlArrowDown = "/static/img/RedArrowDown.jpg";
 const urlArrowUp = "/static/img/GreenArrowUp.jpg";
 
 
+var searchResult = document.getElementsByClassName("search_result")[0];
+var searchErrorResult = document.getElementsByClassName("error_search_result")[0];
+
+
 function obtain_stock_name(event) {
     let tickerName = TextArea.value.trim();
     let tickerNameLen = tickerName.length;
@@ -12,8 +16,8 @@ function obtain_stock_name(event) {
     if (tickerNameLen >= 1) {
         event.preventDefault();
         // get_news(tickerName);
-        // get_company_outlook(tickerName);
-        get_stock_summary(tickerName);
+        get_company_outlook(tickerName);
+        // get_stock_summary(tickerName);
     }
     // else {
     //     event.preventDefault();
@@ -21,12 +25,35 @@ function obtain_stock_name(event) {
     // }
 }
 
+function writeCompanyOutlook(response) {
+    if (Object.keys(response).length === 0) {
+        console.log("Empty JSON, no such stock");
+        showResult("off");
+        showErrorResult("on");
+    } else {
+        showErrorResult("off");
+        showResult("on");
+        var outlookContent = document.getElementById("outlook-content");
+        var outlookTable = "<table>";
+        outlookTable += "<tr><th>Company Name</th><td>" + response["name"] + "</td></tr>";
+        outlookTable += "<tr><th>Stock Ticker Symbol</th><td>" + response["ticker"] + "</td></tr>";
+        outlookTable += "<tr><th>Stock Exchange Code</th><td>" + response["exchangeCode"] + "</td></tr>";
+        outlookTable += "<tr><th>Company Start Date</th><td>" + response["startDate"] + "</td></tr>";
+        outlookTable += "<tr><th rowspan=\'5\'>Description</th><td rowspan=\'5\'><p>" + response["description"] + "</p></td></tr>";
+        outlookTable += "<tr></tr><tr></tr><tr></tr><tr></tr></table>"
+
+        outlookContent.innerHTML = outlookTable;
+    }
+}
+
 function writeStockSummary(response) {
     if (Object.keys(response).length === 0) {
         console.log("Empty JSON, no such stock");
-        var searchResult = document.getElementsByClassName("search_result")[0];
-        searchResult.innerHTML = "<div class=\'error_msg\'>Error : No record has been found, please enter a valid symbol.</div>";
+        showResult("off");
+        showErrorResult("on");
     } else {
+        showErrorResult("off");
+        showResult("on");
         var summaryContent = document.getElementById("summary-content");
         var summaryTable = "<table>";
         summaryTable += "<tr><th>Stock Ticker Symbol</th><td>" + response["ticker"] + "</td></tr>";
@@ -58,12 +85,6 @@ function writeStockSummary(response) {
 }
 
 
-function writeCompanyOutlook(response) {
-    var outlookContent = document.getElementById("outlook-content");
-    var outlookTable = document.createElement('table');
-    var outlookTableInner = "";
-}
-
 function serverRequest(url, reqType, writeFunc) {
     let xhr = new XMLHttpRequest();
     console.log(reqType + " URL: " + url);
@@ -85,12 +106,28 @@ function get_news(tickerName) {
 }
 
 function get_company_outlook(tickerName) {
-    serverRequest("/api/v1.0/outlook/" + tickerName, "outlook");
+    serverRequest("/api/v1.0/outlook/" + tickerName, "outlook", writeCompanyOutlook);
 }
 
 
 function get_stock_summary(tickerName) {
-    serverRequest("/api/v1.0/iex/" + tickerName, "summary", writeStockSummary);
+    serverRequest("/api/v1.0/summary/" + tickerName, "summary", writeStockSummary);
+}
+
+function showErrorResult(state) {
+    if (state === "on") {
+        searchErrorResult.style.display = "block";
+    } else if (state === "off") {
+        searchErrorResult.style.display = "none";
+    }
+}
+
+function showResult(state) {
+    if (state === "on") {
+        searchResult.style.display = "block";
+    } else if (state === "off") {
+        searchResult.style.display = "none";
+    }
 }
 
 

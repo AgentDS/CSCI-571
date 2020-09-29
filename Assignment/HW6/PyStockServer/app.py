@@ -30,7 +30,7 @@ def send_outlook(ticker_name):
     return jsonify(company_outlook)  # jsonify the dict
 
 
-@app.route("/api/v1.0/iex/<string:ticker_name>", methods=['GET'])
+@app.route("/api/v1.0/summary/<string:ticker_name>", methods=['GET'])
 def send_stock_summary(ticker_name):
     stock_summary = stock_summaryAPI(ticker_name)
     return jsonify(stock_summary)  # jsonify the dict

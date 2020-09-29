@@ -46,6 +46,14 @@ def extract_summary(ori_sum):
             "volume": "%d" % ori_sum["volume"]}
 
 
+def extract_outlook(ori_outlook):
+    return {"name": ori_outlook["name"],
+            "ticker": ori_outlook["ticker"],
+            "exchangeCode": ori_outlook["exchangeCode"],
+            "startDate": ori_outlook["startDate"],
+            "description": ori_outlook["description"]}
+
+
 def newsAPI(keyword):
     """
     API Sample: https://newsapi.org/v2/everything?apiKey=API_KEY&q=keyword
@@ -86,13 +94,13 @@ def company_outlookAPI(keyword):
     """
     outlook_url = "https://api.tiingo.com/tiingo/daily/%s?token=%s" % (keyword, tiingoAPIkey)
     headers = {'Content-Type': 'application/json'}
-    res_json = requests.get(outlook_url, headers=headers).json()
-    outlook_info = {"name": res_json["name"],
-                    "ticker": res_json["ticker"],
-                    "exchangeCode": res_json["exchangeCode"],
-                    "startDate": res_json["startDate"],
-                    "description": res_json["description"]}
-    return outlook_info
+    ori_outlook = requests.get(outlook_url, headers=headers).json()
+    try:
+        company_outlook = extract_outlook(ori_outlook)
+        return company_outlook
+    except KeyError:
+        # if {"detail":"Not found."} is return, then return empty
+        return {}
 
 
 def stock_summaryAPI(keyword):
@@ -110,7 +118,6 @@ def stock_summaryAPI(keyword):
         return stock_summary
     except IndexError:
         return {}
-
 
 
 def tiingoAPI():
