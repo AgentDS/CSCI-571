@@ -1,8 +1,8 @@
 const TextArea = document.getElementsByName('ticker_name')[0];
 const SubmitButton = document.getElementById('submit_but');
 const ResetButton = document.getElementById('reset_but');
-const urlArrowDown = "/static/img/RedArrowDown.jpg";
-const urlArrowUp = "/static/img/GreenArrowUp.jpg";
+const urlArrowDown = "https://csci571.com/hw/hw6/images/RedArrowDown.jpg";
+const urlArrowUp = "https://csci571.com/hw/hw6/images/GreenArrowUp.jpg";
 
 var searchResult = document.getElementsByClassName("search_result")[0];
 var searchErrorResult = document.getElementsByClassName("error_search_result")[0];
@@ -69,8 +69,6 @@ function writeStockSummary(response) {
         // showResult("off");
         // showErrorResult("on");
     } else {
-        showErrorResult("off");
-        showResult("on");
         showSummary("off");
         var summaryTable = "<table>";
         summaryTable += "<tr><th>Stock Ticker Symbol</th><td>" + response["ticker"] + "</td></tr>";
@@ -105,7 +103,6 @@ function writeStockSummary(response) {
 function writeLatestNews(response) {
     console.log("response type: " + typeof (response));
     let newsArray = response["latest_news"];
-    showErrorResult("off");
     showNews("off");
     let latestNews = "";
     let newsNum = newsArray.length;
@@ -120,19 +117,16 @@ function writeLatestNews(response) {
         latestNews += "</div></div>";
     }
     newsContent.innerHTML = latestNews;
-    showResult("on");
 }
 
 function writeCharts(response) {
     console.log("response type: " + typeof (response));
 
-    showErrorResult("off");
     showCharts("off");
 
     var charts = "";
 
     chartsContent.innerHTML = charts;
-    showResult("on");
 }
 
 function serverRequest(url, reqType, writeFunc) {
@@ -239,15 +233,18 @@ function checkErrorResultDisplay() {
 function openTab(evt, tabName) {
     let i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+
+    if (checkErrorResultDisplay() === "off") {
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
     }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
 }
 
 
