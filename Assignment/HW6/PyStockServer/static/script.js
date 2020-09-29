@@ -15,25 +15,16 @@ var newsContent = document.getElementById("news-content");
 function search(event) {
     let tickerName = TextArea.value.trim();
     let tickerNameLen = tickerName.length;
-
     if (tickerNameLen >= 1) {
         event.preventDefault();
         get_company_outlook(tickerName);
-        // if company_outlook has already 'on' the searchErrorResult, then no need for later require
-        // if (checkErrorResultDisplay() === "off") {  // have problem with asynchronous require!!
         get_stock_summary(tickerName);
         get_news(tickerName);
-        // }
 
     }
-    // else {
-    //     event.preventDefault();
-    //     alert('prevent is checked!')
-    // }
 }
 
 function reset(event) {
-    // event.preventDefault();
     showResult("off");
     showErrorResult("off");
 }
@@ -45,7 +36,6 @@ function writeCompanyOutlook(response) {
     if (Object.keys(response).length === 0) {
         console.log("Empty outlook JSON, no such stock");
         showErrorResult("on");
-        // showResult("off");
     } else {
         showOutlook("on");
         var outlookTable = "<table>";
@@ -54,8 +44,7 @@ function writeCompanyOutlook(response) {
         outlookTable += "<tr><th>Stock Exchange Code</th><td>" + response["exchangeCode"] + "</td></tr>";
         outlookTable += "<tr><th>Company Start Date</th><td>" + response["startDate"] + "</td></tr>";
         outlookTable += "<tr><th rowspan=\'5\'>Description</th><td rowspan=\'5\'><p>" + response["description"] + "</p></td></tr>";
-        outlookTable += "<tr></tr><tr></tr><tr></tr><tr></tr></table>"
-
+        outlookTable += "<tr></tr><tr></tr><tr></tr><tr></tr></table>";
         outlookContent.innerHTML = outlookTable;
         showResult("on");
     }
@@ -68,7 +57,7 @@ function writeStockSummary(response) {
         console.log("Empty summary JSON, no such stock");
     } else {
         showSummary("off");
-        var summaryTable = "<table>";
+        let summaryTable = "<table>";
         summaryTable += "<tr><th>Stock Ticker Symbol</th><td>" + response["ticker"] + "</td></tr>";
         summaryTable += "<tr><th>Trading Day</th><td>" + response["timestamp"] + "</td></tr>";
         summaryTable += "<tr><th>Previous Closing Price</th><td>" + response["prevClose"] + "</td></tr>";
@@ -92,7 +81,6 @@ function writeStockSummary(response) {
         summaryTable += "class=\'table-img\'></td></tr>";
         summaryTable += "<tr><th>Number of Shared Traded</th><td>" + response["volume"] + "</td></tr>";
         summaryTable += "</table>";
-
         summaryContent.innerHTML = summaryTable;
     }
 }
@@ -107,7 +95,7 @@ function writeLatestNews(response) {
     console.log("news number: " + newsNum);
     for (i = 0; i < newsNum; i++) {
         latestNews += "<div class=\'news-box\'><div class=\'center-crop-img\'>";
-        latestNews += "<img class=\'news-img\' src=\'" + newsArray[i]["urlToImage"] + "\'/></div>";
+        latestNews += "<img class=\'news-img\' alt=\'urlImage\' src=\'" + newsArray[i]["urlToImage"] + "\'/></div>";
         latestNews += "<div class=\'news-text\'><p><b>" + newsArray[i]["title"] + "</b></p>";
         latestNews += "<p>Published Date: <span>" + newsArray[i]["publishedAt"] + "</span></p>";
         latestNews += "<p><a href=\'" + newsArray[i]["url"] + "\' target=\"_blank\">See Original Post</a></p>";
@@ -121,7 +109,7 @@ function writeCharts(response) {
 
     showCharts("off");
 
-    var charts = "";
+    let charts = "";
 
     chartsContent.innerHTML = charts;
 }
