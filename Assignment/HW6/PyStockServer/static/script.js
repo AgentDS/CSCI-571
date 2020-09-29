@@ -22,34 +22,39 @@ function obtain_stock_name(event) {
 }
 
 function writeStockSummary(response) {
-    var summaryContent = document.getElementById("summary-content");
-    var summaryTable = document.createElement('table');
-    var summaryTableInner = "";
-    summaryTableInner += "<tr><th>Stock Ticker Symbol</th><td>" + response["ticker"] + "</td></tr>";
-    summaryTableInner += "<tr><th>Trading Day</th><td>" + response["timestamp"] + "</td></tr>";
-    summaryTableInner += "<tr><th>Previous Closing Price</th><td>" + response["prevClose"] + "</td></tr>";
-    summaryTableInner += "<tr><th>Opening Price</th><td>" + response["open"] + "</td></tr>";
-    summaryTableInner += "<tr><th>High Price</th><td>" + response["high"] + "</td></tr>";
-    summaryTableInner += "<tr><th>Low Price</th><td>" + response["low"] + "</td></tr>";
-    summaryTableInner += "<tr><th>Last Price</th><td>" + response["last"] + "</td></tr>";
-    summaryTableInner += "<tr><th>Change</th><td>" + response["change"];
-    if (response["change"][0] === "-") {
-        summaryTableInner += "<img src=\'" + urlArrowDown + "\' alt=\'ArrowDown\' ";
+    if (Object.keys(response).length === 0) {
+        console.log("Empty JSON, no such stock");
+        var searchResult = document.getElementsByClassName("search_result")[0];
+        searchResult.innerHTML = "<div class=\'error_msg\'>Error : No record has been found, please enter a valid symbol.</div>";
     } else {
-        summaryTableInner += "<img src=\'" + urlArrowUp + "\' alt=\'ArrowUp\' ";
-    }
-    summaryTableInner += "class=\'table-img\'></td></tr>";
-    summaryTableInner += "<tr><th>Change Percent</th><td>" + response["changePercent"];
-    if (response["changePercent"][0] === "-") {
-        summaryTableInner += "<img src=\'" + urlArrowDown + "\' alt=\'ArrowDown\' ";
-    } else {
-        summaryTableInner += "<img src=\'" + urlArrowUp + "\' alt=\'ArrowUp\' ";
-    }
-    summaryTableInner += "class=\'table-img\'></td></tr>";
-    summaryTableInner += "<tr><th>Number of Shared Traded</th><td>" + response["volume"] + "</td></tr>";
+        var summaryContent = document.getElementById("summary-content");
+        var summaryTable = "<table>";
+        summaryTable += "<tr><th>Stock Ticker Symbol</th><td>" + response["ticker"] + "</td></tr>";
+        summaryTable += "<tr><th>Trading Day</th><td>" + response["timestamp"] + "</td></tr>";
+        summaryTable += "<tr><th>Previous Closing Price</th><td>" + response["prevClose"] + "</td></tr>";
+        summaryTable += "<tr><th>Opening Price</th><td>" + response["open"] + "</td></tr>";
+        summaryTable += "<tr><th>High Price</th><td>" + response["high"] + "</td></tr>";
+        summaryTable += "<tr><th>Low Price</th><td>" + response["low"] + "</td></tr>";
+        summaryTable += "<tr><th>Last Price</th><td>" + response["last"] + "</td></tr>";
+        summaryTable += "<tr><th>Change</th><td>" + response["change"];
+        if (response["change"][0] === "-") {
+            summaryTable += "<img src=\'" + urlArrowDown + "\' alt=\'ArrowDown\' ";
+        } else {
+            summaryTable += "<img src=\'" + urlArrowUp + "\' alt=\'ArrowUp\' ";
+        }
+        summaryTable += "class=\'table-img\'></td></tr>";
+        summaryTable += "<tr><th>Change Percent</th><td>" + response["changePercent"];
+        if (response["changePercent"][0] === "-") {
+            summaryTable += "<img src=\'" + urlArrowDown + "\' alt=\'ArrowDown\' ";
+        } else {
+            summaryTable += "<img src=\'" + urlArrowUp + "\' alt=\'ArrowUp\' ";
+        }
+        summaryTable += "class=\'table-img\'></td></tr>";
+        summaryTable += "<tr><th>Number of Shared Traded</th><td>" + response["volume"] + "</td></tr>";
+        summaryTable += "</table>";
 
-    summaryTable.innerHTML = summaryTableInner;
-    summaryContent.appendChild(summaryTable);
+        summaryContent.innerHTML = summaryTable;
+    }
 }
 
 

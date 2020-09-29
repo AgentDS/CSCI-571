@@ -104,9 +104,13 @@ def stock_summaryAPI(keyword):
     """
     headers = {'Content-Type': 'application/json'}
     stock_summary_url = "https://api.tiingo.com/iex/%s?token=%s" % (keyword, tiingoAPIkey)
-    ori_summary = requests.get(stock_summary_url, headers=headers).json()[0]
-    stock_summary = extract_summary(ori_summary)
-    return stock_summary
+    try:
+        ori_summary = requests.get(stock_summary_url, headers=headers).json()[0]
+        stock_summary = extract_summary(ori_summary)
+        return stock_summary
+    except IndexError:
+        return {}
+
 
 
 def tiingoAPI():
