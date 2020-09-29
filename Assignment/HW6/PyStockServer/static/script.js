@@ -28,7 +28,6 @@ function reset(event) {
     // event.preventDefault();
     showResult("off");
     showErrorResult("off");
-
 }
 
 function writeCompanyOutlook(response) {
