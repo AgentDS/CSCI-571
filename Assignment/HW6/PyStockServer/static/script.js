@@ -14,8 +14,8 @@ function search(event) {
 
     if (tickerNameLen >= 1) {
         event.preventDefault();
-        // get_news(tickerName);
-        get_company_outlook(tickerName);
+        get_news(tickerName);
+        // get_company_outlook(tickerName);
         // get_stock_summary(tickerName);
     }
     // else {
@@ -89,6 +89,26 @@ function writeStockSummary(response) {
     }
 }
 
+function writeLatestNews(response) {
+    console.log("response type: " + typeof (response));
+    var newsArray = response["latest_news"];
+    showErrorResult("off");
+    showResult("on");
+    var newsContent = document.getElementById("news-content");
+    var latestNews = "";
+    let newsNum = newsArray.length;
+    console.log("news length: " + newsNum);
+
+    for (var i = 0; i < newsNum; i++) {
+        latestNews += "<div class=\'news-box\'><div class=\'center-crop-img\'>";
+        latestNews += "<img class=\'news-img\' src=\'" + newsArray[i]["urlToImage"] + "\'/></div>";
+        latestNews += "<div class=\'news-text\'><p><b>" + newsArray[i]["title"] + "</b></p>";
+        latestNews += "<p>Published Date: <span>" + newsArray[i]["publishedAt"] + "</span></p>";
+        latestNews += "<p><a href=\'" + newsArray[i]["url"] + "\' target=\"_blank\">See Original Post</a></p>";
+        latestNews += "</div></div>";
+    }
+    newsContent.innerHTML = latestNews;
+}
 
 function serverRequest(url, reqType, writeFunc) {
     let xhr = new XMLHttpRequest();
@@ -96,6 +116,7 @@ function serverRequest(url, reqType, writeFunc) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             console.log(reqType + " response received");
+            console.log(reqType + " response type: " + typeof (xhr.responseText));
             console.log(reqType + " response length: " + xhr.responseText.length);
             writeFunc(JSON.parse(xhr.responseText));
         } else {
@@ -108,7 +129,7 @@ function serverRequest(url, reqType, writeFunc) {
 
 
 function get_news(tickerName) {
-    serverRequest("/api/v1.0/news/" + tickerName, "news");
+    serverRequest("/api/v1.0/news/" + tickerName, "news", writeLatestNews);
 }
 
 function get_company_outlook(tickerName) {
