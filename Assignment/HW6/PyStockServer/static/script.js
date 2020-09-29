@@ -4,8 +4,8 @@ const ResetButton = document.getElementById('reset_but');
 const urlArrowDown = "https://csci571.com/hw/hw6/images/RedArrowDown.jpg";
 const urlArrowUp = "https://csci571.com/hw/hw6/images/GreenArrowUp.jpg";
 
-var searchResult = document.getElementsByClassName("search_result")[0];
-var searchErrorResult = document.getElementsByClassName("error_search_result")[0];
+var searchResult = document.getElementById("search_result");
+var searchErrorResult = document.getElementById("error_search_result");
 var outlookContent = document.getElementById("outlook-content");
 var summaryContent = document.getElementById("summary-content");
 var chartsContent = document.getElementById("charts-content");
@@ -18,7 +18,6 @@ function search(event) {
 
     if (tickerNameLen >= 1) {
         event.preventDefault();
-        get_news(tickerName);
         get_company_outlook(tickerName);
         // if company_outlook has already 'on' the searchErrorResult, then no need for later require
         // if (checkErrorResultDisplay() === "off") {  // have problem with asynchronous require!!
@@ -41,12 +40,13 @@ function reset(event) {
 
 // write and show outlook at first
 function writeCompanyOutlook(response) {
+    showErrorResult("off");
+    showResult("off");
     if (Object.keys(response).length === 0) {
-        console.log("Empty JSON, no such stock");
-        showResult("off");
+        console.log("Empty outlook JSON, no such stock");
         showErrorResult("on");
+        // showResult("off");
     } else {
-        showErrorResult("off");
         showOutlook("on");
         var outlookTable = "<table>";
         outlookTable += "<tr><th>Company Name</th><td>" + response["name"] + "</td></tr>";
@@ -57,17 +57,15 @@ function writeCompanyOutlook(response) {
         outlookTable += "<tr></tr><tr></tr><tr></tr><tr></tr></table>"
 
         outlookContent.innerHTML = outlookTable;
+        showResult("on");
     }
-    showResult("on");
 }
 
 
 // write but not show summary at first
 function writeStockSummary(response) {
     if (Object.keys(response).length === 0) {
-        console.log("Empty JSON, no such stock");
-        // showResult("off");
-        // showErrorResult("on");
+        console.log("Empty summary JSON, no such stock");
     } else {
         showSummary("off");
         var summaryTable = "<table>";
@@ -101,13 +99,12 @@ function writeStockSummary(response) {
 
 // write but not show news at first
 function writeLatestNews(response) {
-    console.log("response type: " + typeof (response));
     let newsArray = response["latest_news"];
     showNews("off");
     let latestNews = "";
     let newsNum = newsArray.length;
     let i;
-    console.log("news length: " + newsNum);
+    console.log("news number: " + newsNum);
     for (i = 0; i < newsNum; i++) {
         latestNews += "<div class=\'news-box\'><div class=\'center-crop-img\'>";
         latestNews += "<img class=\'news-img\' src=\'" + newsArray[i]["urlToImage"] + "\'/></div>";
@@ -135,8 +132,8 @@ function serverRequest(url, reqType, writeFunc) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             console.log(reqType + " response received");
-            console.log(reqType + " response type: " + typeof (xhr.responseText));
-            console.log(reqType + " response length: " + xhr.responseText.length);
+            // console.log(reqType + " response type: " + typeof (xhr.responseText));
+            // console.log(reqType + " response length: " + xhr.responseText.length);
             writeFunc(JSON.parse(xhr.responseText));
         } else {
             console.error(xhr.statusText);

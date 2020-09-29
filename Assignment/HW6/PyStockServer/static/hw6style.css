@@ -128,7 +128,7 @@ input[type=submit]:hover, input[type=reset]:hover {
     background: rgb(199, 199, 199);
 }
 
-div.search_result {
+#search_result {
     border: 0;
     margin: 0;
     margin-left: 18%;
@@ -137,7 +137,7 @@ div.search_result {
     display: none; /*initial hidden*/
 }
 
-div.error_search_result {
+#error_search_result {
     border: 0;
     margin: 0;
     margin-left: 18%;
@@ -203,7 +203,7 @@ div.tab button {
     display: inline-block;
     display: -moz-inline-block;
 
-    transition: 0.3s;
+    /*transition: 0.3s;*/
 }
 
 div.tab button:hover {
