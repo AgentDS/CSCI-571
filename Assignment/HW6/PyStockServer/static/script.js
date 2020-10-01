@@ -157,10 +157,12 @@ function writeCharts(response) {
             yAxis: [{
                 title: {text: 'Volume'},
                 labels: {align: 'left'}, // align text of label from left side
+                zoomEnabled: false
                 // offset: 1  // move Volume yAxis out of plot area, need to be dismissed with label align left
             }, {
                 title: {text: 'Stock Price'},
-                opposite: false
+                opposite: false,
+                zoomEnabled: false
             }],
 
             plotOptions: {
@@ -225,14 +227,15 @@ function writeCharts(response) {
                         [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
                     ]
                 },
-                // threshold: null
+                threshold: 0
             },
                 {
                     type: 'column',
                     name: tickerName + ' Volume',
                     data: volume,
                     yAxis: 0,
-                    showInNavigator: false
+                    showInNavigator: false,
+                    threshold: 0
                 }]
 
 
