@@ -11,6 +11,7 @@ var summaryContent = document.getElementById("summary-content");
 var chartsContent = document.getElementById("charts-content");
 var newsContent = document.getElementById("news-content");
 
+console.log("After 16 hours minus.")
 
 function search(event) {
     let tickerName = TextArea.value.trim();

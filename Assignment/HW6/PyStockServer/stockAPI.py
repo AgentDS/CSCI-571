@@ -152,7 +152,7 @@ def stock_chartsAPI(keyword):
         return {}
     histdata = []
     for record in response:
-        tz_offset = 8 * 60 * 60 * 1000
+        tz_offset = 16 * 60 * 60 * 1000  # server time zone?
         date = int(
             datetime.strptime(record['date'],
                               '%Y-%m-%dT%H:%M:%S.%fZ').timestamp()) * 1000 - tz_offset  # ms rather than second
