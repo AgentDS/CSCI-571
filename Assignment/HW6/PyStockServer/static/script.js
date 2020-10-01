@@ -17,11 +17,14 @@ function search(event) {
     let tickerNameLen = tickerName.length;
     if (tickerNameLen >= 1) {
         event.preventDefault();
+        resetTabLinks();
         get_company_outlook(tickerName);
+        showSummary("off");
         get_stock_summary(tickerName);
+        showCharts("off");
         get_charts(tickerName);
+        showNews("off");
         get_news(tickerName);
-
     }
 }
 
@@ -33,7 +36,6 @@ function reset(event) {
 
 // write and show outlook at first
 function writeCompanyOutlook(response) {
-    resetTabLinks();
     showErrorResult("off");
     showResult("off");
     if (Object.keys(response).length === 0) {
@@ -59,7 +61,7 @@ function writeStockSummary(response) {
     if (Object.keys(response).length === 0) {
         console.log("Empty summary JSON, no such stock");
     } else {
-        showSummary("off");
+        // showSummary("off");
         let summaryTable = "<table>";
         summaryTable += "<tr><th>Stock Ticker Symbol</th><td>" + response["ticker"] + "</td></tr>";
         summaryTable += "<tr><th>Trading Day</th><td>" + response["timestamp"] + "</td></tr>";
@@ -90,8 +92,8 @@ function writeStockSummary(response) {
 
 // write but not show news at first
 function writeLatestNews(response) {
+    // showNews("off");
     let newsArray = response["latest_news"];
-    showNews("off");
     let latestNews = "";
     let newsNum = newsArray.length;
     let i;
