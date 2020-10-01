@@ -204,18 +204,12 @@ function writeCharts(response) {
             },
 
             series: [{
-                type: 'column',
-                name: tickerName + ' Volume',
-                data: volume,
-                yAxis: 0,
-                showInNavigator: false
-            }, {
                 type: 'area',
                 name: tickerName,
                 data: close,
                 yAxis: 1,
                 showInNavigator: true,
-                gapSize: 5,
+                // gapSize: 5,
                 tooltip: {
                     valueDecimals: 2
                 },
@@ -231,8 +225,15 @@ function writeCharts(response) {
                         [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
                     ]
                 },
-                threshold: null
-            }]
+                // threshold: null
+            },
+                {
+                    type: 'column',
+                    name: tickerName + ' Volume',
+                    data: volume,
+                    yAxis: 0,
+                    showInNavigator: false
+                }]
 
 
         });
