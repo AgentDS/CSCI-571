@@ -163,6 +163,10 @@ function writeCharts(response) {
             title: {
                 text: 'Volume'
             },
+            labels: {
+                align: 'left', // align text of label from left side
+            },
+            // offset: 1  // move Volume yAxis out of plot area, need to be dismissed with label align left
         }, {
             title: {
                 text: 'Stock Price'
