@@ -400,3 +400,11 @@ div.news-text p span {
     margin: 0;
     margin-left: 8px;
 }
+
+#charts-area {
+    background: transparent;
+    padding: 0;
+    border: none;
+    margin: 0;
+    width: 100%;
+}
