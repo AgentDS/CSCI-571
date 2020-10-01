@@ -18,6 +18,8 @@ function search(event) {
     if (tickerNameLen >= 1) {
         event.preventDefault();
         resetTabLinks();
+        showErrorResult("off");
+        showResult("off");
         get_company_outlook(tickerName);
         showSummary("off");
         get_stock_summary(tickerName);
