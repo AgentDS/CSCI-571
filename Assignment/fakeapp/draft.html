@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link type="text/css" rel="stylesheet" href="/static/hw6style.css">
+    <link type="text/css" rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-    <script src="/static/script.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="https://code.highcharts.com/indicators/indicators-all.js"></script>
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/data.js"></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data-2012-2022.min.js"></script>
+
 </head>
 <body>
 <div class="search_area">
@@ -37,21 +37,9 @@
         <button class="tablinks" onclick="openTab(event, 'news-content')">Latest News</button>
     </div>
 
-    <div id="outlook-content" class="tabcontent">
-        <!--        insert outlook table-->
-    </div>
-
-
-    <div id="summary-content" class="tabcontent">
-        <!--        insert summary table-->
-    </div>
-
     <div id="charts-content" class="tabcontent">
-        <!--        insert charts-->
-    </div>
-
-    <div id="news-content" class="tabcontent">
-        <!--        insert news-->
+        <div class="charts-area" id="charts_area1"></div>
+        <div class="charts-area" id="charts_area2"></div>
     </div>
 
 </div>

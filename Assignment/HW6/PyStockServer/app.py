@@ -15,7 +15,7 @@ app = Flask(__name__,
 @app.route('/')
 @app.route('/index')
 def index():
-    return app.send_static_file('hw6_StockSearch.html')
+    return app.send_static_file('hw6_StockSearch.html')  # TODO: hw6_StockSearch.html for official use
 
 
 @app.route("/api/v1.0/news/<string:ticker_name>", methods=['GET'])
@@ -34,6 +34,12 @@ def send_outlook(ticker_name):
 def send_stock_summary(ticker_name):
     stock_summary = stock_summaryAPI(ticker_name)
     return jsonify(stock_summary)  # jsonify the dict
+
+
+@app.route("/api/v1.0/charts/<string:ticker_name>", methods=['GET'])
+def send_price(ticker_name):
+    charts_data = stock_chartsAPI(ticker_name)
+    return jsonify(charts_data)
 
 
 if __name__ == '__main__':

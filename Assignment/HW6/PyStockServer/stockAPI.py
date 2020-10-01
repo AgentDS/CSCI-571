@@ -8,11 +8,19 @@ from newsapi import NewsApiClient
 from newsapi.newsapi_exception import NewsAPIException
 import requests
 import re
+from datetime import datetime
+import dateutil
+from dateutil.relativedelta import relativedelta
+import pytz
 
 tiingoAPIkey = 'be37d86b75ad931e483aaab61f620653921a7517'  # liangsiq@usc.edu
 
 # newsAPIkey = '83d88b3f4f9d44ccad89772a6ef0e218'  # zsxx56.12@163.com
 newsAPIkey = '166945ff132b43c2a1a395898628ab48'  # liangsiq@usc.edu
+
+
+def extract_date(timestamp):
+    return timestamp[:10]
 
 
 def extract_article(article):
@@ -120,5 +128,33 @@ def stock_summaryAPI(keyword):
         return {}
 
 
-def tiingoAPI():
-    pass
+def stock_chartsAPI(keyword):
+    """
+    API Sample:
+    https://api.tiingo.com/iex/keyword/prices?startDate=prior_date&resampleFreq=12hour&columns=open,high,low,close,volume&token=API_KEY
+
+    :param keyword:
+    :return:
+    """
+    la_tz = pytz.timezone('America/Los_Angeles')
+    la_current_time = datetime.now(tz=la_tz)
+    la_prior_time = la_current_time - relativedelta(months=6)
+    formed_la_current_time = la_current_time.strftime("%Y-%m-%d")  # '2020-09-30'
+    la_prior_date = la_prior_time.strftime("%Y-%m-%d")  # TODO: 6 month before current date
+    freq = "12hour"  #
+    headers = {'Content-Type': 'application/json'}
+    charts_url = "https://api.tiingo.com/iex/%s/prices?startDate=%s&resampleFreq=%s&columns=open,high,low,close,volume&token=%s" % (
+        keyword, la_prior_date, freq, tiingoAPIkey)
+    response = requests.get(charts_url, headers=headers).json()
+
+    # if no such stock, the response is {"detail":"Not found."}
+    if isinstance(response, dict):
+        return {}
+    histdata = []
+    for record in response:
+        tz_offset = 8 * 60 * 60 * 1000
+        date = int(
+            datetime.strptime(record['date'],
+                              '%Y-%m-%dT%H:%M:%S.%fZ').timestamp()) * 1000 - tz_offset  # ms rather than second
+        histdata.append([date, record['close'], int(record['volume'])])
+    return {'hist_data': histdata, 'ticker_name': keyword.upper(), 'current_date': formed_la_current_time}

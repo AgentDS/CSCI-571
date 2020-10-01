@@ -136,7 +136,7 @@ input[type=submit]:hover, input[type=reset]:hover {
     margin-left: 18%;
     background: transparent;
     width: 950px;
-    display: none; /*initial hidden*/
+    /*display: none; initial hidden*/
 }
 
 #error_search_result {
@@ -224,7 +224,7 @@ div.tabcontent {
     margin: 0;
     margin-top: 40px;
     margin-bottom: 40px;
-    display: none; /*initially hide*/
+    /*display: none; initially hide*/
 }
 
 
@@ -311,6 +311,16 @@ table tr td p {
     -webkit-line-clamp: 5;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+
+div.charts-area {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    background: white;
+    height: 400px;
+    width: 100%;
 }
 
 div.news-box {
@@ -400,3 +410,4 @@ div.news-text p span {
     margin: 0;
     margin-left: 8px;
 }
+

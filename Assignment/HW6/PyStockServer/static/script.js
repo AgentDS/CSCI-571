@@ -17,10 +17,10 @@ function search(event) {
     let tickerNameLen = tickerName.length;
     if (tickerNameLen >= 1) {
         event.preventDefault();
-        get_company_outlook(tickerName);
-        get_stock_summary(tickerName);
+        // get_company_outlook(tickerName);
+        // get_stock_summary(tickerName);
         get_charts(tickerName);
-        get_news(tickerName);
+        // get_news(tickerName);
 
     }
 }
@@ -108,11 +108,150 @@ function writeLatestNews(response) {
 }
 
 function writeCharts(response) {
-    console.log("response type: " + typeof (response));
+    let histData = response["hist_data"]; // [[date, close, volume], [date, close, volume], ....]
+    let tickerName = response['ticker_name'];
+    let currentDate = response['current_date'];
+    console.log("ticker name:" + tickerName);
 
-    showCharts("off");
+    // split the data set into close and volume
+    let volume = [], close = [], dataLength = histData.length;
+    let i;
+
+    for (i = 0; i < dataLength; i += 1) {
+        close.push([
+            histData[i][0], // the date
+            histData[i][1] // close
+        ]);
+
+        volume.push([
+            histData[i][0], // the date
+            histData[i][2] // the volume
+        ]);
+    }
+
+    // Highcharts.setOptions({
+    //     time: {
+    //         /**
+    //          * Use moment-timezone.js to return the timezone offset for individual
+    //          * timestamps, used in the X axis labels and the tooltip header.
+    //          */
+    //         getTimezoneOffset: function (timestamp) {
+    //             var zone = 'America/Los_Angeles',
+    //                 timezoneOffset = -moment.tz(timestamp, zone).utcOffset();
+    //
+    //             return timezoneOffset;
+    //         }
+    //     }
+    // });
+
+    // TODO: create the chart
+    Highcharts.stockChart('charts-content', {
+        stockTools: {
+            gui: {
+                enabled: false // disable the built-in toolbar
+            }
+        },
+
+        xAxis: {
+            type: 'datetime',
+            labels: {
+                format: '{value:%e. %b}'
+            }
+        },
+
+        yAxis: [{
+            title: {
+                text: 'Volume'
+            },
+        }, {
+            title: {
+                text: 'Stock Price'
+            },
+            opposite: false
+        }],
+
+        plotOptions: {
+            column: {
+                pointWidth: 2,
+                color: '#404040'
+            }
+        },
+
+        rangeSelector: {
+            buttons: [{
+                type: 'day',
+                count: 7,
+                text: '7d'
+            }, {
+                type: 'day',
+                count: 15,
+                text: '15d'
+            }, {
+                type: 'month',
+                count: 1,
+                text: '1m'
+            }, {
+                type: 'month',
+                count: 3,
+                text: '3m'
+            }, {
+                type: 'month',
+                count: 6,
+                text: '6m'
+            }],
+            selected: 4,
+            inputEnabled: false
+        },
+
+        title: {
+            text: 'Stock Price ' + tickerName + ' ' + currentDate
+        },
+
+        subtitle: {
+            text: '<a href="https://api.tiingo.com/" target="_blank">Sourse: Tiingo</a>',
+            useHTML: true
+        },
+
+        series: [{
+            type: 'column',
+            name: tickerName + ' Volume',
+            data: volume,
+            yAxis: 0,
+            showInNavigator: false
+        }, {
+            type: 'area',
+            name: tickerName,
+            data: close,
+            yAxis: 1,
+            showInNavigator: true,
+            gapSize: 5,
+            tooltip: {
+                valueDecimals: 2
+            },
+            fillColor: {
+                linearGradient: {
+                    x1: 0,
+                    y1: 0,
+                    x2: 0,
+                    y2: 1
+                },
+                stops: [
+                    [0, Highcharts.getOptions().colors[0]],
+                    [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                ]
+            },
+            threshold: null
+        }]
+
+
+    });
+
+
+    showCharts("on");
+    showResult("on");
 
     let charts = "";
+
 
     // chartsContent.innerHTML = response;
 }
@@ -149,7 +288,7 @@ function get_stock_summary(tickerName) {
 }
 
 function get_charts(tickerName) {
-    writeCharts(null);  // TODO: need to replace with serverRequest
+    serverRequest("/api/v1.0/charts/" + tickerName, "charts", writeCharts);  // TODO: need to replace with serverRequest
 }
 
 function showErrorResult(state) {
