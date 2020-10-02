@@ -11,7 +11,7 @@ var summaryContent = document.getElementById("summary-content");
 var chartsContent = document.getElementById("charts-content");
 var newsContent = document.getElementById("news-content");
 
-console.log("After 16 hours minus.")
+console.log("After null entry in return")
 
 function search(event) {
     let tickerName = TextArea.value.trim();
@@ -74,19 +74,25 @@ function writeStockSummary(response) {
         summaryTable += "<tr><th>Low Price</th><td>" + response["low"] + "</td></tr>";
         summaryTable += "<tr><th>Last Price</th><td>" + response["last"] + "</td></tr>";
         summaryTable += "<tr><th>Change</th><td>" + response["change"];
-        if (response["change"][0] === "-") {
-            summaryTable += "<img src=\'" + urlArrowDown + "\' alt=\'ArrowDown\' ";
+        if (response["change"] != null) {
+            if (response["change"][0] === "-") {
+                summaryTable += "<img src=\'" + urlArrowDown + "\' alt=\'ArrowDown\' class=\'table-img\'></td></tr>";
+            } else {
+                summaryTable += "<img src=\'" + urlArrowUp + "\' alt=\'ArrowUp\' class=\'table-img\'></td></tr>";
+            }
         } else {
-            summaryTable += "<img src=\'" + urlArrowUp + "\' alt=\'ArrowUp\' ";
+            summaryTable += "</td></tr>";
         }
-        summaryTable += "class=\'table-img\'></td></tr>";
         summaryTable += "<tr><th>Change Percent</th><td>" + response["changePercent"];
-        if (response["changePercent"][0] === "-") {
-            summaryTable += "<img src=\'" + urlArrowDown + "\' alt=\'ArrowDown\' ";
+        if (response["changePercent"] != null) {
+            if (response["changePercent"][0] === "-") {
+                summaryTable += "<img src=\'" + urlArrowDown + "\' alt=\'ArrowDown\' class=\'table-img\'></td></tr>";
+            } else {
+                summaryTable += "<img src=\'" + urlArrowUp + "\' alt=\'ArrowUp\' class=\'table-img\'></td></tr>";
+            }
         } else {
-            summaryTable += "<img src=\'" + urlArrowUp + "\' alt=\'ArrowUp\' ";
+            summaryTable += "</td></tr>";
         }
-        summaryTable += "class=\'table-img\'></td></tr>";
         summaryTable += "<tr><th>Number of Shared Traded</th><td>" + response["volume"] + "</td></tr>";
         summaryTable += "</table>";
         summaryContent.innerHTML = summaryTable;
@@ -113,7 +119,7 @@ function writeLatestNews(response) {
 }
 
 function writeCharts(response) {
-    if (Object.keys(response).length === 0) {
+    if (response["hist_data"].length === 0) {
         console.log("Empty charts JSON, no such stock");
     } else {
         showCharts("off");
@@ -157,12 +163,12 @@ function writeCharts(response) {
             yAxis: [{
                 title: {text: 'Volume'},
                 labels: {align: 'left'}, // align text of label from left side
-                zoomEnabled: false
+                min: 0,
                 // offset: 1  // move Volume yAxis out of plot area, need to be dismissed with label align left
             }, {
                 title: {text: 'Stock Price'},
                 opposite: false,
-                zoomEnabled: false
+                min: 0,
             }],
 
             plotOptions: {
@@ -227,7 +233,6 @@ function writeCharts(response) {
                         [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
                     ]
                 },
-                threshold: 0
             },
                 {
                     type: 'column',
@@ -235,7 +240,6 @@ function writeCharts(response) {
                     data: volume,
                     yAxis: 0,
                     showInNavigator: false,
-                    threshold: 0
                 }]
 
 

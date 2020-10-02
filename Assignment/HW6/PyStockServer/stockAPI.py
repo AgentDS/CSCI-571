@@ -23,6 +23,16 @@ def extract_date(timestamp):
     return timestamp[:10]
 
 
+def get_str_none(value, format="%.2f"):
+    if value is None:
+        return None
+    else:
+        if format == "%.2f":
+            return "%.2f" % value
+        if format == "%d":
+            return "%d" % value
+
+
 def extract_article(article):
     if article.get('title', None) is not None:
         if article.get('url', None) is not None:
@@ -39,19 +49,31 @@ def extract_article(article):
 
 
 def extract_summary(ori_sum):
-    res = re.search(r'(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})',
-                    ori_sum['timestamp']).groupdict()
-    formed_date = res['year'] + '-' + res['month'] + '-' + res['day']
+    print(ori_sum['timestamp'])
+    if ori_sum['timestamp'] is not None:
+        res = re.search(r'(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})',
+                        ori_sum['timestamp']).groupdict()
+        formed_date = res['year'] + '-' + res['month'] + '-' + res['day']
+    else:
+        formed_date = None
+
+    if isinstance(ori_sum["last"], float) and isinstance(ori_sum["prevClose"], float):
+        change = "%.2f" % (ori_sum["last"] - ori_sum["prevClose"])
+        changePercent = "%.2f%%" % (100.0 * (ori_sum["last"] - ori_sum["prevClose"]) / ori_sum["prevClose"])
+    else:
+        change = None
+        changePercent = None
+
     return {"ticker": ori_sum["ticker"],
             "timestamp": formed_date,
-            "prevClose": "%.2f" % ori_sum["prevClose"],
-            "open": "%.2f" % ori_sum["open"],
-            "high": "%.2f" % ori_sum["high"],
-            "low": "%.2f" % ori_sum["low"],
-            "last": "%.2f" % ori_sum["last"],
-            "change": "%.2f" % (ori_sum["last"] - ori_sum["prevClose"]),
-            "changePercent": "%.2f%%" % (100.0 * (ori_sum["last"] - ori_sum["prevClose"]) / ori_sum["prevClose"]),
-            "volume": "%d" % ori_sum["volume"]}
+            "prevClose": get_str_none(ori_sum['prevClose']),
+            "open": get_str_none(ori_sum['open']),
+            "high": get_str_none(ori_sum['high']),
+            "low": get_str_none(ori_sum['low']),
+            "last": get_str_none(ori_sum['last']),
+            "change": change,
+            "changePercent": changePercent,
+            "volume": get_str_none(ori_sum['volume'], "%d")}
 
 
 def extract_outlook(ori_outlook):
