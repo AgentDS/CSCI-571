@@ -1188,3 +1188,393 @@ var myObject = JSON.parse(JSONtext [, reviver]);
   - **Non-request-specific**: ``SERVER_NAME``, ``SERVER_PORT``, ``SERVER_SOFTWARE``, ``SERVER_PROTOCOL``, ``GATEWAY_INTERFACE``
   - **Request-specific**: ``PATH_INFO``, ``REQUEST_METHOD``, ``SCRIPT_NAME``, ``QUERY_STRING``
 
+
+
+
+
+## Lec12 HTTP Protocol
+
+### What does WWW server do?
+
+- Enables browser requests
+- Provides
+  - Support for retrieving hypertext documents
+  - Manages access to the Web site
+  - Provides several mechanisms for executing server-side scripts
+    - Common Gateway Interface (CGI)
+    - Application Programmers Interface (API)
+  - produces log files and usage statistics
+
+
+
+### How does a Web server communicate?
+
+- Web browsers and servers communicate using the **HyperText Transfer Protocol** (HTTP)
+- HTTP is a **lightweight** protocol
+  - FTP protocol: FTP session is long lived and there are 2 connections (1 for control, 1 for data)
+- Current HTTP is version 1.1
+- HTTP 2.0 under the IETF httpbis working group
+
+
+
+### HTTP History
+
+- application-level protocol for distributed, collaborative, hypermedia information systems
+- first version of HTTP: __HTTP 0.9__, a simple protocol for raw data transfer across the Internet
+- HTTP 1.0 is defined by RFC 1945, messages containing meta-information about the data reansferred and modifiers on the request/response semantics
+- HTTP 1.1 is defined by RFCs 7230-7237,  being able to handle the handle
+  - the effect of hierachical proxies
+  - caching
+  - the need for persistent connections
+  - virtual hosts
+- HTTP 2 worked by IETF working group
+  - started as a copy as a copy of Google SPDY (<u>SPeeDY</u>)
+  - speed up websites far larger than 10 years ago, using hundreds of requests/connections
+  - uses __header compression__
+  - Google has dropped SPDY from Chrome and adopted HTTP 2
+  - Dozens of implementations already available, including **Apache (2.4+)**, Apache-Tomcat (8.5+), **Nginx (1.9.5+)**
+
+
+
+### MIME Media types
+
+- HTTP tags all data that it sends with its MIME type
+
+- HTTP sends the MIME type of the file using the line
+
+  ```http
+  Content-Type: [mime type header]
+  ```
+
+  for example:
+
+  ``Content-type: image/jpeg``,  ``Content-length: 1598``
+
+- MIME types:
+
+  - ``text/plain``, ``text/html``
+  - ``image/gif``, ``image/jpeg``
+  - ``audio/basic``, ``audio/wav``, ``audio/x-pn-realaudio``
+  - ``model/vrml``
+  - ``video/mpeg``, ``video/quicktime``, ``video/vnd.rn- realmedia``, ``video/x-ms-wmv``
+  - ``application/*``, ``application-specific`` data that does not fall under any other MIME category, e.g. application/vnd.ms-powerpoint
+
+- MIME: __Multipurpose Internet Mail Extensions__, an Internet standard for **electronic mail**
+
+  - Traditional e-mail was limited to ASCII text, limited line length, and limited size
+
+- MIME has extended Internet e-mail to include
+
+  - Unlimited text line and message length
+  - Messages with multiple body parts or objects enclosed
+  - International character sets in addition to US-ASCII
+  - Formatted text including multiple font styles
+  - Images
+  - Video clips
+  - Audio messages
+  - Application-specific binary data
+
+- was formalized in RFC 2046
+
+- converts 8-bit data into 7-bit ASCII, sends it, and reconverts it at the other end
+
+
+
+
+
+### HTTP Scenario
+
+#### An HTTP 1.0 "default" Scenario
+
+Communication takes place over a TCP/IP connection, generally on __port 80__.
+
+|                        Client action                         |                       Server response                        |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                 1. client opens a connection                 |           server response with an acknowledgement            |
+|        2. Client sends HTTP request for HTML document        | server responses with the document and closes the connection |
+| 3. Client parses the HTML document and opens a new connection; it sends a request for an image | server responds with the inlined image and closes the connection |
+| 4. Client opens a connection and sends another request for another image |   server sends the inlined image and closes the connection   |
+
+#### A more Complicated HTTP Scenario
+
+- communication can go between one or more **intermediaries**
+- Common forms of intermediary:
+  - __proxy:__ a forwarding agent, receives requests for a URL in its absolute form, rewrites all or part of the message, and forward the reformatted request toward the server identified by the URI
+  - __gateway:__ a receiving agent, acts as a layer above some other servers and, if necessary, translating the requests to the underlying server's protocol
+  - __tunnel:__ acts as a relay point between two connections without changing the messages; tunnels are used when the communication needs to pass through an intermediary (firewall for example) even through an intermediary cannot understand the  contents of the messages (<u>no caching</u>)
+
+##### Caching Proxies
+
+A __web cache__ or __caching proxy__ is a special type of HTTP proxy server that keep copies of popular documents that pass through the proxy (“forward” proxy). The next client requesting the same document can be served from the cache's personal copy.
+
+__<u>Forward proxy hides the clients, backward proxy hides the servers.</u>__
+
+
+
+##### Gateways
+
+Gateways are special servers that act as intermediaries for other servers, used to convert HTTP traffic to another protocol. A gateway always receives requests as if it was the origin server for the resource. The client may not be aware it is communicating with a gateway.
+
+> __Example__
+>
+> an HTTP/FTP gateway receives requests for FTP URIs via HTTP requests but fetches the documents using the FTP protocol. The resulting document is packed into an HTTP message and sent to the client.
+
+
+
+##### Tunnels
+
+Tunnels are HTTP applications that, after setup, blindly relay raw data between two connections. HTTP tunnels are often used to transport non-HTTP data over one or more HTTP connections, <u>without looking at the data</u>.
+
+
+
+#### the Most General HTTP Scenario
+
+Communication between browser and server should be regarded as a **request chain** goes left to right, and a __response chain__ goes right to left:
+
+__``UA``__-->__``A``__-->__``B``__-->__``C``__-->__``O``__
+
+- __``A``__, __``B``__ and __``C``__ are three intermediaries between the user agent and origin server. A request or response message that travels the whole chain will pass through four separate connections
+- __``UA``__ stands for User Agent, typically a browser
+- __``O``__ stands for the origin server; the server that actually delivers the document
+
+
+
+### Connections
+
+#### Persistent Connections
+
+- In the original HTTP protocol each request was made over a new connection
+  - an HTML page with n distinct graphic elements produced __n+1__ requests
+- TCP uses a three-way handshake when establishing a connection
+  - client sends SYN
+  - server replies ACK/SYN
+  - client responds with ACK
+- HTTP 1.0 introduced a **keep-alive** feature
+  - the connection between client and server is maintained for a period of time allowing for multiple requests and responses
+  - a.k.a. __persistent connection__
+
+- Persistent connections are now the <u>default</u>
+
+- request header to set timeout (in sec.) and max. amount of requests, before closing:
+
+  ```http
+  Keep-Alive: timeout=5, max=1000
+  ```
+
+- client and server must explicitly say they do NOT want persistence using the header
+
+  ```http
+  Connection: close
+  ```
+
+- HTTP permits multiple connections in parallel, but generally browsers severely limit multiple connections and servers do as well
+
+
+
+#### Example of a ``GET`` request
+
+- Suppose the user clicks on the link:
+
+  ```html
+  <A HREF="http://www.usc.edu/html/file.html">click here </A>
+  ```
+
+- The request from the client may contain the following lines
+
+  ```http
+  GET /html/file.html HTTP/1.1
+  Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+  User-Agent: Mozilla/5.0 (Windows NT 5.1; rv:15.0) Gecko/20100101 Firefox/15.0.1
+  Referer: http://www.usc.edu/html/prevfile.html If-Modified-Since: Wed, 11 Feb 2009 13:14:15 GMT {there is a blank line here which terminates the input}
+  ```
+
+- the server responds with the following
+
+  ```http
+  HTTP/1.1 200 OK
+  Date: Monday, 29-May-09 12:02:12 GMT Server: Apache/2.0
+  MIME-version: 1.0
+  Content-Type: text/html
+  Last-modified: Sun, 28-May-09 15:36:13 GMT Content-Length: 145
+  {a blank line goes here }
+  {the contents of file.html goes here }
+  ```
+
+
+
+#### Client HTTP request
+
+The general form of an HTTP request has four fields:
+
+- ``HTTP_Method``: to be done to the object specified in the URL; some possibilities include ``GET``, ``HEAD``, and ``POST``
+  - ``GET``: retrieve whatever information is identified by the request URL
+  - ``HEAD``: identical to ``GET``, except the server does not return the body in the response
+  - ``POST``: instructs the server that the request includes a block of data in the message body, which is typically used as input to a server-side application
+  - ``PUT``: used to modify existing resourses or create new ones, contained in the message body
+  - ``DELETE``: used to remove existing resourses
+  - ``TRACE``: traces the requests in a chain of web proxy servers; used primarily for diagnostics
+  - ``OPTIONS``: aloows requests for info about the server's capabilities
+- ``identifier``: the URL of the resourse or the body
+- ``HTTP_version``: the current HTTP version, e.g. HTTP/1.1
+- ``Body``: optional text
+
+
+
+#### HTTP Headers
+
+- HTTP/1.1 divides headers into four categories:
+  - ``general``: present in requests or responses
+  - ``request``: present only in requests
+  - ``response``: present only in response
+  - ``entity``: describe the content of a body
+
+
+
+#### Byte Range Headers
+
+- Requests
+
+  - ``If-Range``: ``entity-tag``
+  - ``Range``: ``bytes=1-512``, ``2046-4096``
+
+  used to request a byte range
+
+- Responses
+
+  - ``Accespt-ranges``: ``bytes`` 
+
+  indicates the server can respond to range requests
+
+- Entity
+
+  - ``Content-Range``: ``0-399/2000``
+
+  response to byte range request giving the byte ranges actually returned, e.g. the first 400 bytes of a 2000 byte document
+
+
+
+> - HTTP/1.1 introduces Vary: ``accept-language``, ``user-agent`` the header specifies acceptable languages and browsers.
+> - if a French version is requested and cached, then a new request may fail to retrieve the English version
+>
+> > __request:__
+> >
+> > ```http
+> > GET http://www.myco.com/ HTTP/1.1 
+> > User-agent: Mozilla/4.5 
+> > Accept-language: en
+> > ```
+> >
+> > __response:__
+> >
+> > ```http
+> > HTTP/1.1 200 OK
+> > Vary: Accept-language 
+> > Content-type: text/html 
+> > Content-language: en
+> > ```
+
+
+
+> __Response Header Status Code__
+>
+> ```
+> 10    Response is stale
+> 11    Revalidation failed
+> 12    Disconnected operation
+> 13    Heuristic expiration
+> 14    Transformation applied
+> 99    Miscellaneous warning
+> ```
+
+#### Entity Tags
+
+- used for web cache validation, and which allows a client to make conditional requests
+- assigned by a web server to a specific version of a resource found at a URL
+  - If the resource content at that URL ever changes, a new/different ETag is assigned
+  - ETags are similar to **fingerprints**, and they can be compared to determine whether two versions of a resource are the same
+- An ETag is a serial number or a checksum that uniquely identifies the file
+  - caches use the **If-None-Match** condition header to get a new copy if the entity tag has changed
+  - if the tags match, then a ``304 Not Modified`` is returned
+- ETag is determined by the server, sent as response
+
+
+
+#### HTTP Status Codes
+
+- Informational
+
+  - ``100``: Continue, the client may continue with its request; used for a PUT before a large document is sent
+  - ``101``: Switching Protocols, switching either the version or the actual protocol
+
+- Successful
+
+  - ``200``: OK, request succeeded
+  - ``201``: Created, result is newly created
+  - ``202``, Accepted, the resourse will be created later
+  - ``203``: Non-authoritative information, infor returned is from a cached copy and may be wrong
+  - ``204``: No content, response is intensionally blank, so client should not change the page
+  - ``205``: Reset Content, notifies the client to reset the current document, e.g. clear a form field
+  - ``206``: Partial content, e.g. a byte range response
+
+- Redirection
+
+  <img src="./redirection_code.png" height=300 align='left'>
+
+- Client Error
+
+  <img src="./client_error.png" height=300 align='left'>
+
+  <img src="./client_error2.png" height=300 align='left'>
+
+- Server Error
+
+  <img src="./server_error.png" height=300 align='left'>
+
+
+
+### HTTP Authentication
+
+- The web server can maintain secure directories and request authentication when someone tries to access them
+- Procedure:
+  - web server receives a request without proper authorization
+  - web server responds with ``401 Authentication Required``
+  - client prompts for username and password and returns the information to the web server
+
+
+
+### META HTTP-EQUIV (meta tag)
+
+- a mechanism for authors of HTML documents to set HTTP headers, in particular HTTP responses
+- Two common used:
+  - set the __expiration time__ of a document
+  - cause a __refresh__ of a document
+- ``<meta http-equiv="refresh" content="5, http://csci571.com/index.html">``
+
+
+
+### ``X-Frame-Options: sameorigin``
+
+Indicate whether or not a browser should be allowed to render a page in a ``<frame>`` or ``<iframe>``. Sites can use this to avoid clickjacking attacks, by **ensuring that their content is not embedded** into other sites;
+
+- ``deny``
+- ``sameorigin``
+- ``allow-from uri``
+
+
+
+### HTTP Strict-Transport-Security (HSTS)
+
+- HSTS is a security feature that lets a web site tell browsers that it should only be **communicated with using HTTPS**, instead of using HTTP
+
+```
+Strict-Transport-Security: max-age=expireTime [; includeSubdomains]
+```
+
+
+
+### Cross-origin resourse sharing (CORS)
+
+- CORS allows allows many resources (e.g, fonts, JavaScript, etc.) on a web page to be requested across domains
+- **AJAX calls can use XMLHttpRequest across domains**
+- If the server does not allow the CORS request, the browser will deliver an error instead of the asked URL response.
+
