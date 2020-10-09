@@ -1232,7 +1232,7 @@ var myObject = JSON.parse(JSONtext [, reviver]);
   - speed up websites far larger than 10 years ago, using hundreds of requests/connections
   - uses __header compression__
   - Google has dropped SPDY from Chrome and adopted HTTP 2
-  - Dozens of implementations already available, including **Apache (2.4+)**, Apache-Tomcat (8.5+), **Nginx (1.9.5+)**
+  - Dozens of implementations (server) already available, including **Apache (2.4+)**, Apache-Tomcat (8.5+), **Nginx (1.9.5+)**
 
 
 
@@ -1344,6 +1344,7 @@ __``UA``__-->__``A``__-->__``B``__-->__``C``__-->__``O``__
 #### Persistent Connections
 
 - In the original HTTP protocol each request was made over a new connection
+  
   - an HTML page with n distinct graphic elements produced __n+1__ requests
 - TCP uses a three-way handshake when establishing a connection
   - client sends SYN
@@ -1577,4 +1578,88 @@ Strict-Transport-Security: max-age=expireTime [; includeSubdomains]
 - CORS allows allows many resources (e.g, fonts, JavaScript, etc.) on a web page to be requested across domains
 - **AJAX calls can use XMLHttpRequest across domains**
 - If the server does not allow the CORS request, the browser will deliver an error instead of the asked URL response.
+
+
+
+## Lec13 Web Service and REST
+
+Implementation of Web Services is roughly divided into three categories:
+
+- <u>Big Web Services</u> which involve XML messages that are communicated by the Simple Object Access Protocol (SOAP); the API is formally described using the Web Services Description Language (WSDL). These services are normally used for server to server communication, using additional protocols like XML Security and XML Encryption
+- <u>REST</u> (Representational State Transfer) *Services* which use HTTP methods PUT, GET, POST and DELETE
+- <u>Cloud Services</u> which provide cloud storage, application hosting, content delivery, and other hosting services
+
+__All three types of Web Services provide access through APIs.__
+
+### REST Service
+
+#### Introduction
+
+- REST service ca be used to access sites that perform the following function
+  - Web Search
+  - Geolocation
+  - Photo sharing
+  - Social Networking
+  - Mapping
+- Access is provided using one or both methods:
+  - __Direct URL__: return a response in one or more formats (XML, JSON, PHP)
+  - __Library-based APIs__: embedded in JavaScript, Java, C#, Object-C and others
+- Many of these services now require or include **OAuth user authentication**
+  - Oauth is a standard for clients to access server resources on behalf of a resource owner
+
+#### REST (Representational State Transfer)
+
+- REST is a style of software architecture for distributed hypermedia systems
+  - The World Wide Web is an example of REST
+- There are three fundamental aspects of the REST Design Pattern
+  - __client__, __servers__, __resources__
+  - Resources are typically represented as documents
+  - Systems that follow Fielding's REST principles are often referred to as **RESTful**
+
+#### REST vs Other Approaches
+
+- REST
+  - Software architectural style for distributed hypermedia systems like WWW
+  - Quickly gained popularity through its **simplicity**
+- SOAP
+  - Protocol for exchanging XML-based message, normally using HTTP
+  - Much more robust way to make requests, but more robust than most APIs need
+  - More **complicated** to use
+- XML-RPC
+  - RPC protocol with XML as a encoding and HTTP as a transport
+  - More complex than REST but much simpler than SOAP
+- JSON-RPC
+  - RPC protocol encoded in JSON instead of XML
+  - Very simple protocol (and very similar to XML-RPC)
+
+
+
+#### REST as Lightweight Web Services
+
+- a REST service is:
+  - Platform-independent
+  - Language-independent
+  - Standard-based (runs on top of HTTP)
+  - Can be used in the presence of **firewalls** (port80/443alwaysopen)
+- Like Web Services, REST offers no built-in security features, encryption, session management, QoS guarantees, etc. But also as with Web Services, these can be added by building on top of HTTP:
+  - For security, username/password tokens are often used
+  - For encryption, REST can be used on top of **HTTPS**(secure sockets)
+- REST *requests* rarely use XML
+- Newer REST Services use JSON in their responses
+
+
+
+### Cloud Service
+
+- Cloud Services covers a variety of hosting services:
+  - Application Hosting
+  - Backup and Storage
+  - Content Delivery
+  - E-commerce
+  - Media Hosting
+  - DNS Protection Services
+  - Consumer Cloud Storage
+- Access is provided using one or both of these methods:
+  - Dashboard
+  - Library-based APIs: embedded in Java, C#, Objective-C and other binary library formats
 
