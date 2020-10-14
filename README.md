@@ -179,3 +179,47 @@ __Resources:__
 
 
 
+### Homework 8
+
+#### Client-Side
+
+#### Description
+
+- __Client-side__
+  - HTML5
+  - Angular 10
+  - Bootstrap 4 for responsive design
+- __Server-side__
+  - Node.js, Express.js
+  - **All APIs calls should be done through your Node.JS server**
+- use AJAX, JSON
+- use APIs like Tiingo API and NewsAPI
+- __Watchlist__: HTML5 localstorage for 'star' 
+- 
+
+
+
+#### Routes
+
+1. Homepage/ Search Route`` ['/']`` – It is a default route of this application
+2. Watchlist Route ``['/watchlist']`` – It displays the watchlist of the user
+3. Portfolio Route ``['/portfolio']`` – It displays the portfolio of the user
+4. Details Route`` ['/details/<ticker>']`` – It shows the details of the ``<ticker>``
+
+
+
+#### Tiingo API
+
+- https://api.tiingo.com/
+  - user name: siqiliang
+  - email: liangsiq@usc.edu
+  - password: liangsiqi1101
+  - API token: ``be37d86b75ad931e483aaab61f620653921a7517``
+
+#### Latest News
+
+- ```python
+  # newsAPIkey = '83d88b3f4f9d44ccad89772a6ef0e218'  # zsxx56.12@163.com
+  newsAPIkey = '166945ff132b43c2a1a395898628ab48'  # liangsiq@usc.edu
+  ```
+

@@ -1663,3 +1663,204 @@ __All three types of Web Services provide access through APIs.__
   - Dashboard
   - Library-based APIs: embedded in Java, C#, Objective-C and other binary library formats
 
+
+
+## Lec15 Ajax: Asynchronous JavaScript + XML
+
+Ajax incorporates:
+
+- standards-based presentation using XHTML
+- CSS, dynamically manipulated using JavaScript
+- dynamic display and interaction using the Document Object Model (DOM). Web page exposed as DOM object
+- data interchange using XML
+- asynchronous data retrieval using XMLHttpRequest, a JavaScript object, a.k.a “Web remoting”
+- JavaScript binding everything together
+- Server no longer performs display logic, only business logic
+
+
+
+History & Browsers Supporting Ajax:
+
+- first Ajax-enabled browser: IE5
+
+
+
+__Characteristics of Ajax Applications:__
+
+- applications (or Apps), not just web sites
+- allow for smooth, continuous interaction
+- "Live" content
+- Visual Effects
+- Animations, dynamic icons
+- Single keystrokes can lead to server calls
+- New Widgets (selectors, buttons, tabs, lists)
+- New Styles of Interaction (drag-and-drop, keyboard shortcuts, double-click)
+
+
+
+#### Traditional vs. Ajax Websites
+
+|                         Traditional                          |                             Ajax                             |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| Interface construction is mainly the responsibility of the server | Interface is manipulated by client-side JavaScript manipulations of the Document Object Model (DOM) |
+|           User interaction is via form submissions           | User interaction via HTTP requests occur ‘behind the scenes’ |
+| An entire page is required for each interaction (bandwidth)  |         Communication can be restricted to data only         |
+| Application is unavailable while an interaction is processing (application speed) |               Application is always responsive               |
+
+
+
+Ajax:
+
+- Cuts down on user wait time
+
+- Uses client to offload some work from the server
+
+- Asynchronous operation
+
+<img src="./ajax-traditional-web.png" height=350px>
+
+### Ajax Engine Role
+
+- Every user action that normally would generate an HTTP request takes the form of a JavaScript call to the Ajax engine instead
+
+- Any response to a user action that doesn't require a trip back to the server, such as:
+
+  - simple data **validation** 
+  - **editing** data in memory 
+  - even some **navigation**
+
+  the engine handles on its own
+
+- If the engine needs something from the server in order to respond, such as:
+
+  - **submitting** data for processing
+  - **loading** additional **interface** code 
+  - **retrieving** new **data**
+
+  the engine makes those requests asynchronously, retrieving results in JSON or XML, without stalling a user’s interaction with the application
+
+transaction completion state code: ``4``
+
+``xhr.responseText`` is JSON format,  ``xhr.responseXML`` is XML data.
+
+ 
+
+### Security Issues
+
+- When the XMLHttpRequest object operates within a browser, it **adopts the same-domain security policies** of typical JavaScript activity (sharing the same "sandbox," as it were)
+- **Everything must come from the same domain**
+
+### Ajax Cross Domain Security
+
+image doesn't need to worry about cross domain issues.
+
+#### Cross-domain solutions
+
+- install web proxy on the server
+- CORS: work on all recent browsers
+
+#### Fetch API 
+
+- no cross-site cookie
+- do not sent cookie
+
+
+
+
+
+## Lec16 Responsive Web Design
+
+### The Need: Mobile Growth
+
+Websites must be designed to make sure the mobile viewer has an excellent experience.
+
+
+
+__Mobile devices offer:__
+
+- Use of **geo-location** to optimize the experience.
+- Require **Switch layouts** depending on the way they're held.
+- Need to support rich, **multi-touch** interfaces
+  - input devices that recognize two or more simultaneous touches – e.g. two finger tap, two finger scroll, pinch, zoom
+  - some devices also recognize differences in pressure and temperature
+
+
+
+#### Design for Mobile Web
+
+3 main approaches:
+
+1. Build an entirely separate mobile **.mobi site**
+   - The domain name **mobi** is a top-level domain. Its name is derived from the adjective *mobile*, indicating it is used by mobile devices for accessing Internet resources via the Mobile Web
+   - The domain was approved by ICANN on 11 July 2005, and is managed by the mTLD global registry
+   - To date only 0.06% of web TLDs
+2. Host the mobile site within your current domain (a **subdomain**) (**mobile.**mycompany.com)
+3. Configure your current website for mobile display using *Responsive Web Design* (**RWD**) techniques
+
+
+
+#### Why not use mobile.mycompany.com webs?
+
+1. Redirects can hinder/annoy search engines
+2. Redirects take lots of time
+3. If you offer a mobile.website for iPhone, what about for iPad, Android, etc.
+4. Sharing a mobile.website will not work for people on laptops, as they will end up with a site designed for a small screen
+5. Philosophical: every web resource should live at one URL!
+
+
+
+### What is Responsive Web Design
+
+- **RWD** is the concept of developing a website in a way that **allows the layout to automatically adjust** according to the user’s screen resolution (called its *viewport*).
+
+- The viewport meta tag lets you set the width and initial scale of the viewport.
+
+- For example
+
+   ```html
+  <meta name=“viewport” content="width=590">
+   ```
+
+- Responsive web design (RWD) is a web design approach that tries to achieve an ideal viewing experience
+
+  - easy reading and navigation with a minimum of resizing, panning, and scrolling
+  - across a wide range of devices (from mobile phones to desktop monitors)
+
+- A site designed with RWD adapts the layout to the viewing environment by using
+
+  - **fluid**, proportion-based **grids**
+  - **flexible images**
+  - **CSS3** **media queries**
+
+
+
+### How to Design Responsively
+
+
+
+
+
+### Major Technology Features
+
+#### Media queries
+
+
+
+
+
+#### Fluid grids
+
+
+
+
+
+#### Scalable images
+
+
+
+
+
+
+
+### More Examples of Responsice Websites
+
