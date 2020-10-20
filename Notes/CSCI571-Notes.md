@@ -1819,7 +1819,7 @@ __Mobile devices offer:__
 
    ```html
   <meta name=“viewport” content="width=590">
-   ```
+  ```
 
 - Responsive web design (RWD) is a web design approach that tries to achieve an ideal viewing experience
 
@@ -1844,23 +1844,117 @@ __Mobile devices offer:__
 
 #### Media queries
 
+```html
+<link rel="stylesheet" type="text/css" media="screen and (color)" href="example.css" />
+```
 
+- Enhanced media types allows targeting of specific physical characteristics of the device
 
+  ```html
+  <link rel="stylesheet" type="text/css" media="screen and (max-device- width: 480px)" href=“min.css" />
+  ```
 
+  
 
 #### Fluid grids
 
-
-
-
+- In “*adaptive grids*”, we define pixel-based dimensions
+- In “*fluid grids*” we define relative-based dimensions
+- In fluid grids we
+  1. Define a maximum layout size for the design.
+  2. The grid is divided into a specific number of columns to keep the layout clean and easy to handle.
+  3. Then we design each element with proportional widths and heights instead of pixel- based dimensions.
+- So whenever the device or screen size is changed, elements will adjust their widths and heights by the specified proportions to its parent container
 
 #### Scalable images
 
+- To avoid having an image deformed due to the screen size one should avoid specific definitions of width and height and instead use CSS’s max-width property setting it to 100%:
+
+  ```css
+  img { max-width: 100%; }
+  ```
+
+- With the maximum width of the image set to 100% of the screen or browser width, if the screen becomes narrower, so does the image
+
+- The browser will resize the images as needed using CSS to guide their relative size
 
 
 
+### Bootstrap
+
+- Bootstrap is a powerful front-end framework for faster and easier responsive web development.
+- includes HTML and CSS based design templates for common user interface components as well as optional JavaScript extensions
+- Bootstrap responsive features make your web pages to appear more appropriately on different devices and screen resolutions without any change in markup
 
 
 
-### More Examples of Responsice Websites
+``.col-xs-``: grid columns for extra small devices, like smartphones.
+
+``.col-sm-``: small screen devices, like tablets.
+
+``.col-md-``: for medium size devices, like desktop.
+
+``.col-lg-``: for large desktop screens.
+
+
+
+## Lec17 JS Frameworks
+
+### Node.JS
+
+- a JavaScript runtime built on Chrome V8 JavaScript engine
+- use an event-driven, non-blocking I/O model, lightweight & efficient
+
+
+
+### AngularJS
+
+#### Basic functionality
+
+- control of the app
+  - Data binding
+  - controller
+  - Plain JavaScript
+- Wire up a backend
+  - Deep linking
+  - Client-side Form Validation
+  - Server Communication
+- Create Components
+  - Directives: invent new HTML syntax
+  - Reusable Components
+  - Localization
+
+#### Goals
+
+- doubles DOM manipulation from application logic
+- decouple client side of an application from the server side
+- provide structure for building an application
+  - designing the UI
+  - writing business logic
+  - testing
+- support dynamic content through two-way data-binding
+  - allow for the automatic synchronization of models and views
+
+#### Features of Angular 4
+
+- small and faster
+- View engine with less code
+- Improved ``*ngIf`` directive: a new "else" statement is added
+- animation
+- TypeScript 2.1 and 2.2 Compatibility
+- Source Maps for Templates
+
+
+
+__Angular 2+ doesn’t support *FilterPipe* or *OrderByPipe*.__
+
+
+
+### RxJS
+
+- RxJS is a library for reactive programming
+- Reactive programming is an asynchronous programming paradigm concerned with data streams and the propagation of change
+- RxJS uses **Observables** for asynchronous or callback-based code
+
+
 
