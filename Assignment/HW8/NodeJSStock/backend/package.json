@@ -12,6 +12,8 @@
     "@types/express": "^4.17.8",
     "express": "^4.17.1",
     "express-async-await": "^1.1.0",
+    "https-proxy-agent": "^5.0.0",
+    "newsapi": "^2.4.1",
     "node-fetch": "^2.6.1"
   }
 }

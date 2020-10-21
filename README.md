@@ -195,7 +195,7 @@ __Resources:__
 - use AJAX, JSON
 - use APIs like Tiingo API and NewsAPI
 - __Watchlist__: HTML5 localstorage for 'star' 
-- 
+- __Portfoli:__ purchase history
 
 
 
@@ -222,4 +222,12 @@ __Resources:__
   # newsAPIkey = '83d88b3f4f9d44ccad89772a6ef0e218'  # zsxx56.12@163.com
   newsAPIkey = '166945ff132b43c2a1a395898628ab48'  # liangsiq@usc.edu
   ```
+
+
+
+#### Video
+
+- https://youtu.be/tzkWB85ULJY (desktop)
+
+- https://youtu.be/LF3T3ghxHDU (mobile)
 
