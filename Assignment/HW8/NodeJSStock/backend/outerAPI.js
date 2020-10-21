@@ -3,7 +3,7 @@ const async = require('express-async-await');
 const NewsAPI = require('newsapi');
 const url = require('url');
 const https = require('https');
-const HttpsProxyAgent = require('https-proxy-agent');
+const HttpsProxyAgent = require('https-proxy-agent');  // proxy is needed when local developing using VPN to access news API
 // export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087;
 
 const tiingoAPIkey = "be37d86b75ad931e483aaab61f620653921a7517";

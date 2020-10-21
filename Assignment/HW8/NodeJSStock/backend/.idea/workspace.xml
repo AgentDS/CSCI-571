@@ -22,8 +22,6 @@
     <list default="true" id="96b72723-ba60-4e13-b36e-2321e3b373a6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/outerAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/outerAPI.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +63,7 @@
       <option name="presentableId" value="Default" />
       <updated>1603132426820</updated>
       <workItem from="1603132427932" duration="453000" />
-      <workItem from="1603134228891" duration="22296000" />
+      <workItem from="1603134228891" duration="22435000" />
     </task>
     <servers />
   </component>

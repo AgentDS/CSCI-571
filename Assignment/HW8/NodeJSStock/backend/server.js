@@ -1,9 +1,4 @@
 const express = require('express');
-
-const NewsAPI = require('newsapi');
-const newsAPIkey = '166945ff132b43c2a1a395898628ab48';
-const newsAPI = new NewsAPI(newsAPIkey, {corsProxyUrl: 'https://cors-anywhere.herokuapp.com/'});
-
 const outerAPI = require('./outerAPI');
 const app = express();
 const port = 3000;
