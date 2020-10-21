@@ -1,6 +1,5 @@
 const fetch = require('node-fetch');
 const async = require('express-async-await');
-const NewsAPI = require('newsapi');
 const url = require('url');
 const https = require('https');
 const HttpsProxyAgent = require('https-proxy-agent');  // proxy is needed when local developing using VPN to access news API
@@ -10,7 +9,6 @@ const tiingoAPIkey = 'be37d86b75ad931e483aaab61f620653921a7517';
 const newsAPIkey = '166945ff132b43c2a1a395898628ab48';
 // const newsAPIkey = '83d88b3f4f9d44ccad89772a6ef0e218';  // candidate key
 
-// const newsapi = new NewsAPI(newsAPIkey, {corsProxyUrl: 'https://cors-anywhere.herokuapp.com/'});
 
 module.exports.getAutocomplete = getAutocomplete;
 module.exports.getCompanyMetaData = getCompanyMetaData;
