@@ -215,6 +215,7 @@ __Resources:__
   - email: liangsiq@usc.edu
   - password: liangsiqi1101
   - API token: ``be37d86b75ad931e483aaab61f620653921a7517``
+  - time zone: __the timestamp is East Time, 4 hours offset need to be fixed__
 
 #### Latest News
 

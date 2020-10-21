@@ -6,7 +6,7 @@ const https = require('https');
 const HttpsProxyAgent = require('https-proxy-agent');  // proxy is needed when local developing using VPN to access news API
 // export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087;
 
-const tiingoAPIkey = "be37d86b75ad931e483aaab61f620653921a7517";
+const tiingoAPIkey = 'be37d86b75ad931e483aaab61f620653921a7517';
 const newsAPIkey = '166945ff132b43c2a1a395898628ab48';
 // const newsAPIkey = '83d88b3f4f9d44ccad89772a6ef0e218';  // candidate key
 
@@ -16,6 +16,8 @@ module.exports.getAutocomplete = getAutocomplete;
 module.exports.getCompanyMetaData = getCompanyMetaData;
 module.exports.getLatestPrice = getLatestPrice;
 module.exports.getNews = getNews;
+module.exports.getDailyChartData = getDailyChartData;
+module.exports.getHistChartsData = getHistChartsData;
 
 
 async function getAutocomplete(keyword) {
@@ -61,13 +63,26 @@ async function getNews(keyword) {
     } else {
         var origRes = await APIres.json();
         var newsRes = await origRes.articles;
-        // console.log(newsRes[0]);
-        // console.log(typeof newsRes[0]);
     }
 
     return newsRes;
 }
 
+async function getDailyChartData(startDate, tickerName) {
+    // Company’s Last day’s chart data (close price)
+    let url = `https://api.tiingo.com/iex/${tickerName}/prices?startDate=${startDate}&resampleFreq=4min&columns=close&token=${tiingoAPIkey}`;
+    let headers = {'Content-Type': 'application/json'};
+    let APIres = await fetch(url, {method: 'GET', headers: headers});
+    let dailyPriceRes = await APIres.json();
+    return dailyPriceRes;
+}
 
-
+async function getHistChartsData(startDate, tickerName) {
+    // Company’s Historical data in the last 2 years
+    let url = `https://api.tiingo.com/tiingo/daily/${tickerName}/prices?startDate=${startDate}&resampleFreq=daily&token=${tiingoAPIkey}`;
+    let headers = {'Content-Type': 'application/json'};
+    let APIres = await fetch(url, {method: 'GET', headers: headers});
+    let histRes = await APIres.json();
+    return histRes;
+}
 
