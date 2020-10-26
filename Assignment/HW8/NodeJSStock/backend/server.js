@@ -30,7 +30,6 @@ app.get('/api/v1.0.0/searchutil/:keyword', async function (req, res) {
     console.log("Keyword: " + req.params.keyword);
     // if not found, response is [] with length 0
     let origRes = await outerAPI.getAutocomplete(req.params.keyword);
-    // let res_info = await JSON.stringify(origRes);
     console.log("Length of response: " + origRes.length + "\n");
     res.send(origRes);
 })
