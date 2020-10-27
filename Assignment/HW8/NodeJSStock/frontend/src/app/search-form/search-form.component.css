@@ -27,10 +27,10 @@ form {
     height: 30px;
 }
 
-/* div button {
-    color: rgb(104, 88, 242);
-
-} */
+div button {
+    outline: none;
+    box-shadow: none;
+}
 
 /* search icon color */
 path {
