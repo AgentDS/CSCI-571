@@ -28,7 +28,7 @@ nav {
 .nav-item.active {
     border-color: white;
     border: 2px solid white;
-    border-radius: 20%;
+    border-radius: 10px;
 }
 
 .nav-item {
