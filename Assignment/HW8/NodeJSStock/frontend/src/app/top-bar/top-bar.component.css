@@ -1,8 +1,9 @@
-div {
+/* div {
     background: rgb(104, 88, 242);
 }
 
-div h3 {
+
+ h3 {
     color: white;
     font-size: large;
 }
@@ -13,11 +14,23 @@ div h3 {
 
 .nav-link.active {
     border-color: white;
-    color: white;
-    background-color: transparent;
     border: 2px solid white;
 }
 
 .nav-link:hover {
     color: rgb(189, 178, 249);
+} */
+
+nav {
+    background: rgb(104, 88, 242);
 }
+
+.nav-item.active {
+    border-color: white;
+    border: 2px solid white;
+    border-radius: 20%;
+}
+
+.nav-item {
+    text-align: right;
+} 
