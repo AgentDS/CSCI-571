@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
+import { HttpClientModule } from "@angular/common/http";
+
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { FooterComponent } from './footer/footer.component';
 import { SearchFormComponent } from './search-form/search-form.component';
@@ -77,6 +79,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
     A11yModule,
     ClipboardModule,
     CdkStepperModule,

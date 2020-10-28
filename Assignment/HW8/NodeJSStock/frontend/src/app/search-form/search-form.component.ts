@@ -19,6 +19,7 @@ export class SearchFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("search-form");
   }
 
 
