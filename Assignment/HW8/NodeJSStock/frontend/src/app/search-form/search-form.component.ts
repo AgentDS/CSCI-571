@@ -15,6 +15,8 @@ export class SearchFormComponent implements OnInit {
 
   ngOnInit() {
   }
+  
+  
 
   onSubmit(tickerData) {
     this.searchForm.reset();
