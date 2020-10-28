@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from "@angular/forms";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-form',
@@ -8,18 +9,24 @@ import { FormBuilder } from "@angular/forms";
 })
 export class SearchFormComponent implements OnInit {
   searchForm;
-  
-  constructor(private formBuilder: FormBuilder) {
+  ticker;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router
+    ) {
     this.searchForm = this.formBuilder.group({ ticker: '' })
   }
 
   ngOnInit() {
   }
-  
-  
+
+
 
   onSubmit(tickerData) {
+    console.warn('ticker name in form: ', tickerData.ticker);
+    this.ticker = tickerData.ticker;
+    this.router.navigateByUrl('/details/' + this.ticker);
     this.searchForm.reset();
-    console.warn('ticker name: ', tickerData);
   }
 }

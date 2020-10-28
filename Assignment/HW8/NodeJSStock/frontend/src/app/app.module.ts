@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { FooterComponent } from './footer/footer.component';
@@ -75,6 +76,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     NgbModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    FormsModule,
     A11yModule,
     ClipboardModule,
     CdkStepperModule,
