@@ -1,39 +1,56 @@
-
 <mat-spinner *ngIf="!metadata" class="mt-5 mx-auto"></mat-spinner>
 
 <!-- if ticker exists, show tab area -->
 <div *ngIf="metadata && metadata.ticker" class="container mt-5">
-
   <div class="detail-header">
-    Stock detail
+    <div class="row">
+      <div class="col">
+        <h1 class="m-0 p-0 d-flex flex-row" id="meta-ticker">
+          {{ metadata.ticker }}
+        </h1>
+        <h3 class="m-0 p-0 text-black-50 d-flex flex-row" id="meta-name">
+          {{ metadata.name }}
+        </h3>
+        <h4 class="m-0 p-0 font-weight-light d-flex flex-row">
+          {{ metadata.exchangeCode }}
+        </h4>
+      </div>
+      <div class="col">
+        <h1 class="m-0 p-0 d-flex flex-row-reverse" id="latest-last">
+          {{ latestprice.last }}
+        </h1>
+        <h2 class="m-0 p-0 d-flex flex-row-reverse" id="change-latest">
+          {{ change | number: "1.2-2" }} ({{
+            changePercent | number: "1.2-2"
+          }}%)
+        </h2>
+        <h4 class="m-0 p-0 font-weight-light d-flex flex-row-reverse">
+          {{ localCurrentTime | date: "yyyy-MM-dd h:mm:ss":"-0700" }}
+        </h4>
+      </div>
+    </div>
   </div>
 
   <mat-tab-group mat-stretch-tabs>
-
     <!-- summary tab -->
     <mat-tab label="Summary">
       <div class="container" id="summary-content">
-        Ticker: {{ metadata.ticker }};<br>
+        Ticker: {{ metadata.ticker }};<br />
         Name: {{ metadata.name }}
       </div>
     </mat-tab>
 
     <!-- news tab -->
     <mat-tab label="Top News">
-      <div class="container" id="news-content">
-
-      </div>
+      <div class="container" id="news-content"></div>
     </mat-tab>
 
     <!-- charts tab -->
     <mat-tab label="Charts">
-      <div class="container" id="charts-content">
-
-      </div>
+      <div class="container" id="charts-content"></div>
     </mat-tab>
   </mat-tab-group>
 </div>
-
 
 <!-- if ticker does not exist, show message -->
 <div *ngIf="metadata && !metadata.ticker" class="container mt-5">
