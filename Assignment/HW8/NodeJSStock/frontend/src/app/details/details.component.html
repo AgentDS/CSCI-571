@@ -1,3 +1,6 @@
+
+<mat-spinner *ngIf="!metadata" class="mt-5 mx-auto"></mat-spinner>
+
 <!-- if ticker exists, show tab area -->
 <div *ngIf="metadata && metadata.ticker" class="container mt-5">
 
@@ -34,7 +37,7 @@
 
 <!-- if ticker does not exist, show message -->
 <div *ngIf="metadata && !metadata.ticker" class="container mt-5">
-  <div class="alert alert-danger text-center" role="alert">
+  <div class="alert alert-danger text-center text-dark" role="alert">
     No results found. Please enter valid Ticker
   </div>
 </div>
