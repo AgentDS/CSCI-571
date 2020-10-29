@@ -1,18 +1,16 @@
 {
-  "name": "stock-server",
-  "version": "1.0.0",
-  "description": "NodeJS + Express for stock server-side",
-  "main": "server.js",
+  "name": "backend",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app"
   },
-  "author": "Siqi Liang",
-  "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
-    "express-async-await": "^1.1.0",
-    "https-proxy-agent": "^5.0.0",
-    "newsapi": "^2.4.1",
-    "node-fetch": "^2.6.1"
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "pug": "2.0.0-beta11"
   }
 }

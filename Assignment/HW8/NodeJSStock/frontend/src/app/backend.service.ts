@@ -3,18 +3,22 @@ import { Host, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
 import { catchError, map, tap } from 'rxjs/operators';
+
 import { HOST } from "./host-name";
+
+import { Metadata } from "./metadata";
+import { Latestprice } from "./latestprice";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackendService {
   private searchutilPre = HOST + 'api/v1.0.0/searchutil';
-  private metadataPre = HOST + 'api/v1.0.0/metadata/';
-  private latestPricePre = HOST + 'api/v1.0.0/latestprice/';
-  private newsPre = HOST + 'api/v1.0.0/news/';
-  private dailyChartsPre = HOST + 'api/v1.0.0/dailycharts/';
-  private histChartsPre = HOST + 'api/v1.0.0/histcharts/';
+  private metadataPre = HOST + 'api/v1.0.0/metadata';
+  private latestPricePre = HOST + 'api/v1.0.0/latestprice';
+  private newsPre = HOST + 'api/v1.0.0/news';
+  private dailyChartsPre = HOST + 'api/v1.0.0/dailycharts';
+  private histChartsPre = HOST + 'api/v1.0.0/histcharts';
 
 
 
@@ -29,18 +33,23 @@ export class BackendService {
   }
 
 
-  fetchMetadata(ticker: string): Observable<Object> {
+  fetchMetadata(ticker: string): Observable<Metadata> {
+    console.log(ticker);
     const metaDataUrl = `${this.metadataPre}/${ticker}`;
-    return this.http.get(metaDataUrl).pipe(
-      catchError(this.handleError('fetchMetadata', [])) // then handle the error
-    );
+    console.log(metaDataUrl);
+
+    return this.http.get<Metadata>(metaDataUrl);//.subscribe(data => console.log(data));
+    // .pipe(catchError(this.handleError('fetchMetadata', [])) // then handle the error
+    // );
   }
 
-  fetchLatestPrice(ticker: string): Observable<Object> {
+  fetchLatestPrice(ticker: string): Observable<Latestprice> {
+
     const latestPriceUrl = `${this.latestPricePre}/${ticker}`;
-    return this.http.get(latestPriceUrl).pipe(
-      catchError(this.handleError('fetchLatestPrice', [])) // then handle the error
-    );
+    return this.http.get<Latestprice>(latestPriceUrl);
+    // .pipe(
+    //   catchError(this.handleError('fetchLatestPrice', [])) // then handle the error
+    // );
   }
 
   fetchNews(ticker: string): Observable<Object> {
@@ -63,9 +72,6 @@ export class BackendService {
       catchError(this.handleError('fetchHistCharts', [])) // then handle the error
     );
   }
-
-
-
 
 
 

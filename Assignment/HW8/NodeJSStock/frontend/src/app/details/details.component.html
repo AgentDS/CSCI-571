@@ -1,4 +1,6 @@
-<div class="container">
+<!-- if ticker exists, show tab area -->
+<div *ngIf="metadata && metadata.ticker" class="container mt-5">
+
   <div class="detail-header">
     Stock detail
   </div>
@@ -8,9 +10,8 @@
     <!-- summary tab -->
     <mat-tab label="Summary">
       <div class="container" id="summary-content">
-        Copyright 2020 Google LLC. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license
+        Ticker: {{ metadata.ticker }};<br>
+        Name: {{ metadata.name }}
       </div>
     </mat-tab>
 
@@ -24,8 +25,16 @@
     <!-- charts tab -->
     <mat-tab label="Charts">
       <div class="container" id="charts-content">
-        
+
       </div>
     </mat-tab>
   </mat-tab-group>
+</div>
+
+
+<!-- if ticker does not exist, show message -->
+<div *ngIf="metadata && !metadata.ticker" class="container mt-5">
+  <div class="alert alert-danger text-center" role="alert">
+    No results found. Please enter valid Ticker
+  </div>
 </div>
