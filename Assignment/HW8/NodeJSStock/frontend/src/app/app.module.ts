@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from "@angular/common/http";
+import { HighchartsChartModule } from 'highcharts-angular';
 
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { FooterComponent } from './footer/footer.component';
@@ -17,13 +18,7 @@ import { DetailsComponent } from './details/details.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 
-import { DailyChartsService } from "./daily-charts.service";
-import { HistChartsService } from "./hist-charts.service";
-import { LatestpriceService } from "./latestprice.service";
-import { MetadataService } from "./metadata.service";
-import { NewsService } from "./news.service";
-import { SearchutilService } from "./searchutil.service";
-
+import { BackendService } from "./backend.service";
 
 import { A11yModule } from '@angular/cdk/a11y';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -87,6 +82,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    HighchartsChartModule,
     A11yModule,
     ClipboardModule,
     CdkStepperModule,
@@ -133,12 +129,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     ScrollingModule,
   ],
   providers: [
-    DailyChartsService,
-    HistChartsService,
-    LatestpriceService,
-    MetadataService,
-    NewsService,
-    SearchutilService
+    BackendService
   ],
   bootstrap: [AppComponent]
 })
