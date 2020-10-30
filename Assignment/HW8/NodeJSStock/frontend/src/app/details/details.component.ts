@@ -8,6 +8,7 @@ import { Latestprice } from '../latestprice';
 import { News } from '../news';
 import { NewsSource } from '../news-source';
 
+
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -44,7 +45,7 @@ export class DetailsComponent implements OnInit {
       // console.log(this.metadata);
     });
     // console.log(this.metadata);
-    this.getCurrentTime();
+
 
     this.backendService
       .fetchLatestPrice(this.ticker)
@@ -53,14 +54,17 @@ export class DetailsComponent implements OnInit {
         this.change = this.latestprice.last - this.latestprice.prevClose;
         this.changePercent = (100 * this.change) / this.latestprice.prevClose;
         this.lasttimestamp = new Date(this.latestprice.timestamp);
-        console.log(this.lasttimestamp);
+        // console.log(this.lasttimestamp);
       });
 
     this.backendService.fetchNews(this.ticker).subscribe((allnews) => {
       this.allnews = allnews;
-      console.log(this.allnews);
+      // console.log(this.allnews);
 
     });
+
+
+    this.getCurrentTime();
 
 
   }

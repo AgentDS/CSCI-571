@@ -64,6 +64,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +74,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     DetailsComponent,
     WatchlistComponent,
     PortfolioComponent
-  ],
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,

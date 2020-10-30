@@ -111,7 +111,9 @@
               </div>
             </div>
             <div class="container mt-5">
-              <h2 class="row mt-1"><div class="mx-auto"> Company's Description</div></h2>
+              <h2 class="row mt-1">
+                <div class="mx-auto">Company's Description</div>
+              </h2>
               <p class="row">Start Date: {{ metadata.startDate }}</p>
               <p class="row">{{ metadata.description }}</p>
             </div>
@@ -124,8 +126,16 @@
     <!-- news tab -->
     <mat-tab label="Top News">
       <div class="container" id="news-content">
-        <div *ngIf="allnews">got news</div>
-        <div *ngIf="!allnews">None news</div>
+        <div class="row p-1" *ngIf="allnews">
+          <div
+            class="card col-md-2 col-sm-1 m-2 bg-light"
+            *ngFor="let news of allnews"
+          >
+            <div class="card-body">
+              <h5 class="card-title">{{ news.title }}</h5>
+            </div>
+          </div>
+        </div>
       </div>
     </mat-tab>
 
