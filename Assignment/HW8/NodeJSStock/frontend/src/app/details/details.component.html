@@ -16,10 +16,34 @@
         </h4>
       </div>
       <div class="col">
-        <h1 class="m-0 p-0 d-flex flex-row-reverse" id="latest-last">
+        <h1
+          *ngIf="change > 0"
+          class="m-0 p-0 d-flex flex-row-reverse text-success"
+          id="latest-last-pos"
+        >
           {{ latestprice.last }}
         </h1>
-        <h2 class="m-0 p-0 d-flex flex-row-reverse" id="change-latest">
+        <h1
+          *ngIf="change < 0"
+          class="m-0 p-0 d-flex flex-row-reverse text-danger"
+          id="latest-last-neg"
+        >
+          {{ latestprice.last }}
+        </h1>
+        <h2
+          *ngIf="changePercent > 0"
+          class="m-0 p-0 d-flex flex-row-reverse text-success"
+          id="change-latest-pos"
+        >
+          {{ change | number: "1.2-2" }} ({{
+            changePercent | number: "1.2-2"
+          }}%)
+        </h2>
+        <h2
+          *ngIf="changePercent < 0"
+          class="m-0 p-0 d-flex flex-row-reverse text-success"
+          id="change-latest-neg"
+        >
           {{ change | number: "1.2-2" }} ({{
             changePercent | number: "1.2-2"
           }}%)
@@ -35,8 +59,30 @@
     <!-- summary tab -->
     <mat-tab label="Summary">
       <div class="container" id="summary-content">
-        Ticker: {{ metadata.ticker }};<br />
-        Name: {{ metadata.name }}
+        <div class="row mt-4">
+          <div class="col">
+            <div class="row ml-5">
+              <div class="col p-0">
+                <p class="m-0">High Price:&#160; {{ latestprice.high }}</p>
+                <p class="m-0">Low Price:&#160;&#160;  {{ latestprice.low }}</p>
+                <p class="m-0">Open Price:  {{ latestprice.open }}</p>
+                <p class="m-0">Prev. Close: {{ latestprice.prevClose }}</p>
+                <p class="m-0">Volume:&#160;&#160;&#160;&#160;&#160;&#160;    {{ latestprice.volume }}</p>
+              </div>
+              <div class="col p-0">
+                <p *ngIf="latestprice.mid" class="m-0">
+                  Mid Price: {{ latestprice.mid }}
+                </p>
+                <p *ngIf="!latestprice.mid && !latestprice.askPrice" class="m-0">Mid Price: -</p>
+                <p *ngIf="latestprice.askPrice" class="m-0">Ask Price: {{ latestprice.askPrice }}</p>
+                <p *ngIf="latestprice.askSize" class="m-0">Ask Size:&#160;&#160; {{ latestprice.askSize }}</p>
+                <p *ngIf="latestprice.bidPrice" class="m-0">Bid Price:&#160; {{ latestprice.bidPrice }}</p>
+                <p *ngIf="latestprice.bidSize" class="m-0">Bid Size:&#160;&#160;&#160; {{ latestprice.bidSize }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">daily charts</div>
+        </div>
       </div>
     </mat-tab>
 

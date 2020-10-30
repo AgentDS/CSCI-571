@@ -1,7 +1,7 @@
-#meta-ticker, #latest-last {
+#meta-ticker, #latest-last-pos, #latest-last-neg {
   font-size: 40px;
 }
 
-#meta-name, #change-latest {
+#meta-name, #change-latest-pos, #change-latest-neg {
   font-size: 28px;
 }
