@@ -61,9 +61,6 @@ export class DetailsComponent implements OnInit {
         } else {
           this.openstatus = true;
         }
-        console.log(
-          'Time difference' + (this.localCurrentTime - this.lasttimestamp)
-        );
 
         console.log('LatestPrice fetched ' + Date());
         // console.log(this.lasttimestamp);
