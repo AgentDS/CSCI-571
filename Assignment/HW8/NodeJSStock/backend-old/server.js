@@ -33,6 +33,7 @@ app.get('/api/v1.0.0/searchutil/:keyword', async function (req, res) {
     // if not found, response is [] with length 0
     let origRes = await outerAPI.getAutocomplete(req.params.keyword);
     console.log("Length of response: " + origRes.length + "\n");
+    console.log("Search-utilities finished at " + Date());
     return res.send(origRes);
     // if (origRes)
     //     return res.status(200).json(origRes);
@@ -43,6 +44,7 @@ app.get('/api/v1.0.0/metadata/:tickerName', async function (req, res) {
     console.log("Ticker: " + req.params.tickerName.toUpperCase());
     // if not found, response is {"detail":"Not found."}
     let origRes = await outerAPI.getCompanyMetaData(req.params.tickerName);
+    console.log("Company Meta Data finished at " + Date());
     return res.send(origRes);
     // if (origRes)
     //     return res.status(200).json(origRes);
@@ -54,6 +56,7 @@ app.get('/api/v1.0.0/latestprice/:tickerName', async function (req, res) {
     console.log("Ticker: " + req.params.tickerName.toUpperCase());
     // if not found, response is [] with length 0
     let origRes = await outerAPI.getLatestPrice(req.params.tickerName);
+    console.log("Company Latest Price finished at " + Date());
     return res.send(origRes);
     // if (origRes)
     //     return res.status(200).json(origRes);
@@ -69,11 +72,11 @@ app.get('/api/v1.0.0/news/:keyword', async function (req, res) {
 
     if (origRes) {
         console.log("Length of response: " + origRes.length);
-        console.log("sample news:")
-        console.log(origRes[0]);
+        console.log("sample news title length:" + origRes[0].title.length);
     } else {
         console.log("Null news.");
     }
+    console.log("News finished at " + Date());
     return res.send(origRes);
     // if (origRes)
     //     return res.status(200).json(origRes);
@@ -86,6 +89,7 @@ app.get('/api/v1.0.0/dailycharts/:tickerName/date/:startDate', async function (r
     // if not found, response is {"detail":"Not found."}
     let origRes = await outerAPI.getDailyChartData(req.params.startDate, req.params.tickerName);
     checkArray(origRes);
+    console.log("Company Last day’s chart data finished at " + Date());
     return res.send(origRes);
     // if (origRes)
     //     return res.status(200).json(origRes);
@@ -99,6 +103,7 @@ app.get('/api/v1.0.0/histcharts/:tickerName/date/:startDate', async function (re
     // otherwise response is array of object
     let origRes = await outerAPI.getHistChartsData(req.params.startDate, req.params.tickerName);
     checkArray(origRes);
+    console.log("Company Historical chart data finished at " + Date());
     return res.send(origRes);
     // if (origRes)
     //     return res.status(200).json(origRes);
