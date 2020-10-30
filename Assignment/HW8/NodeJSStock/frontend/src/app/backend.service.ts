@@ -35,9 +35,7 @@ export class BackendService {
 
 
   fetchMetadata(ticker: string): Observable<Metadata> {
-    console.log(ticker);
     const metaDataUrl = `${this.metadataPre}/${ticker}`;
-    console.log(metaDataUrl);
 
     return this.http.get<Metadata>(metaDataUrl);//.subscribe(data => console.log(data));
     // .pipe(catchError(this.handleError('fetchMetadata', [])) // then handle the error

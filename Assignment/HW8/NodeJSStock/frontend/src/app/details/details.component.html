@@ -1,7 +1,7 @@
-<mat-spinner *ngIf="!latestprice || !metadata" class="mt-5 mx-auto"></mat-spinner>
+<mat-spinner *ngIf="!metadata || !latestprice || !allnews" class="mt-5 mx-auto"></mat-spinner>
 
 <!-- if ticker exists, show tab area -->
-<div *ngIf="metadata && metadata.ticker && latestprice" class="container mt-5">
+<div *ngIf="metadata && metadata.ticker && latestprice && allnews" class="container mt-5">
   <div class="detail-header">
     <div class="row">
       <div class="col">
@@ -59,14 +59,14 @@
     </div>
     <div class="row">
       <div
-        *ngIf="latestprice.askSize"
+        *ngIf="openstatus"
         class="alert alert-success border-0 p-0 d-inline-flex mx-auto"
         role="alert"
       >
         Market is Open
       </div>
       <div
-        *ngIf="!latestprice.askSize"
+        *ngIf="!openstatus"
         class="alert alert-danger border-0 p-0 d-inline-flex mx-auto"
         role="alert"
       >
@@ -115,13 +115,11 @@
 
     <!-- news tab -->
     <mat-tab label="Top News">
-      <div class="container" id="news-content">
+      <div class="container border" id="news-content">
         <div class="row p-1" *ngIf="allnews">
-          <div
-            class="card col-md-2 col-sm-1 m-2 bg-light"
-            *ngFor="let news of allnews"
-          >
-            <div class="card-body">
+          <div class="card col-md-5 m-2 bg-light mx-auto" *ngFor="let news of allnews">
+            <div class="card-body border">
+              <!-- <img class="card-img" src="{{ news.urlToImage }}" alt="Card image cap"> -->
               <h5 class="card-title">{{ news.title }}</h5>
             </div>
           </div>

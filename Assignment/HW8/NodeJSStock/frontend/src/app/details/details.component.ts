@@ -8,7 +8,6 @@ import { Latestprice } from '../latestprice';
 import { News } from '../news';
 import { NewsSource } from '../news-source';
 
-
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -24,6 +23,7 @@ export class DetailsComponent implements OnInit {
   changePercent: number;
   lasttimestamp;
   allnews;
+  openstatus = false;
 
   getCurrentTime() {
     this.localCurrentTime = Date.now();
@@ -42,10 +42,10 @@ export class DetailsComponent implements OnInit {
 
     this.backendService.fetchMetadata(this.ticker).subscribe((metadata) => {
       this.metadata = metadata;
+      console.log('Metadata fetched ' + Date());
       // console.log(this.metadata);
     });
     // console.log(this.metadata);
-
 
     this.backendService
       .fetchLatestPrice(this.ticker)
@@ -54,18 +54,26 @@ export class DetailsComponent implements OnInit {
         this.change = this.latestprice.last - this.latestprice.prevClose;
         this.changePercent = (100 * this.change) / this.latestprice.prevClose;
         this.lasttimestamp = new Date(this.latestprice.timestamp);
+        this.getCurrentTime();
+        let timeDifference = this.localCurrentTime - this.lasttimestamp;
+        if (timeDifference < 60 * 1000) {
+          this.openstatus = true;
+        } else {
+          this.openstatus = true;
+        }
+        console.log(
+          'Time difference' + (this.localCurrentTime - this.lasttimestamp)
+        );
+
+        console.log('LatestPrice fetched ' + Date());
         // console.log(this.lasttimestamp);
       });
 
     this.backendService.fetchNews(this.ticker).subscribe((allnews) => {
       this.allnews = allnews;
+      console.log('News fetched ' + Date());
+
       // console.log(this.allnews);
-
     });
-
-
-    this.getCurrentTime();
-
-
   }
 }
