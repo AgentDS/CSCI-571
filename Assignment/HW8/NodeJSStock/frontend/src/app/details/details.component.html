@@ -73,7 +73,7 @@
                 <p *ngIf="latestprice.mid" class="m-0">
                   Mid Price: {{ latestprice.mid }}
                 </p>
-                <p *ngIf="!latestprice.mid && !latestprice.askPrice" class="m-0">Mid Price: -</p>
+                <p *ngIf="!latestprice.mid && latestprice.askPrice" class="m-0">Mid Price: -</p>
                 <p *ngIf="latestprice.askPrice" class="m-0">Ask Price: {{ latestprice.askPrice }}</p>
                 <p *ngIf="latestprice.askSize" class="m-0">Ask Size:&#160;&#160; {{ latestprice.askSize }}</p>
                 <p *ngIf="latestprice.bidPrice" class="m-0">Bid Price:&#160; {{ latestprice.bidPrice }}</p>
