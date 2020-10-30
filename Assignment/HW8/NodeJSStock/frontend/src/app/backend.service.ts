@@ -8,6 +8,7 @@ import { HOST } from "./host-name";
 
 import { Metadata } from "./metadata";
 import { Latestprice } from "./latestprice";
+import { News } from "./news";
 
 @Injectable({
   providedIn: 'root'
@@ -52,11 +53,12 @@ export class BackendService {
     // );
   }
 
-  fetchNews(ticker: string): Observable<Object> {
+  fetchNews(ticker: string): Observable<News[]> {
     const newsUrl = `${this.newsPre}/${ticker}`;
-    return this.http.get(newsUrl).pipe(
-      catchError(this.handleError('fetchNews', [])) // then handle the error
-    );
+    return this.http.get<News[]>(newsUrl);
+    // .pipe(
+    //   catchError(this.handleError('fetchNews', [])) // then handle the error
+    // );
   }
 
   fetchDailyCharts(ticker: string, startDate: string): Observable<Object> {
