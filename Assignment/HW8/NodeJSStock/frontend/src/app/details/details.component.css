@@ -5,3 +5,13 @@
 #meta-name, #change-latest-pos, #change-latest-neg {
   font-size: 28px;
 }
+
+
+path.neg {
+  color: red;
+}
+
+path.pos {
+  color: green;
+}
+
