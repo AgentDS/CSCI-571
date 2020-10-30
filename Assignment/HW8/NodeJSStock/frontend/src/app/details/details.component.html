@@ -123,7 +123,10 @@
 
     <!-- news tab -->
     <mat-tab label="Top News">
-      <div class="container" id="news-content"></div>
+      <div class="container" id="news-content">
+        <div *ngIf="allnews">got news</div>
+        <div *ngIf="!allnews">None news</div>
+      </div>
     </mat-tab>
 
     <!-- charts tab -->

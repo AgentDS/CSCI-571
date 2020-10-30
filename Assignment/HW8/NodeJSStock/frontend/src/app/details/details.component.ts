@@ -5,6 +5,8 @@ import { BackendService } from '../backend.service';
 
 import { Metadata } from '../metadata';
 import { Latestprice } from '../latestprice';
+import { News } from '../news';
+import { NewsSource } from '../news-source';
 
 @Component({
   selector: 'app-details',
@@ -20,6 +22,7 @@ export class DetailsComponent implements OnInit {
   change: number;
   changePercent: number;
   lasttimestamp;
+  allnews;
 
   getCurrentTime() {
     this.localCurrentTime = Date.now();
@@ -52,5 +55,13 @@ export class DetailsComponent implements OnInit {
         this.lasttimestamp = new Date(this.latestprice.timestamp);
         console.log(this.lasttimestamp);
       });
+
+    this.backendService.fetchNews(this.ticker).subscribe((allnews) => {
+      this.allnews = allnews;
+      console.log(this.allnews);
+
+    });
+
+
   }
 }
