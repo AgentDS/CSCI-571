@@ -19,6 +19,7 @@ export class DetailsComponent implements OnInit {
   localCurrentTime: number;
   change: number;
   changePercent: number;
+  lasttimestamp;
 
   getCurrentTime() {
     this.localCurrentTime = Date.now();
@@ -37,7 +38,7 @@ export class DetailsComponent implements OnInit {
 
     this.backendService.fetchMetadata(this.ticker).subscribe((metadata) => {
       this.metadata = metadata;
-      console.log(this.metadata);
+      // console.log(this.metadata);
     });
     // console.log(this.metadata);
     this.getCurrentTime();
@@ -48,7 +49,8 @@ export class DetailsComponent implements OnInit {
         this.latestprice = latestprice;
         this.change = this.latestprice.last - this.latestprice.prevClose;
         this.changePercent = (100 * this.change) / this.latestprice.prevClose;
-        console.log(this.latestprice);
+        this.lasttimestamp = new Date(this.latestprice.timestamp);
+        console.log(this.lasttimestamp);
       });
   }
 }

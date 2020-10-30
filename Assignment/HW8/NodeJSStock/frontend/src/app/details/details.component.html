@@ -49,8 +49,25 @@
           }}%)
         </h2>
         <h4 class="m-0 p-0 font-weight-light d-flex flex-row-reverse">
-          {{ localCurrentTime | date: "yyyy-MM-dd h:mm:ss":"-0700" }}
+          {{ localCurrentTime | date: "yyyy-MM-dd H:mm:ss":"-0700" }}
         </h4>
+      </div>
+    </div>
+    <div class="row">
+      <div
+        *ngIf="latestprice.askSize"
+        class="alert alert-success border-0 p-0 d-inline-flex mx-auto"
+        role="alert"
+      >
+        Market is Open
+      </div>
+      <div
+        *ngIf="!latestprice.askSize"
+        class="alert alert-danger border-0 p-0 d-inline-flex mx-auto"
+        role="alert"
+      >
+        Market Closed on
+        {{ lasttimestamp | date: "yyyy-MM-dd H:mm:ss":"-0700" }}
       </div>
     </div>
   </div>
@@ -64,20 +81,33 @@
             <div class="row ml-5">
               <div class="col p-0">
                 <p class="m-0">High Price:&#160; {{ latestprice.high }}</p>
-                <p class="m-0">Low Price:&#160;&#160;  {{ latestprice.low }}</p>
-                <p class="m-0">Open Price:  {{ latestprice.open }}</p>
+                <p class="m-0">Low Price:&#160;&#160; {{ latestprice.low }}</p>
+                <p class="m-0">Open Price: {{ latestprice.open }}</p>
                 <p class="m-0">Prev. Close: {{ latestprice.prevClose }}</p>
-                <p class="m-0">Volume:&#160;&#160;&#160;&#160;&#160;&#160;    {{ latestprice.volume }}</p>
+                <p class="m-0">
+                  Volume:&#160;&#160;&#160;&#160;&#160;&#160;
+                  {{ latestprice.volume }}
+                </p>
               </div>
               <div class="col p-0">
                 <p *ngIf="latestprice.mid" class="m-0">
                   Mid Price: {{ latestprice.mid }}
                 </p>
-                <p *ngIf="!latestprice.mid && latestprice.askPrice" class="m-0">Mid Price: -</p>
-                <p *ngIf="latestprice.askPrice" class="m-0">Ask Price: {{ latestprice.askPrice }}</p>
-                <p *ngIf="latestprice.askSize" class="m-0">Ask Size:&#160;&#160; {{ latestprice.askSize }}</p>
-                <p *ngIf="latestprice.bidPrice" class="m-0">Bid Price:&#160; {{ latestprice.bidPrice }}</p>
-                <p *ngIf="latestprice.bidSize" class="m-0">Bid Size:&#160;&#160;&#160; {{ latestprice.bidSize }}</p>
+                <p *ngIf="!latestprice.mid && latestprice.askPrice" class="m-0">
+                  Mid Price: -
+                </p>
+                <p *ngIf="latestprice.askPrice" class="m-0">
+                  Ask Price: {{ latestprice.askPrice }}
+                </p>
+                <p *ngIf="latestprice.askSize" class="m-0">
+                  Ask Size:&#160;&#160; {{ latestprice.askSize }}
+                </p>
+                <p *ngIf="latestprice.bidPrice" class="m-0">
+                  Bid Price:&#160; {{ latestprice.bidPrice }}
+                </p>
+                <p *ngIf="latestprice.bidSize" class="m-0">
+                  Bid Size:&#160;&#160;&#160; {{ latestprice.bidSize }}
+                </p>
               </div>
             </div>
           </div>
