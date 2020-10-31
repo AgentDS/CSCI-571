@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { BackendService } from '../backend.service';
+
+
+
+import { NewsDetailComponent } from "../news-detail/news-detail.component";
 
 import { Metadata } from '../metadata';
 import { Latestprice } from '../latestprice';
@@ -31,8 +36,14 @@ export class DetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private backendService: BackendService
+    private backendService: BackendService,
+    private newsModalService: NgbModal
   ) {}
+
+  openNewsDetail(news: News) {
+    const newsModalRef = this.newsModalService.open(NewsDetailComponent);
+    newsModalRef.componentInstance.news = news;
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
@@ -56,10 +67,12 @@ export class DetailsComponent implements OnInit {
         this.lasttimestamp = new Date(this.latestprice.timestamp);
         this.getCurrentTime();
         let timeDifference = this.localCurrentTime - this.lasttimestamp;
+        console.log("Time difference:" + timeDifference/1000 + "s");
+
         if (timeDifference < 60 * 1000) {
           this.openstatus = true;
         } else {
-          this.openstatus = true;
+          this.openstatus = false;
         }
 
         console.log('LatestPrice fetched ' + Date());

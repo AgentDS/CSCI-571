@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <h1 class="modal-title row border" id="modal-basic-title">{{ news.source.name }}</h1>
+  <div class="text-black-50 row border">
+    {{ news.publishedAt | date: "longDate":"-0700" }}
+  </div>
+  <button type="button" class="close border" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <h2>{{ news.title }}</h2>
+  <p>{{ news.description }}</p>
+  <p class="text-black-50">
+    For more details click <a href="{{ news.url }}">here</a>
+  </p>
+</div>

@@ -63,6 +63,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { NewsDetailComponent } from './news-detail/news-detail.component';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
     SearchFormComponent,
     DetailsComponent,
     WatchlistComponent,
-    PortfolioComponent
+    PortfolioComponent,
+      NewsDetailComponent
    ],
   imports: [
     BrowserModule,
@@ -132,6 +134,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
   providers: [
     BackendService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [NewsDetailComponent],
 })
 export class AppModule { }
