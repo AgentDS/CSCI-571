@@ -1,7 +1,13 @@
-<mat-spinner *ngIf="(!metadata || !latestprice || !allnews || !dailycharts) && tickerExist" class="mt-5 mx-auto"></mat-spinner>
+<mat-spinner
+  *ngIf="(!metadata || !latestprice || !allnews || !dailycharts) && tickerExist"
+  class="mt-5 mx-auto"
+></mat-spinner>
 
 <!-- if ticker exists, show tab area -->
-<div *ngIf="metadata && metadata.ticker && latestprice && allnews" class="container mt-5">
+<div
+  *ngIf="metadata && metadata.ticker && latestprice && allnews"
+  class="container mt-5"
+>
   <div class="detail-header">
     <div class="row">
       <div class="col">
@@ -31,25 +37,75 @@
           {{ latestprice.last }}
         </h1>
         <!-- if change positive, green latest price -->
-        <div *ngIf="changePercent > 0" class="row mr-1 flex-row justify-content-end">
+        <div
+          *ngIf="changePercent > 0"
+          class="row mr-1 flex-row justify-content-end"
+        >
           <div class="row m-0 p-0">
-            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-caret-up-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path class="pos" d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+            <svg
+              width="2em"
+              height="2em"
+              viewBox="0 0 16 16"
+              class="bi bi-caret-up-fill"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                class="pos"
+                d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+              />
             </svg>
-            <h2 class="m-0 p-0 d-flex flex-row-reverse text-success" id="change-latest-pos">{{ change | number: "1.2-2" }}</h2>
+            <h2
+              class="m-0 p-0 d-flex flex-row-reverse text-success"
+              id="change-latest-pos"
+            >
+              {{ change | number: "1.2-2" }}
+            </h2>
           </div>
-          <div class="col-sm m-0 p-0 col-md-auto"><h2 class="m-0 p-0 d-flex flex-row-reverse text-success" id="change-latest-pos">({{ changePercent | number: "1.2-2" }}%)</h2></div>
+          <div class="col-sm m-0 p-0 col-md-auto">
+            <h2
+              class="m-0 p-0 d-flex flex-row-reverse text-success"
+              id="change-latest-pos"
+            >
+              ({{ changePercent | number: "1.2-2" }}%)
+            </h2>
+          </div>
         </div>
 
         <!-- if change negative, red latest price -->
-        <div *ngIf="changePercent < 0" class="row mr-1 flex-row justify-content-end">
+        <div
+          *ngIf="changePercent < 0"
+          class="row mr-1 flex-row justify-content-end"
+        >
           <div class="row m-0 p-0">
-            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-caret-up-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path class="neg" d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+            <svg
+              width="2em"
+              height="2em"
+              viewBox="0 0 16 16"
+              class="bi bi-caret-up-fill"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                class="neg"
+                d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+              />
             </svg>
-            <h2 class="m-0 p-0 d-flex flex-row-reverse text-danger" id="change-latest-neg">{{ change | number: "1.2-2" }}</h2>
+            <h2
+              class="m-0 p-0 d-flex flex-row-reverse text-danger"
+              id="change-latest-neg"
+            >
+              {{ change | number: "1.2-2" }}
+            </h2>
           </div>
-          <div class="col-sm m-0 p-0 col-md-auto"><h2 class="m-0 p-0 d-flex flex-row-reverse text-danger" id="change-latest-neg">({{ changePercent | number: "1.2-2" }}%)</h2></div>
+          <div class="col-sm m-0 p-0 col-md-auto">
+            <h2
+              class="m-0 p-0 d-flex flex-row-reverse text-danger"
+              id="change-latest-neg"
+            >
+              ({{ changePercent | number: "1.2-2" }}%)
+            </h2>
+          </div>
         </div>
 
         <h4 class="m-0 p-0 font-weight-light d-flex flex-row-reverse">
@@ -88,15 +144,30 @@
                 <p class="m-0">Low Price:&#160;&#160; {{ latestprice.low }}</p>
                 <p class="m-0">Open Price: {{ latestprice.open }}</p>
                 <p class="m-0">Prev. Close: {{ latestprice.prevClose }}</p>
-                <p class="m-0">Volume:&#160;&#160;&#160;&#160;&#160;&#160; {{ latestprice.volume }}</p>
+                <p class="m-0">
+                  Volume:&#160;&#160;&#160;&#160;&#160;&#160;
+                  {{ latestprice.volume }}
+                </p>
               </div>
               <div class="col p-0">
-                <p *ngIf="latestprice.mid" class="m-0"> Mid Price: {{ latestprice.mid }}</p>
-                <p *ngIf="openstatus && !latestprice.mid" class="m-0">Mid Price: -</p>
-                <p *ngIf="openstatus" class="m-0">Ask Price: {{ latestprice.askPrice }}</p>
-                <p *ngIf="openstatus" class="m-0">Ask Size:&#160;&#160; {{ latestprice.askSize }}</p>
-                <p *ngIf="openstatus" class="m-0">Bid Price:&#160; {{ latestprice.bidPrice }}</p>
-                <p *ngIf="openstatus" class="m-0">Bid Size:&#160;&#160;&#160; {{ latestprice.bidSize }}</p>
+                <p *ngIf="latestprice.mid" class="m-0">
+                  Mid Price: {{ latestprice.mid }}
+                </p>
+                <p *ngIf="openstatus && !latestprice.mid" class="m-0">
+                  Mid Price: -
+                </p>
+                <p *ngIf="openstatus" class="m-0">
+                  Ask Price: {{ latestprice.askPrice }}
+                </p>
+                <p *ngIf="openstatus" class="m-0">
+                  Ask Size:&#160;&#160; {{ latestprice.askSize }}
+                </p>
+                <p *ngIf="openstatus" class="m-0">
+                  Bid Price:&#160; {{ latestprice.bidPrice }}
+                </p>
+                <p *ngIf="openstatus" class="m-0">
+                  Bid Size:&#160;&#160;&#160; {{ latestprice.bidSize }}
+                </p>
               </div>
             </div>
 
@@ -108,8 +179,20 @@
             <p class="row">{{ metadata.description }}</p>
           </div>
 
+          <!-- daily charts area -->
           <div class="col-sm">
-
+            <highcharts-chart
+              *ngIf="isHighcharts"
+              [Highcharts]="Highcharts"
+              [constructorType]="chartConstructor"
+              [options]="chartOptions"
+              style="width: 100%; height: 400px; display: block"
+            >
+              <!-- [callbackFunction]="chartCallback"
+              [(update)]="updateFlag"
+              [oneToOne]="oneToOneFlag"
+              [runOutsideAngular]="runOutsideAngularFlag" -->
+            </highcharts-chart>
           </div>
         </div>
       </div>
@@ -119,10 +202,22 @@
     <mat-tab label="Top News">
       <div class="container" id="news-content">
         <div class="row p-1" *ngIf="allnews">
-          <div class="card col-sm-5 m-2 bg-light mx-auto p-0" style="min-width: 48%; max-height: 280px;" *ngFor="let news of allnews">
+          <div
+            class="card col-sm-5 m-2 bg-light mx-auto p-0"
+            style="min-width: 48%; max-height: 280px"
+            *ngFor="let news of allnews"
+          >
             <div class="card-body row" (click)="openNewsDetail(news)">
-              <div class="col-md-2 m-0 p-0 my-auto"><img class="card-img m-0 my-auto" src="{{ news.urlToImage }}" alt="News card image cap"></div>
-              <div class="col"><h3 class="card-title text-black-50">{{ news.title }}</h3></div>
+              <div class="col-md-2 m-0 p-0 my-auto">
+                <img
+                  class="card-img m-0 my-auto"
+                  src="{{ news.urlToImage }}"
+                  alt="News card image cap"
+                />
+              </div>
+              <div class="col">
+                <h3 class="card-title text-black-50">{{ news.title }}</h3>
+              </div>
             </div>
           </div>
         </div>

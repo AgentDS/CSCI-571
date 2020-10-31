@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as Highcharts from 'highcharts';
 
 import { BackendService } from '../backend.service';
 
@@ -30,6 +31,29 @@ export class DetailsComponent implements OnInit {
   allnews;
   openstatus = false;
   tickerExist = true;
+
+  // high charts setting area
+  isHighcharts = typeof Highcharts === 'object';
+  Highcharts: typeof Highcharts = Highcharts; // required
+  chartConstructor: string = 'chart'; // optional string, defaults to 'chart'
+  chartOptions: Highcharts.Options;
+
+  createDailyCharts() {
+    this.chartOptions = {
+      series: [
+        {
+          data: [1, 2, 3],
+          type: 'line',
+        },
+      ],
+      title: { text: this.metadata.ticker },
+    }; // required
+  }
+
+  // chartCallback: Highcharts.ChartCallbackFunction = function (chart) { ... } // optional function, defaults to null
+  // updateFlag: boolean = false; // optional boolean
+  // oneToOneFlag: boolean = true; // optional boolean, defaults to false
+  // runOutsideAngular: boolean = false; // optional boolean, defaults to false
 
   getCurrentTime() {
     this.localCurrentTime = Date.now();
@@ -94,6 +118,7 @@ export class DetailsComponent implements OnInit {
               this.dailycharts = dailycharts;
               // console.log(this.dailycharts);
               console.log('DailyCharts fetched ' + Date());
+              this.createDailyCharts();
             });
         } else {
           this.tickerExist = false;
