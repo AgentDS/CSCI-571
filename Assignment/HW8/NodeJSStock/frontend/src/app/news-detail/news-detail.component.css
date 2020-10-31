@@ -5,3 +5,16 @@
   /* background-color: #55acee; */
   /* border-color: rgba(0,0,0,0.2); */
 }
+
+h1 {
+  font-size: 40px;
+  font-weight: 500;
+}
+
+div.modal-body h2 {
+  line-height: 25px;
+}
+
+div.modal-header button {
+  outline: none;
+}

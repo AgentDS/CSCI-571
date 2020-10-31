@@ -1,14 +1,16 @@
+<!-- modal header part -->
 <div class="modal-header">
-  <h1 class="modal-title row border" id="modal-basic-title">
-    {{ news.source.name }}
-  </h1>
-  <button type="button" class="close border" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-  <div class="text-black-50 row border">
-    {{ news.publishedAt | date: "longDate":"-0700" }}
+  <div class="modal-title" id="modal-basic-title">
+    <h1 class="m-0">{{ news.source.name }}</h1>
+    <div class="text-black-50 m-0">
+      {{ news.publishedAt | date: "longDate":"-0700" }}
+    </div>
   </div>
+  <button type="button" class="close p-0 border-0 m-1" aria-label="Close" (click)="newsModalService.dismiss('Cross click')">
+    <span class="m-0 border-0" aria-hidden="true">&times;</span>
+  </button>
 </div>
+<!-- modal body part -->
 <div class="modal-body">
   <h2>{{ news.title }}</h2>
   <p>{{ news.description }}</p>
@@ -38,12 +40,9 @@
           data-layout="button"
           data-size="large"
         >
-          <a
-            target="_blank"
-            href={{fbSrc}}
-            class="fb-xfbml-parse-ignore"
-            ><i class="m-0 p-0 fa fa-2x fab fa-facebook-square"></i></a
-          >
+          <a target="_blank" href="{{ fbSrc }}" class="fb-xfbml-parse-ignore"
+            ><i class="m-0 p-0 fa fa-2x fab fa-facebook-square"></i
+          ></a>
         </div>
       </div>
     </div>

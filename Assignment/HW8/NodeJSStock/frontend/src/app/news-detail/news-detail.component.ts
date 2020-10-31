@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HttpParameterCodec } from '@angular/common/http';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { News } from '../news';
 
 @Component({
@@ -11,7 +11,7 @@ export class NewsDetailComponent implements OnInit {
   @Input() public news: News;
   fbSrc;
 
-  constructor() {}
+  constructor(public newsModalService: NgbActiveModal) {}
 
   ngOnInit() {
     this.fbSrc =
