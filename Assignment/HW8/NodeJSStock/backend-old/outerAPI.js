@@ -42,7 +42,13 @@ async function getLatestPrice(tickerName) {
     let headers = {'Content-Type': 'application/json'};
     let APIres = await fetch(url, {method: 'GET', headers: headers});
     let latestPriceRes = await APIres.json();
-    return latestPriceRes[0];
+    if (latestPriceRes.length===0) {
+        return {"detail":"Not found."};
+    }
+    else {
+        return latestPriceRes[0];
+    }
+
 }
 
 

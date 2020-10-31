@@ -54,12 +54,10 @@ app.get('/api/v1.0.0/metadata/:tickerName', async function (req, res) {
 app.get('/api/v1.0.0/latestprice/:tickerName', async function (req, res) {
     console.log("\nCompany Latest Price Call");
     console.log("Ticker: " + req.params.tickerName.toUpperCase());
-    // if not found, response is [] with length 0
+    // if not found, response is {"detail":"Not found."}
     let origRes = await outerAPI.getLatestPrice(req.params.tickerName);
     console.log("Company Latest Price finished at " + Date());
     return res.send(origRes);
-    // if (origRes)
-    //     return res.status(200).json(origRes);
 })
 
 
