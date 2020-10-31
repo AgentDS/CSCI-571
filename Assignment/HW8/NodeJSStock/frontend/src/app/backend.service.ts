@@ -9,6 +9,7 @@ import { HOST } from "./host-name";
 import { Metadata } from "./metadata";
 import { Latestprice } from "./latestprice";
 import { News } from "./news";
+import { DailyPrice } from "./daily-price";
 
 @Injectable({
   providedIn: 'root'
@@ -59,11 +60,13 @@ export class BackendService {
     // );
   }
 
-  fetchDailyCharts(ticker: string, startDate: string): Observable<Object> {
+  fetchDailyCharts(ticker: string, startDate: string): Observable<DailyPrice[]> {
     const dailyChartsUrl = `${this.dailyChartsPre}/${ticker}/date/${startDate}`;
-    return this.http.get(dailyChartsUrl).pipe(
-      catchError(this.handleError('fetchDailyCharts', [])) // then handle the error
-    );
+    return this.http.get<DailyPrice[]>(dailyChartsUrl);
+
+    // .pipe(
+    //   catchError(this.handleError('fetchDailyCharts', [])) // then handle the error
+    // );
   }
 
   fetchHistCharts(ticker: string, startDate: string): Observable<Object> {

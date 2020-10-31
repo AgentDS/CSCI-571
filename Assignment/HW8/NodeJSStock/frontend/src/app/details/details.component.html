@@ -1,4 +1,4 @@
-<mat-spinner *ngIf="!metadata || !latestprice || !allnews" class="mt-5 mx-auto"></mat-spinner>
+<mat-spinner *ngIf="(!metadata || !latestprice || !allnews || !dailycharts) && tickerExist" class="mt-5 mx-auto"></mat-spinner>
 
 <!-- if ticker exists, show tab area -->
 <div *ngIf="metadata && metadata.ticker && latestprice && allnews" class="container mt-5">
@@ -92,11 +92,11 @@
               </div>
               <div class="col p-0">
                 <p *ngIf="latestprice.mid" class="m-0"> Mid Price: {{ latestprice.mid }}</p>
-                <p *ngIf="!latestprice.mid && latestprice.askPrice" class="m-0">Mid Price: -</p>
-                <p *ngIf="latestprice.askPrice" class="m-0">Ask Price: {{ latestprice.askPrice }}</p>
-                <p *ngIf="latestprice.askSize" class="m-0">Ask Size:&#160;&#160; {{ latestprice.askSize }}</p>
-                <p *ngIf="latestprice.bidPrice" class="m-0">Bid Price:&#160; {{ latestprice.bidPrice }}</p>
-                <p *ngIf="latestprice.bidSize" class="m-0">Bid Size:&#160;&#160;&#160; {{ latestprice.bidSize }}</p>
+                <p *ngIf="openstatus && !latestprice.mid" class="m-0">Mid Price: -</p>
+                <p *ngIf="openstatus" class="m-0">Ask Price: {{ latestprice.askPrice }}</p>
+                <p *ngIf="openstatus" class="m-0">Ask Size:&#160;&#160; {{ latestprice.askSize }}</p>
+                <p *ngIf="openstatus" class="m-0">Bid Price:&#160; {{ latestprice.bidPrice }}</p>
+                <p *ngIf="openstatus" class="m-0">Bid Size:&#160;&#160;&#160; {{ latestprice.bidSize }}</p>
               </div>
             </div>
 
@@ -108,7 +108,9 @@
             <p class="row">{{ metadata.description }}</p>
           </div>
 
-          <div class="col-sm">daily charts</div>
+          <div class="col-sm">
+
+          </div>
         </div>
       </div>
     </mat-tab>
@@ -135,7 +137,7 @@
 </div>
 
 <!-- if ticker does not exist, show message -->
-<div *ngIf="metadata && !metadata.ticker" class="container mt-5">
+<div *ngIf="metadata && !tickerExist" class="container mt-5">
   <div class="alert alert-danger text-center text-dark" role="alert">
     No results found. Please enter valid Ticker
   </div>
