@@ -2,7 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as Highcharts from 'highcharts/highstock';
+// import VBPIndicator from 'highcharts/indicators/volume-by-price';
+// import IndicatorsCore from "highcharts/indicators/indicators";
 import { Options } from 'highcharts/highstock';
+declare var require: any;
+require('highcharts/indicators/indicators')(Highcharts); // loads core and enables sma
+require('highcharts/indicators/volume-by-price')(Highcharts); // loads enables vbp
+// require('highcharts-indicators/js/sma')(Highcharts);
+// IndicatorsCore(Highcharts);
+
+
 import * as moment from 'moment';
 import 'moment-timezone';
 
@@ -15,6 +24,7 @@ import { Latestprice } from '../latestprice';
 import { News } from '../news';
 import { NewsSource } from '../news-source';
 import { DailyPrice } from '../daily-price';
+import { HistPrice } from '../hist-price';
 import { areAllEquivalent } from '@angular/compiler/src/output/output_ast';
 
 @Component({
@@ -27,6 +37,7 @@ export class DetailsComponent implements OnInit {
   metadata;
   latestprice;
   dailycharts;
+  histcharts;
   currentTimeLA: string;
   localCurrentTime: number;
   change: number;
@@ -39,10 +50,13 @@ export class DetailsComponent implements OnInit {
 
   // high charts setting area
   dailyChartsFinish = false;
+  histChartsFinish = false;
   isHighcharts = typeof Highcharts === 'object';
   chartConstructor = 'stockChart';
   Highcharts: typeof Highcharts = Highcharts; // required
-  chartOptions: Options;
+
+  dailyChartOptions: Options;
+  histChartOptions: Options;
 
   createDailyCharts() {
     // split the data set into close and volume
@@ -55,7 +69,7 @@ export class DetailsComponent implements OnInit {
       dailyClose.push([intTimestamp, this.dailycharts[i].close]);
     }
 
-    this.chartOptions = {
+    this.dailyChartOptions = {
       series: [
         {
           data: dailyClose,
@@ -76,9 +90,173 @@ export class DetailsComponent implements OnInit {
         series: {
           type: 'area',
           color: this.dailyChartsColor,
-          fillOpacity: 1
-      }
-    },
+          fillOpacity: 1,
+        },
+      },
+      time: {
+        /**
+         * Use moment-timezone.js to return the timezone offset for individual
+         * timestamps, used in the X axis labels and the tooltip header.
+         */
+        getTimezoneOffset: function (timestamp) {
+          var zone = 'America/Los_Angeles',
+            timezoneOffset = -moment.tz(timestamp, zone).utcOffset();
+
+          return timezoneOffset;
+        },
+      },
+    }; // required
+  }
+
+  createHistCharts() {
+    let i, intTimestamp;
+
+    // split the data set into ohlc and volume
+    var ohlc = [],
+      volume = [],
+      dataLength = this.histcharts.length,
+      // set the allowed units for data grouping
+      groupingUnits = [
+        [
+          'week', // unit name
+          [1], // allowed multiples
+        ],
+        ['month', [1, 2, 3, 4, 6]],
+      ];
+
+    for (i = 0; i < dataLength; i += 1) {
+      intTimestamp = Date.parse(this.histcharts[i].date);
+      ohlc.push([
+        intTimestamp, // the date
+        this.histcharts[i].open, // open
+        this.histcharts[i].high, // high
+        this.histcharts[i].low, // low
+        this.histcharts[i].close, // close
+      ]);
+
+      volume.push([
+        intTimestamp, // the date
+        this.histcharts[i].volume, // the volume
+      ]);
+    }
+
+    this.histChartOptions = {
+      series: [
+        {
+          type: 'candlestick',
+          name: this.ticker.toUpperCase(),
+          id: this.ticker,
+          zIndex: 2,
+          data: ohlc,
+        },
+        {
+          type: 'column',
+          name: 'Volume',
+          id: 'volume',
+          data: volume,
+          yAxis: 1,
+        },
+        {
+          type: 'vbp',
+          linkedTo: this.ticker,
+          params: {
+            volumeSeriesID: 'volume',
+          },
+          dataLabels: {
+            enabled: false,
+          },
+          zoneLines: {
+            enabled: false,
+          },
+        },
+        {
+          type: 'sma',
+          linkedTo: this.ticker,
+          zIndex: 1,
+          marker: {
+            enabled: false,
+          },
+        },
+      ],
+      title: { text: this.ticker.toUpperCase() + ' Historical' },
+      subtitle: {
+        text: 'With SMA and Volume by Price technical indicators',
+      },
+      yAxis: [
+        {
+          startOnTick: false,
+          endOnTick: false,
+          labels: {
+            align: 'right',
+            x: -3,
+          },
+          title: {
+            text: 'OHLC',
+          },
+          height: '60%',
+          lineWidth: 2,
+          resize: {
+            enabled: true,
+          },
+        },
+        {
+          labels: {
+            align: 'right',
+            x: -3,
+          },
+          title: {
+            text: 'Volume',
+          },
+          top: '65%',
+          height: '35%',
+          offset: 0,
+          lineWidth: 2,
+        },
+      ],
+      tooltip: {
+        split: true,
+      },
+      plotOptions: {
+        // series: {
+        //   dataGrouping: {
+        //     units: groupingUnits,
+        //   },
+        // },
+      },
+      rangeSelector: {
+        buttons: [
+          {
+            type: 'month',
+            count: 1,
+            text: '1m',
+          },
+          {
+            type: 'month',
+            count: 3,
+            text: '3m',
+          },
+          {
+            type: 'month',
+            count: 6,
+            text: '6m',
+          },
+          {
+            type: 'ytd',
+            text: 'YTD',
+          },
+          {
+            type: 'year',
+            count: 1,
+            text: '1y',
+          },
+          {
+            type: 'all',
+            text: 'All',
+          },
+        ],
+        selected: 2,
+        // inputEnabled: false
+      },
       time: {
         /**
          * Use moment-timezone.js to return the timezone offset for individual
@@ -180,6 +358,28 @@ export class DetailsComponent implements OnInit {
       });
   }
 
+  fetchHistCharts() {
+    let crtTime = new Date();
+    let year = crtTime.getFullYear();
+    let month = crtTime.getMonth();
+    let day = crtTime.getDate();
+    let twoYearBack = new Date(year - 2, month, day);
+    let histStartDate = twoYearBack.toISOString().slice(0, 10); // 2 years before current date
+    console.log('Two years before today: ' + histStartDate);
+
+    this.backendService
+      .fetchHistCharts(this.ticker, histStartDate)
+      .subscribe((histcharts) => {
+        this.histcharts = histcharts;
+        console.log('HistCharts fetched ' + Date());
+
+        this.histChartsFinish = false;
+        this.createHistCharts();
+        this.histChartsFinish = true;
+        console.log('HistCharts created ' + Date());
+      });
+  }
+
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       this.ticker = params.get('ticker');
@@ -189,5 +389,6 @@ export class DetailsComponent implements OnInit {
     this.fetchMetadata();
     this.fetchNews();
     this.fetchLatestPriceNDailyCharts();
+    this.fetchHistCharts();
   }
 }

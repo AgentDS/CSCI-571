@@ -10,6 +10,7 @@ import { Metadata } from "./metadata";
 import { Latestprice } from "./latestprice";
 import { News } from "./news";
 import { DailyPrice } from "./daily-price";
+import { HistPrice } from "./hist-price";
 
 @Injectable({
   providedIn: 'root'
@@ -69,11 +70,12 @@ export class BackendService {
     // );
   }
 
-  fetchHistCharts(ticker: string, startDate: string): Observable<Object> {
+  fetchHistCharts(ticker: string, startDate: string): Observable<HistPrice[]> {
     const histChartsUrl = `${this.histChartsPre}/${ticker}/date/${startDate}`;
-    return this.http.get(histChartsUrl).pipe(
-      catchError(this.handleError('fetchHistCharts', [])) // then handle the error
-    );
+    return this.http.get<HistPrice[]>(histChartsUrl);
+    // .pipe(
+    //   catchError(this.handleError('fetchHistCharts', [])) // then handle the error
+    // );
   }
 
 

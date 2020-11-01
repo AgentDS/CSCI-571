@@ -1,6 +1,11 @@
 <mat-spinner
   *ngIf="
-    (!metadata || !latestprice || !allnews || !dailycharts || !dailyChartsFinish) &&
+    (!metadata ||
+      !latestprice ||
+      !allnews ||
+      !dailycharts ||
+      !dailyChartsFinish ||
+      !histChartsFinish ) &&
     tickerExist
   "
   class="mt-5 mx-auto"
@@ -8,7 +13,14 @@
 
 <!-- if ticker exists, show tab area -->
 <div
-  *ngIf="metadata && metadata.ticker && latestprice && allnews && dailyChartsFinish"
+  *ngIf="
+    metadata &&
+    metadata.ticker &&
+    latestprice &&
+    allnews &&
+    dailyChartsFinish &&
+    histChartsFinish
+  "
   class="container mt-5"
 >
   <div class="detail-header">
@@ -187,14 +199,10 @@
             <highcharts-chart
               *ngIf="isHighcharts"
               [Highcharts]="Highcharts"
-              [constructorType]="chartConstructor"
-              [options]="chartOptions"
+              [constructorType]="'stockChart'"
+              [options]="dailyChartOptions"
               style="width: 100%; height: 400px; display: block"
             >
-              <!-- [callbackFunction]="chartCallback"
-              [(update)]="updateFlag"
-              [oneToOne]="oneToOneFlag"
-              [runOutsideAngular]="runOutsideAngularFlag" -->
             </highcharts-chart>
           </div>
         </div>
@@ -229,7 +237,18 @@
 
     <!-- charts tab -->
     <mat-tab label="Charts">
-      <div class="container" id="charts-content">This is historical charts</div>
+      <div class="container" id="charts-content">
+        <div class="col-sm">
+          <highcharts-chart
+            *ngIf="isHighcharts"
+            [Highcharts]="Highcharts"
+            [constructorType]="'stockChart'"
+            [options]="histChartOptions"
+            style="width: 100%; height: 400px; display: block"
+          >
+          </highcharts-chart>
+        </div>
+      </div>
     </mat-tab>
   </mat-tab-group>
 </div>
