@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as Highcharts from 'highcharts/highstock';
 import { Options } from 'highcharts/highstock';
+import * as moment from 'moment';
+import 'moment-timezone';
 
 import { BackendService } from '../backend.service';
 
@@ -13,6 +15,7 @@ import { Latestprice } from '../latestprice';
 import { News } from '../news';
 import { NewsSource } from '../news-source';
 import { DailyPrice } from '../daily-price';
+import { areAllEquivalent } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-details',
@@ -35,6 +38,7 @@ export class DetailsComponent implements OnInit {
   tickerExist = true;
 
   // high charts setting area
+  dailyChartsFinish = false;
   isHighcharts = typeof Highcharts === 'object';
   chartConstructor = 'stockChart';
   Highcharts: typeof Highcharts = Highcharts; // required
@@ -45,7 +49,6 @@ export class DetailsComponent implements OnInit {
     let dailyClose = [],
       dataLength = this.dailycharts.length;
     let i, intTimestamp;
-    console.log(this.dailycharts[0]);
 
     for (i = 0; i < dataLength; i += 1) {
       intTimestamp = Date.parse(this.dailycharts[i].date);
@@ -68,6 +71,25 @@ export class DetailsComponent implements OnInit {
       title: { text: this.ticker.toUpperCase() },
       rangeSelector: {
         enabled: false,
+      },
+      navigator: {
+        series: {
+          type: 'area',
+          color: this.dailyChartsColor,
+          fillOpacity: 1
+      }
+    },
+      time: {
+        /**
+         * Use moment-timezone.js to return the timezone offset for individual
+         * timestamps, used in the X axis labels and the tooltip header.
+         */
+        getTimezoneOffset: function (timestamp) {
+          var zone = 'America/Los_Angeles',
+            timezoneOffset = -moment.tz(timestamp, zone).utcOffset();
+
+          return timezoneOffset;
+        },
       },
     }; // required
   }
@@ -120,17 +142,16 @@ export class DetailsComponent implements OnInit {
         if (this.latestprice.last) {
           this.tickerExist = true;
           this.change = this.latestprice.last - this.latestprice.prevClose;
-          if (this.change>0) {
+          if (this.change > 0) {
             this.dailyChartsColor = '#7F434F';
-          }
-          else{
+          } else {
             this.dailyChartsColor = '#FF0000';
           }
           this.changePercent = (100 * this.change) / this.latestprice.prevClose;
           this.lasttimestamp = new Date(this.latestprice.timestamp);
           this.getCurrentTime();
           let timeDifference = this.localCurrentTime - this.lasttimestamp;
-          console.log('Time difference:' + timeDifference / 1000 + 's');
+          // console.log('Time difference:' + timeDifference / 1000 + 's');
 
           if (timeDifference < 60 * 1000) {
             this.openstatus = true;
@@ -145,7 +166,9 @@ export class DetailsComponent implements OnInit {
             .subscribe((dailycharts) => {
               this.dailycharts = dailycharts;
               console.log('DailyCharts fetched ' + Date());
+              this.dailyChartsFinish = false;
               this.createDailyCharts();
+              this.dailyChartsFinish = true;
               console.log('DailyCharts created ' + Date());
             });
         } else {

@@ -1,11 +1,14 @@
 <mat-spinner
-  *ngIf="(!metadata || !latestprice || !allnews || !dailycharts) && tickerExist"
+  *ngIf="
+    (!metadata || !latestprice || !allnews || !dailycharts || !dailyChartsFinish) &&
+    tickerExist
+  "
   class="mt-5 mx-auto"
 ></mat-spinner>
 
 <!-- if ticker exists, show tab area -->
 <div
-  *ngIf="metadata && metadata.ticker && latestprice && allnews"
+  *ngIf="metadata && metadata.ticker && latestprice && allnews && dailyChartsFinish"
   class="container mt-5"
 >
   <div class="detail-header">
