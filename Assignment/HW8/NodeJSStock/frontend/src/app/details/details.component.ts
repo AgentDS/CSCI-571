@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import * as Highcharts from 'highcharts';
+import * as Highcharts from 'highcharts/highstock';
+import { Options } from 'highcharts/highstock';
 
 import { BackendService } from '../backend.service';
 
@@ -30,23 +31,44 @@ export class DetailsComponent implements OnInit {
   lasttimestamp;
   allnews;
   openstatus = false;
+  dailyChartsColor;
   tickerExist = true;
 
   // high charts setting area
   isHighcharts = typeof Highcharts === 'object';
+  chartConstructor = 'stockChart';
   Highcharts: typeof Highcharts = Highcharts; // required
-  chartConstructor: string = 'chart'; // optional string, defaults to 'chart'
-  chartOptions: Highcharts.Options;
+  chartOptions: Options;
 
   createDailyCharts() {
+    // split the data set into close and volume
+    let dailyClose = [],
+      dataLength = this.dailycharts.length;
+    let i, intTimestamp;
+    console.log(this.dailycharts[0]);
+
+    for (i = 0; i < dataLength; i += 1) {
+      intTimestamp = Date.parse(this.dailycharts[i].date);
+      dailyClose.push([intTimestamp, this.dailycharts[i].close]);
+    }
+
     this.chartOptions = {
       series: [
         {
-          data: [1, 2, 3],
+          data: dailyClose,
+          color: this.dailyChartsColor,
+          showInNavigator: true,
+          name: this.ticker.toUpperCase(),
           type: 'line',
+          tooltip: {
+            valueDecimals: 2,
+          },
         },
       ],
-      title: { text: this.metadata.ticker },
+      title: { text: this.ticker.toUpperCase() },
+      rangeSelector: {
+        enabled: false,
+      },
     }; // required
   }
 
@@ -98,6 +120,12 @@ export class DetailsComponent implements OnInit {
         if (this.latestprice.last) {
           this.tickerExist = true;
           this.change = this.latestprice.last - this.latestprice.prevClose;
+          if (this.change>0) {
+            this.dailyChartsColor = '#7F434F';
+          }
+          else{
+            this.dailyChartsColor = '#FF0000';
+          }
           this.changePercent = (100 * this.change) / this.latestprice.prevClose;
           this.lasttimestamp = new Date(this.latestprice.timestamp);
           this.getCurrentTime();
@@ -116,9 +144,9 @@ export class DetailsComponent implements OnInit {
             .fetchDailyCharts(this.ticker, lastWorkingDate)
             .subscribe((dailycharts) => {
               this.dailycharts = dailycharts;
-              // console.log(this.dailycharts);
               console.log('DailyCharts fetched ' + Date());
               this.createDailyCharts();
+              console.log('DailyCharts created ' + Date());
             });
         } else {
           this.tickerExist = false;
