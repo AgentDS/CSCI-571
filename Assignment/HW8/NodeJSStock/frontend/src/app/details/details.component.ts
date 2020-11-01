@@ -2,15 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as Highcharts from 'highcharts/highstock';
-// import VBPIndicator from 'highcharts/indicators/volume-by-price';
+// import VBPIndicator from 'highcharts/indicators/volume-by-price';  // ????? import name unknown
 // import IndicatorsCore from "highcharts/indicators/indicators";
 import { Options } from 'highcharts/highstock';
 declare var require: any;
 require('highcharts/indicators/indicators')(Highcharts); // loads core and enables sma
 require('highcharts/indicators/volume-by-price')(Highcharts); // loads enables vbp
-// require('highcharts-indicators/js/sma')(Highcharts);
-// IndicatorsCore(Highcharts);
-
 
 import * as moment from 'moment';
 import 'moment-timezone';
@@ -26,6 +23,13 @@ import { NewsSource } from '../news-source';
 import { DailyPrice } from '../daily-price';
 import { HistPrice } from '../hist-price';
 import { areAllEquivalent } from '@angular/compiler/src/output/output_ast';
+
+function LATimezonOffset(timestamp) {
+  var zone = 'America/Los_Angeles',
+    timezoneOffset = -moment.tz(timestamp, zone).utcOffset();
+
+  return timezoneOffset;
+}
 
 @Component({
   selector: 'app-details',
@@ -98,12 +102,13 @@ export class DetailsComponent implements OnInit {
          * Use moment-timezone.js to return the timezone offset for individual
          * timestamps, used in the X axis labels and the tooltip header.
          */
-        getTimezoneOffset: function (timestamp) {
-          var zone = 'America/Los_Angeles',
-            timezoneOffset = -moment.tz(timestamp, zone).utcOffset();
+        getTimezoneOffset: LATimezonOffset,
+        // function (timestamp) {
+        //   var zone = 'America/Los_Angeles',
+        //     timezoneOffset = -moment.tz(timestamp, zone).utcOffset();
 
-          return timezoneOffset;
-        },
+        //   return timezoneOffset;
+        // },
       },
     }; // required
   }
@@ -112,7 +117,7 @@ export class DetailsComponent implements OnInit {
     let i, intTimestamp;
 
     // split the data set into ohlc and volume
-    var ohlc = [],
+    let ohlc = [],
       volume = [],
       dataLength = this.histcharts.length,
       // set the allowed units for data grouping
@@ -255,7 +260,6 @@ export class DetailsComponent implements OnInit {
           },
         ],
         selected: 2,
-        // inputEnabled: false
       },
       time: {
         /**

@@ -5,7 +5,7 @@
       !allnews ||
       !dailycharts ||
       !dailyChartsFinish ||
-      !histChartsFinish ) &&
+      !histChartsFinish) &&
     tickerExist
   "
   class="mt-5 mx-auto"
@@ -238,16 +238,15 @@
     <!-- charts tab -->
     <mat-tab label="Charts">
       <div class="container" id="charts-content">
-        <div class="col-sm">
-          <highcharts-chart
-            *ngIf="isHighcharts"
-            [Highcharts]="Highcharts"
-            [constructorType]="'stockChart'"
-            [options]="histChartOptions"
-            style="width: 100%; height: 400px; display: block"
-          >
-          </highcharts-chart>
-        </div>
+        <highcharts-chart
+          class="col-sm"
+          *ngIf="isHighcharts"
+          [Highcharts]="Highcharts"
+          [constructorType]="'stockChart'"
+          [options]="histChartOptions"
+          style="width: 100%; height: 700px; display: block"
+        >
+        </highcharts-chart>
       </div>
     </mat-tab>
   </mat-tab-group>
