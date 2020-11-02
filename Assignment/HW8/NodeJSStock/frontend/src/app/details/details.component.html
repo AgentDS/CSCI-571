@@ -8,7 +8,7 @@
       !histChartsFinish) &&
     tickerExist
   "
-  class="mt-5 mx-auto"
+  class="mt-4 mx-auto"
 ></mat-spinner>
 
 <!-- if ticker exists, show tab area -->
@@ -23,6 +23,18 @@
   "
   class="container mt-5"
 >
+  <div
+    id="alert"
+    class="container alert text-center alert-dismissible fade show"
+    [class.alert-danger]="!inWatchlist"
+    [class.alert-success]="inWatchlist"
+    role="alert"
+  >
+    {{ ticker | uppercase }} removed from Watchlist.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
   <div class="detail-header">
     <div class="row">
       <div class="col">
@@ -132,7 +144,10 @@
               fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
             >
-            <path class="neg" d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              <path
+                class="neg"
+                d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+              />
             </svg>
             <h2
               class="m-0 p-0 d-flex flex-row-reverse text-danger"
