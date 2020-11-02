@@ -102,17 +102,7 @@ export class DetailsComponent implements OnInit {
         },
       },
       time: {
-        /**
-         * Use moment-timezone.js to return the timezone offset for individual
-         * timestamps, used in the X axis labels and the tooltip header.
-         */
         getTimezoneOffset: LATimezonOffset,
-        // function (timestamp) {
-        //   var zone = 'America/Los_Angeles',
-        //     timezoneOffset = -moment.tz(timestamp, zone).utcOffset();
-
-        //   return timezoneOffset;
-        // },
       },
     }; // required
   }
@@ -320,7 +310,7 @@ export class DetailsComponent implements OnInit {
           this.tickerExist = true;
           this.change = this.latestprice.last - this.latestprice.prevClose;
           if (this.change > 0) {
-            this.dailyChartsColor = '#7F434F';
+            this.dailyChartsColor = '#008000';
           } else {
             this.dailyChartsColor = '#FF0000';
           }
@@ -338,7 +328,7 @@ export class DetailsComponent implements OnInit {
 
           // last working day can be achieve from last timestamp
           let lastWorkingDate = this.latestprice.timestamp.slice(0, 10);
-          console.log("Last working date: " + lastWorkingDate);
+          console.log('Last working date: ' + lastWorkingDate);
           this.backendService
             .fetchDailyCharts(this.ticker, lastWorkingDate)
             .subscribe((dailycharts) => {

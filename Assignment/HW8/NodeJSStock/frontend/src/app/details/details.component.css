@@ -11,6 +11,10 @@ path.neg {
   color: red;
 }
 
+path.star-fill-icon {
+  color: rgb(255, 195, 0);
+}
+
 path.pos {
   color: green;
 }
