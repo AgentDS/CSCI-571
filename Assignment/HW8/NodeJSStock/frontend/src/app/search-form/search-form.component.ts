@@ -22,8 +22,7 @@ export class SearchFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private backService: BackendService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.searchForm = this.formBuilder.group({ tickerInput: '' });
@@ -43,13 +42,19 @@ export class SearchFormComponent implements OnInit {
   }
 
   onSubmit(tickerData) {
-    console.log('ticker name in form: ', tickerData.tickerInput.ticker);
-    this.ticker = tickerData.tickerInput.ticker;
+    if (tickerData.tickerInput.ticker) {
+      this.ticker = tickerData.tickerInput.ticker;
+    } else {
+      this.ticker = tickerData.tickerInput;
+    }
+    console.log('ticker name in form: ', this.ticker);
     this.router.navigateByUrl('/details/' + this.ticker);
     this.searchForm.reset();
   }
 
   displayFn(company: SearchUtility) {
-    if (company) { return company.ticker; }
+    if (company) {
+      return company.ticker;
+    }
   }
 }

@@ -22,9 +22,11 @@ import { News } from '../news';
 import { NewsSource } from '../news-source';
 import { DailyPrice } from '../daily-price';
 import { HistPrice } from '../hist-price';
-import { areAllEquivalent } from '@angular/compiler/src/output/output_ast';
-import { log } from 'console';
 
+/**
+ * Use moment-timezone.js to return the timezone offset for individual
+ * timestamps, used in the X axis labels and the tooltip header.
+ */
 function LATimezonOffset(timestamp) {
   var zone = 'America/Los_Angeles',
     timezoneOffset = -moment.tz(timestamp, zone).utcOffset();
@@ -52,6 +54,7 @@ export class DetailsComponent implements OnInit {
   openstatus = false;
   dailyChartsColor;
   tickerExist = true;
+  inWatchlist = false; // if false, not in watchlist; otherwise in watchlist
 
   // high charts setting area
   dailyChartsFinish = false;
@@ -263,16 +266,7 @@ export class DetailsComponent implements OnInit {
         selected: 2,
       },
       time: {
-        /**
-         * Use moment-timezone.js to return the timezone offset for individual
-         * timestamps, used in the X axis labels and the tooltip header.
-         */
-        getTimezoneOffset: function (timestamp) {
-          var zone = 'America/Los_Angeles',
-            timezoneOffset = -moment.tz(timestamp, zone).utcOffset();
-
-          return timezoneOffset;
-        },
+        getTimezoneOffset: LATimezonOffset,
       },
     }; // required
   }
@@ -344,6 +338,7 @@ export class DetailsComponent implements OnInit {
 
           // last working day can be achieve from last timestamp
           let lastWorkingDate = this.latestprice.timestamp.slice(0, 10);
+          console.log("Last working date: " + lastWorkingDate);
           this.backendService
             .fetchDailyCharts(this.ticker, lastWorkingDate)
             .subscribe((dailycharts) => {
@@ -384,6 +379,10 @@ export class DetailsComponent implements OnInit {
         this.histChartsFinish = true;
         console.log('HistCharts created ' + Date());
       });
+  }
+
+  clickStar() {
+    this.inWatchlist = !this.inWatchlist;
   }
 
   ngOnInit() {
