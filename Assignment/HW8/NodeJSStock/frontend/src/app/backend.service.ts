@@ -1,19 +1,20 @@
 import { Host, Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { HOST } from "./host-name";
+import { HOST } from './host-name';
 
-import { Metadata } from "./metadata";
-import { Latestprice } from "./latestprice";
-import { News } from "./news";
-import { DailyPrice } from "./daily-price";
-import { HistPrice } from "./hist-price";
+import { Metadata } from './metadata';
+import { Latestprice } from './latestprice';
+import { News } from './news';
+import { DailyPrice } from './daily-price';
+import { HistPrice } from './hist-price';
+import { SearchUtility } from './search-utility';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BackendService {
   private searchutilPre = HOST + 'api/v1.0.0/searchutil';
@@ -23,29 +24,24 @@ export class BackendService {
   private dailyChartsPre = HOST + 'api/v1.0.0/dailycharts';
   private histChartsPre = HOST + 'api/v1.0.0/histcharts';
 
+  constructor(private http: HttpClient) {}
 
-
-
-  constructor(private http: HttpClient) { }
-
-  fetchSearchutil(ticker: string): Observable<Object> {
+  fetchSearchutil(ticker: string): Observable<SearchUtility[]> {
     const searchutilUrl = `${this.searchutilPre}/${ticker}`;
-    return this.http.get(searchutilUrl).pipe(
+    return this.http.get<SearchUtility[]>(searchutilUrl).pipe(
       catchError(this.handleError('fetchSearchutil', [])) // then handle the error
     );
   }
 
-
   fetchMetadata(ticker: string): Observable<Metadata> {
     const metaDataUrl = `${this.metadataPre}/${ticker}`;
 
-    return this.http.get<Metadata>(metaDataUrl);//.subscribe(data => console.log(data));
+    return this.http.get<Metadata>(metaDataUrl); //.subscribe(data => console.log(data));
     // .pipe(catchError(this.handleError('fetchMetadata', [])) // then handle the error
     // );
   }
 
   fetchLatestPrice(ticker: string): Observable<Latestprice> {
-
     const latestPriceUrl = `${this.latestPricePre}/${ticker}`;
     return this.http.get<Latestprice>(latestPriceUrl);
     // .pipe(
@@ -61,7 +57,10 @@ export class BackendService {
     // );
   }
 
-  fetchDailyCharts(ticker: string, startDate: string): Observable<DailyPrice[]> {
+  fetchDailyCharts(
+    ticker: string,
+    startDate: string
+  ): Observable<DailyPrice[]> {
     const dailyChartsUrl = `${this.dailyChartsPre}/${ticker}/date/${startDate}`;
     return this.http.get<DailyPrice[]>(dailyChartsUrl);
 
@@ -78,12 +77,8 @@ export class BackendService {
     // );
   }
 
-
-
-
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
       // send the error to remote logging infrastructure
       console.error(error); // log to console instead
 
@@ -94,5 +89,4 @@ export class BackendService {
       return of(result as T);
     };
   }
-
 }

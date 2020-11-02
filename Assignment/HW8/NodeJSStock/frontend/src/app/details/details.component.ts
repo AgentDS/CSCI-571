@@ -23,6 +23,7 @@ import { NewsSource } from '../news-source';
 import { DailyPrice } from '../daily-price';
 import { HistPrice } from '../hist-price';
 import { areAllEquivalent } from '@angular/compiler/src/output/output_ast';
+import { log } from 'console';
 
 function LATimezonOffset(timestamp) {
   var zone = 'America/Los_Angeles',
@@ -348,6 +349,7 @@ export class DetailsComponent implements OnInit {
             .subscribe((dailycharts) => {
               this.dailycharts = dailycharts;
               console.log('DailyCharts fetched ' + Date());
+              console.log('DailyCharts length: ' + this.dailycharts.length);
               this.dailyChartsFinish = false;
               this.createDailyCharts();
               this.dailyChartsFinish = true;
@@ -376,7 +378,7 @@ export class DetailsComponent implements OnInit {
       .subscribe((histcharts) => {
         this.histcharts = histcharts;
         console.log('HistCharts fetched ' + Date());
-
+        console.log('HistCharts length: ' + this.histcharts.length);
         this.histChartsFinish = false;
         this.createHistCharts();
         this.histChartsFinish = true;
