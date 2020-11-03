@@ -1,7 +1,21 @@
 <div class="watchlist-header container border my-5 p-0">My Watchlist</div>
 <div class="container my-0 p-0">
+  <mat-spinner
+    *ngIf="!fetchFinish && !isEmpty"
+    class="mt-4 mx-auto"
+  ></mat-spinner>
   <ngb-alert *ngIf="isEmpty" class="text-center text-dark"
     >Currently you don't have any stock in your watchlist.
   </ngb-alert>
-
+  <div *ngIf="fetchFinish && !isEmpty">
+    <!-- <div *ngFor="let tickerItem of tickerInfoArr" class="card">
+      {{ tickerItem.ticker }}<br />
+      {{ tickerItem.name }}<br />
+      {{ tickerItem.last - tickerItem.prevClose | number: "1.2-2" }} <br />
+      ({{
+        (100 * (tickerItem.last - tickerItem.prevClose)) / tickerItem.prevClose
+          | number: "1.2-2"
+      }}%)
+    </div> -->
+  </div>
 </div>

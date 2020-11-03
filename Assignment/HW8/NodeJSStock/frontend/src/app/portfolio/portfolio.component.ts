@@ -13,4 +13,10 @@ export class PortfolioComponent implements OnInit {
     console.log("portfolio");
   }
 
+  ngOnDestroy(): void {
+    console.log("Exist from Portfolio");
+
+
+  }
+
 }

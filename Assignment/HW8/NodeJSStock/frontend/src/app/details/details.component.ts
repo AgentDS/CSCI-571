@@ -44,6 +44,7 @@ function LATimezonOffset(timestamp) {
 })
 export class DetailsComponent implements OnInit {
   private _StarAlertSuccess = new Subject<string>();
+  fetchSubscribe; // for unsubscribe interval() on ngDestroy()
   starSuccessMessage = '';
   ticker: string = '';
   metadata;
@@ -309,7 +310,7 @@ export class DetailsComponent implements OnInit {
   fetchLatestPriceNDailyCharts() {
     // update data every 15 seconds
     let stop: boolean = false;
-    interval(15000)
+    this.fetchSubscribe = interval(15000)
       .pipe(takeWhile(() => !stop))
       .subscribe(() => {
         this.backendService
@@ -383,25 +384,18 @@ export class DetailsComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
-    this.route.paramMap.subscribe((params) => {
-      this.ticker = params.get('ticker');
-      console.log('ticker name in details: ' + this.ticker);
-    });
-    this.checkWatchlist();
-
-    this.fetchMetadata();
-    this.fetchNews();
-    this.fetchLatestPriceNDailyCharts();
-    this.fetchHistCharts();
-
-    // for star alert
-    this._StarAlertSuccess.subscribe(
-      (message) => (this.starSuccessMessage = message)
+  checkWatchlist() {
+    let watchlistArr = localStorage.getItem('Watchlist')
+      ? JSON.parse(localStorage.getItem('Watchlist'))
+      : [];
+    let result = watchlistArr.filter(
+      (data) => data.ticker === this.ticker.toUpperCase()
     );
-    this._StarAlertSuccess
-      .pipe(debounceTime(5000))
-      .subscribe(() => (this.starSuccessMessage = ''));
+    if (result.length) {
+      this.inWatchlist = true;
+    } else {
+      this.inWatchlist = false;
+    }
   }
 
   public onClickStar() {
@@ -429,17 +423,29 @@ export class DetailsComponent implements OnInit {
     this._StarAlertSuccess.next('Message successfully changed.');
   }
 
-  checkWatchlist() {
-    let watchlistArr = localStorage.getItem('Watchlist')
-      ? JSON.parse(localStorage.getItem('Watchlist'))
-      : [];
-    let result = watchlistArr.filter(
-      (data) => data.ticker === this.ticker.toUpperCase()
+  ngOnInit() {
+    this.route.paramMap.subscribe((params) => {
+      this.ticker = params.get('ticker');
+      console.log('ticker name in details: ' + this.ticker);
+    });
+    this.checkWatchlist();
+
+    this.fetchMetadata();
+    this.fetchNews();
+    this.fetchLatestPriceNDailyCharts();
+    this.fetchHistCharts();
+
+    // for star alert
+    this._StarAlertSuccess.subscribe(
+      (message) => (this.starSuccessMessage = message)
     );
-    if (result.length) {
-      this.inWatchlist = true;
-    } else {
-      this.inWatchlist = false;
-    }
+    this._StarAlertSuccess
+      .pipe(debounceTime(5000))
+      .subscribe(() => (this.starSuccessMessage = ''));
+  }
+
+  ngOnDestroy() {
+    this.fetchSubscribe.unsubscribe();
+    console.log(`Exist from Details/${this.ticker}`);
   }
 }
