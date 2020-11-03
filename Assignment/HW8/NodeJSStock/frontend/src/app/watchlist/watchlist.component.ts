@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { interval, Subject, Subscription, timer, forkJoin } from 'rxjs';
-import { switchMap, takeWhile, map } from 'rxjs/operators';
+import { switchMap, takeWhile, map, last } from 'rxjs/operators';
 
 import { BackendService } from '../backend.service';
 
@@ -17,7 +17,7 @@ export class WatchlistComponent implements OnInit {
   watchlistArr;
   tickerInfoArr; // array of LatestPrice objects, obtained from latest price fetch
   fetchFinish = false;
-  fetchSubscribe;
+  fetchSubscribe: Subscription;
 
   constructor(private backendService: BackendService) {}
 
@@ -25,36 +25,65 @@ export class WatchlistComponent implements OnInit {
     let stop: boolean = false;
     console.log('Start fetch ' + Date());
 
-    this.fetchSubscribe = interval(15000)
-      .pipe(takeWhile(() => !stop))
-      .subscribe(() => {
-        console.log('real Start fetch ' + Date());
-        this.checkEmpty();
-        this.watchlistArr.map((item) =>
-          this.backendService
-            .fetchLatestPrice(item.ticker)
-            .subscribe((latestprice: Latestprice) => {
-              let tickerInfo = {
-                ticker: latestprice.ticker,
-                name: item.name,
-                change: latestprice.last - latestprice.prevClose,
-                changePercent:
-                  (100 * (latestprice.last - latestprice.prevClose)) /
-                  latestprice.prevClose,
-              };
-              this.tmpArr.push(tickerInfo);
-              console.log(this.tmpArr.length + ' items: ' + Date());
-
-              // console.log(this.tmpArr);
-              // console.log(latestprice);
-            })
-        );
-        this.tickerInfoArr = this.tmpArr;
-        this.tmpArr = [];
-        if (this.tickerInfoArr.length) {
-          this.fetchFinish = true;
-        }
+    this.fetchSubscribe = timer(0, 15000).subscribe(() => {
+      this.checkEmpty();
+      let callArr = [];
+      this.watchlistArr.forEach((item) => {
+        callArr.push(this.backendService.fetchLatestPrice(item.ticker));
       });
+      forkJoin(callArr).subscribe((responses) => {
+        console.log('real fetch time: ' + Date());
+        let infoArr = [];
+        responses.forEach((res: Latestprice) => {
+          let tickerName = this.watchlistArr.filter(
+            (data) => data.ticker === res.ticker
+          )[0].name;
+          let info = {
+            ticker: res.ticker,
+            name: tickerName,
+            last: res.last,
+            change: res.last - res.prevClose,
+            changePercent: (100 * (res.last - res.prevClose)) / res.prevClose,
+            timestamp: res.timestamp
+          };
+          infoArr.push(info);
+        });
+        this.tickerInfoArr = infoArr;
+        this.fetchFinish = true;
+        console.log(this.tickerInfoArr);
+      });
+    });
+
+    // this.fetchSubscribe = interval(15000)
+    //   .pipe(takeWhile(() => !stop))
+    //   .subscribe(() => {
+    //     console.log('real Start fetch ' + Date());
+    //     this.checkEmpty();
+    //     this.watchlistArr.map((item) =>
+    //       this.backendService
+    //         .fetchLatestPrice(item.ticker)
+    //         .subscribe((latestprice: Latestprice) => {
+    //           let tickerInfo = {
+    //             ticker: latestprice.ticker,
+    //             name: item.name,
+    //             change: latestprice.last - latestprice.prevClose,
+    //             changePercent:
+    //               (100 * (latestprice.last - latestprice.prevClose)) /
+    //               latestprice.prevClose,
+    //           };
+    //           this.tmpArr.push(tickerInfo);
+    //           console.log(this.tmpArr.length + ' items: ' + Date());
+
+    //           // console.log(this.tmpArr);
+    //           // console.log(latestprice);
+    //         })
+    //     );
+    //     this.tickerInfoArr = this.tmpArr;
+    //     this.tmpArr = [];
+    //     if (this.tickerInfoArr.length) {
+    //       this.fetchFinish = true;
+    //     }
+    //   });
   }
 
   checkEmpty() {
