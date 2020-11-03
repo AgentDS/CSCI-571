@@ -59,7 +59,6 @@ export class DetailsComponent implements OnInit {
   dailyChartsColor;
   tickerExist = true;
   inWatchlist = false; // if false, not in watchlist; otherwise in watchlist
-  showStarAlert = 0; // if 1, show add to watchlist success; if 2, show removed from watchlist
 
   // high charts setting area
   dailyChartsFinish = false;
@@ -381,6 +380,7 @@ export class DetailsComponent implements OnInit {
       this.ticker = params.get('ticker');
       console.log('ticker name in details: ' + this.ticker);
     });
+    this.checkWatchlist();
 
     this.fetchMetadata();
     this.fetchNews();
@@ -399,31 +399,39 @@ export class DetailsComponent implements OnInit {
   public onClickStar() {
     this.inWatchlist = !this.inWatchlist;
     let watchlistArr, watchlistArrNew;
+
+    watchlistArr = localStorage.getItem('Watchlist')
+      ? JSON.parse(localStorage.getItem('Watchlist'))
+      : [];
     if (this.inWatchlist) {
-      this.showStarAlert = 1;
       // add ticker to watchlist
-      // if (localStorage.getItem('Watchlist')) {
-      //   watchlistArr = localStorage.getItem('Watchlist');
-      // } else {
-      //   watchlistArr = [];
-      // }
-      watchlistArr = localStorage.getItem('Watchlist')
-        ? localStorage.getItem('Watchlist')
-        : [];
-      watchlistArr.push({
+      let watchlistItemNew = {
         ticker: this.ticker.toUpperCase(),
         name: this.metadata.name,
-      });
-      localStorage.setItem('Watchlist', watchlistArr);
+      };
+      watchlistArr.push(watchlistItemNew);
+      localStorage.setItem('Watchlist', JSON.stringify(watchlistArr));
     } else {
-      this.showStarAlert = 2;
       // remove ticker from watchlist
-      watchlistArr = localStorage.getItem('Watchlist');
       watchlistArrNew = watchlistArr.filter(
         (data) => data.ticker != this.ticker.toUpperCase()
       );
-      localStorage.setItem('Watchlist', watchlistArrNew);
+      localStorage.setItem('Watchlist', JSON.stringify(watchlistArrNew));
     }
-    this._StarAlertSuccess.next(`Message successfully changed.`);
+    this._StarAlertSuccess.next('Message successfully changed.');
+  }
+
+  checkWatchlist() {
+    let watchlistArr = localStorage.getItem('Watchlist')
+      ? JSON.parse(localStorage.getItem('Watchlist'))
+      : [];
+    let result = watchlistArr.filter(
+      (data) => data.ticker === this.ticker.toUpperCase()
+    );
+    if (result.length) {
+      this.inWatchlist = true;
+    } else {
+      this.inWatchlist = false;
+    }
   }
 }
