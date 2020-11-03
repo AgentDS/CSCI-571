@@ -8,14 +8,11 @@
     >Currently you don't have any stock in your watchlist.
   </ngb-alert>
   <div *ngIf="fetchFinish && !isEmpty">
-    <!-- <div *ngFor="let tickerItem of tickerInfoArr" class="card">
+    <div *ngFor="let tickerItem of tickerInfoArr" class="card">
       {{ tickerItem.ticker }}<br />
       {{ tickerItem.name }}<br />
-      {{ tickerItem.last - tickerItem.prevClose | number: "1.2-2" }} <br />
-      ({{
-        (100 * (tickerItem.last - tickerItem.prevClose)) / tickerItem.prevClose
-          | number: "1.2-2"
-      }}%)
-    </div> -->
+      {{ tickerItem.change | number: "1.2-2" }} <br />
+      ({{ tickerItem.changePercent | number: "1.2-2" }}%)
+    </div>
   </div>
 </div>
