@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { interval, Subject, Subscription, timer } from 'rxjs';
+import { switchMap, debounceTime, takeWhile } from 'rxjs/operators';
 import * as Highcharts from 'highcharts/highstock';
 // import VBPIndicator from 'highcharts/indicators/volume-by-price';  // ????? import name unknown
 // import IndicatorsCore from "highcharts/indicators/indicators";
@@ -24,6 +24,7 @@ import { News } from '../news';
 import { NewsSource } from '../news-source';
 import { DailyPrice } from '../daily-price';
 import { HistPrice } from '../hist-price';
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 
 /**
  * Use moment-timezone.js to return the timezone offset for individual
@@ -306,50 +307,57 @@ export class DetailsComponent implements OnInit {
   }
 
   fetchLatestPriceNDailyCharts() {
-    this.backendService
-      .fetchLatestPrice(this.ticker)
-      .subscribe((latestprice) => {
-        this.latestprice = latestprice;
-        if (this.latestprice.last) {
-          this.tickerExist = true;
-          this.change = this.latestprice.last - this.latestprice.prevClose;
-          if (this.change > 0) {
-            this.dailyChartsColor = '#008000';
-          } else {
-            this.dailyChartsColor = '#FF0000';
-          }
-          this.changePercent = (100 * this.change) / this.latestprice.prevClose;
-          this.lasttimestamp = new Date(this.latestprice.timestamp);
-          this.getCurrentTime();
-          let timeDifference = this.localCurrentTime - this.lasttimestamp;
-          // console.log('Time difference:' + timeDifference / 1000 + 's');
+    // update data every 15 seconds
+    let stop: boolean = false;
+    interval(15000)
+      .pipe(takeWhile(() => !stop))
+      .subscribe(() => {
+        this.backendService
+          .fetchLatestPrice(this.ticker)
+          .subscribe((latestprice) => {
+            this.latestprice = latestprice;
+            if (this.latestprice.last) {
+              this.tickerExist = true;
+              this.change = this.latestprice.last - this.latestprice.prevClose;
+              if (this.change > 0) {
+                this.dailyChartsColor = '#008000';
+              } else {
+                this.dailyChartsColor = '#FF0000';
+              }
+              this.changePercent =
+                (100 * this.change) / this.latestprice.prevClose;
+              this.lasttimestamp = new Date(this.latestprice.timestamp);
+              this.getCurrentTime();
+              let timeDifference = this.localCurrentTime - this.lasttimestamp;
+              // console.log('Time difference:' + timeDifference / 1000 + 's');
 
-          if (timeDifference < 60 * 1000) {
-            this.openstatus = true;
-          } else {
-            this.openstatus = false;
-          }
+              if (timeDifference < 60 * 1000) {
+                this.openstatus = true;
+              } else {
+                this.openstatus = false;
+              }
 
-          // last working day can be achieve from last timestamp
-          let lastWorkingDate = this.latestprice.timestamp.slice(0, 10);
-          console.log('Last working date: ' + lastWorkingDate);
-          this.backendService
-            .fetchDailyCharts(this.ticker, lastWorkingDate)
-            .subscribe((dailycharts) => {
-              this.dailycharts = dailycharts;
-              console.log('DailyCharts fetched ' + Date());
-              console.log('DailyCharts length: ' + this.dailycharts.length);
-              this.dailyChartsFinish = false;
-              this.createDailyCharts();
-              this.dailyChartsFinish = true;
-              console.log('DailyCharts created ' + Date());
-            });
-        } else {
-          this.tickerExist = false;
-          this.dailycharts = { detail: 'Not found.' };
-        }
+              // last working day can be achieve from last timestamp
+              let lastWorkingDate = this.latestprice.timestamp.slice(0, 10);
+              console.log('Last working date: ' + lastWorkingDate);
+              this.backendService
+                .fetchDailyCharts(this.ticker, lastWorkingDate)
+                .subscribe((dailycharts) => {
+                  this.dailycharts = dailycharts;
+                  console.log('DailyCharts fetched ' + Date());
+                  console.log('DailyCharts length: ' + this.dailycharts.length);
+                  this.dailyChartsFinish = false;
+                  this.createDailyCharts();
+                  this.dailyChartsFinish = true;
+                  console.log('DailyCharts created ' + Date());
+                });
+            } else {
+              this.tickerExist = false;
+              this.dailycharts = { detail: 'Not found.' };
+            }
 
-        console.log('LatestPrice fetched ' + Date());
+            console.log('LatestPrice fetched ' + Date());
+          });
       });
   }
 
