@@ -25,28 +25,8 @@
 >
 
   <!-- watchlist alert -->
-  <div
-    id="alert"
-    class="container alert text-center alert-success"
-    *ngIf="showStarAlert==1"
-    role="alert"
-  >
-    {{ ticker | uppercase }} added to Watchlist.
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div
-    id="alert"
-    class="container alert text-center alert-danger"
-    *ngIf="showStarAlert==2"
-    role="alert"
-  >
-    {{ ticker | uppercase }} removed from Watchlist.
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+  <ngb-alert *ngIf="starSuccessMessage && inWatchlist" type="success" class="text-center" (close)="starSuccessMessage = ''">{{ ticker | uppercase }} added to Watchlist.</ngb-alert>
+  <ngb-alert *ngIf="starSuccessMessage && !inWatchlist" type="danger" class="text-center" (close)="starSuccessMessage = ''">{{ ticker | uppercase }} removed from Watchlist.</ngb-alert>
 
 
   <div class="detail-header">
@@ -54,7 +34,7 @@
       <div class="col">
         <h1 class="m-0 p-0 d-flex flex-row" id="meta-ticker">
           {{ metadata.ticker }}
-          <div class="m-0 p-0 d-inline-flex" (click)="clickStar()">
+          <div class="m-0 p-0 d-inline-flex" (click)="onClickStar()">
             <svg
               *ngIf="inWatchlist"
               width="0.5em"

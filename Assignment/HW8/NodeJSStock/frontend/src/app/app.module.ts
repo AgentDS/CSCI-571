@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 import { HighchartsChartModule } from 'highcharts-angular';
 
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -18,7 +18,7 @@ import { DetailsComponent } from './details/details.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 
-import { BackendService } from "./backend.service";
+import { BackendService } from './backend.service';
 
 import { A11yModule } from '@angular/cdk/a11y';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -65,7 +65,6 @@ import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { NewsDetailComponent } from './news-detail/news-detail.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,8 +74,8 @@ import { NewsDetailComponent } from './news-detail/news-detail.component';
     DetailsComponent,
     WatchlistComponent,
     PortfolioComponent,
-      NewsDetailComponent
-   ],
+    NewsDetailComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -131,10 +130,9 @@ import { NewsDetailComponent } from './news-detail/news-detail.component';
     PortalModule,
     ScrollingModule,
   ],
-  providers: [
-    BackendService
-  ],
-  bootstrap: [AppComponent],
+  exports: [DetailsComponent],
+  providers: [BackendService],
+  bootstrap: [AppComponent, DetailsComponent],
   entryComponents: [NewsDetailComponent],
 })
-export class AppModule { }
+export class AppModule {}

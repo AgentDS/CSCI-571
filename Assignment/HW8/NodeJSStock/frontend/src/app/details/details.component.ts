@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import * as Highcharts from 'highcharts/highstock';
 // import VBPIndicator from 'highcharts/indicators/volume-by-price';  // ????? import name unknown
 // import IndicatorsCore from "highcharts/indicators/indicators";
@@ -40,6 +42,8 @@ function LATimezonOffset(timestamp) {
   styleUrls: ['./details.component.css'],
 })
 export class DetailsComponent implements OnInit {
+  private _StarAlertSuccess = new Subject<string>();
+  starSuccessMessage = '';
   ticker: string = '';
   metadata;
   latestprice;
@@ -372,18 +376,6 @@ export class DetailsComponent implements OnInit {
       });
   }
 
-  clickStar() {
-    this.inWatchlist = !this.inWatchlist;
-    if (this.inWatchlist) {
-      this.showStarAlert = 1;
-    } else {
-      this.showStarAlert = 2;
-    }
-    // setTimeout(function () {
-    //   this.showStarAlert = 0;
-    // }, 5000);
-  }
-
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       this.ticker = params.get('ticker');
@@ -394,5 +386,23 @@ export class DetailsComponent implements OnInit {
     this.fetchNews();
     this.fetchLatestPriceNDailyCharts();
     this.fetchHistCharts();
+
+    // for star alert
+    this._StarAlertSuccess.subscribe(
+      (message) => (this.starSuccessMessage = message)
+    );
+    this._StarAlertSuccess
+      .pipe(debounceTime(5000))
+      .subscribe(() => (this.starSuccessMessage = ''));
+  }
+
+  public onClickStar() {
+    this.inWatchlist = !this.inWatchlist;
+    if (this.inWatchlist) {
+      this.showStarAlert = 1;
+    } else {
+      this.showStarAlert = 2;
+    }
+    this._StarAlertSuccess.next(`Message successfully changed.`);
   }
 }
