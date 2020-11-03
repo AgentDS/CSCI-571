@@ -132,7 +132,7 @@ import { NewsDetailComponent } from './news-detail/news-detail.component';
   ],
   exports: [DetailsComponent],
   providers: [BackendService],
-  bootstrap: [AppComponent, DetailsComponent],
+  bootstrap: [AppComponent],
   entryComponents: [NewsDetailComponent],
 })
 export class AppModule {}

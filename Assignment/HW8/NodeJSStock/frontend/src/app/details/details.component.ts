@@ -398,18 +398,31 @@ export class DetailsComponent implements OnInit {
 
   public onClickStar() {
     this.inWatchlist = !this.inWatchlist;
+    let watchlistArr, watchlistArrNew;
     if (this.inWatchlist) {
       this.showStarAlert = 1;
       // add ticker to watchlist
-
-
-
-
+      // if (localStorage.getItem('Watchlist')) {
+      //   watchlistArr = localStorage.getItem('Watchlist');
+      // } else {
+      //   watchlistArr = [];
+      // }
+      watchlistArr = localStorage.getItem('Watchlist')
+        ? localStorage.getItem('Watchlist')
+        : [];
+      watchlistArr.push({
+        ticker: this.ticker.toUpperCase(),
+        name: this.metadata.name,
+      });
+      localStorage.setItem('Watchlist', watchlistArr);
     } else {
       this.showStarAlert = 2;
       // remove ticker from watchlist
-
-
+      watchlistArr = localStorage.getItem('Watchlist');
+      watchlistArrNew = watchlistArr.filter(
+        (data) => data.ticker != this.ticker.toUpperCase()
+      );
+      localStorage.setItem('Watchlist', watchlistArrNew);
     }
     this._StarAlertSuccess.next(`Message successfully changed.`);
   }
