@@ -23,11 +23,23 @@
   "
   class="container mt-5"
 >
+
+  <!-- watchlist alert -->
   <div
     id="alert"
-    class="container alert text-center alert-dismissible fade show"
-    [class.alert-danger]="!inWatchlist"
-    [class.alert-success]="inWatchlist"
+    class="container alert text-center alert-success"
+    *ngIf="showStarAlert==1"
+    role="alert"
+  >
+    {{ ticker | uppercase }} added to Watchlist.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div
+    id="alert"
+    class="container alert text-center alert-danger"
+    *ngIf="showStarAlert==2"
     role="alert"
   >
     {{ ticker | uppercase }} removed from Watchlist.
@@ -35,6 +47,8 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
+
+
   <div class="detail-header">
     <div class="row">
       <div class="col">

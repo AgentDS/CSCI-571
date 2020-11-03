@@ -55,6 +55,7 @@ export class DetailsComponent implements OnInit {
   dailyChartsColor;
   tickerExist = true;
   inWatchlist = false; // if false, not in watchlist; otherwise in watchlist
+  showStarAlert = 0; // if 1, show add to watchlist success; if 2, show removed from watchlist
 
   // high charts setting area
   dailyChartsFinish = false;
@@ -373,6 +374,14 @@ export class DetailsComponent implements OnInit {
 
   clickStar() {
     this.inWatchlist = !this.inWatchlist;
+    if (this.inWatchlist) {
+      this.showStarAlert = 1;
+    } else {
+      this.showStarAlert = 2;
+    }
+    // setTimeout(function () {
+    //   this.showStarAlert = 0;
+    // }, 5000);
   }
 
   ngOnInit() {
