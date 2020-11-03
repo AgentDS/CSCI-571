@@ -400,8 +400,16 @@ export class DetailsComponent implements OnInit {
     this.inWatchlist = !this.inWatchlist;
     if (this.inWatchlist) {
       this.showStarAlert = 1;
+      // add ticker to watchlist
+
+
+
+
     } else {
       this.showStarAlert = 2;
+      // remove ticker from watchlist
+
+
     }
     this._StarAlertSuccess.next(`Message successfully changed.`);
   }
