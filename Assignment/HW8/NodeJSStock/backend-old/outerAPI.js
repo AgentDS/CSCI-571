@@ -61,13 +61,18 @@ async function getNews(keyword) {
     }).catch(error => {
         console.log("News fetch failed.");
     });
+    let newsRes;
     if (APIres == null) {
-        var newsRes = null;
+        newsRes = null;
     } else {
-        var origRes = await APIres.json();
-        var newsRes = await origRes.articles;
+        let origRes = await APIres.json();
+        let totalResults = await origRes.totalResults;
+        if (totalResults == 0) {
+            newsRes = [];
+        } else {
+            newsRes = await origRes.articles;
+        }
     }
-
     return newsRes;
 }
 

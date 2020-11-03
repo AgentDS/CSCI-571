@@ -68,7 +68,7 @@ app.get('/api/v1.0.0/news/:keyword', async function (req, res) {
 
     let origRes = await outerAPI.getNews(req.params.keyword);
 
-    if (origRes) {
+    if (origRes && origRes.length) {
         console.log("Length of response: " + origRes.length);
         console.log("sample news title length:" + origRes[0].title.length);
     } else {
