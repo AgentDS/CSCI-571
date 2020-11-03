@@ -39,11 +39,10 @@ app.get('/api/v1.0.0/searchutil/:keyword', async function (req, res) {
 })
 
 app.get('/api/v1.0.0/metadata/:tickerName', async function (req, res) {
-    console.log("\nCompany Meta Data Call");
-    console.log("Ticker: " + req.params.tickerName.toUpperCase());
+    console.log(`\nMeta Data Call: ${req.params.tickerName.toUpperCase()}`);
     // if not found, response is {"detail":"Not found."}
     let origRes = await outerAPI.getCompanyMetaData(req.params.tickerName);
-    console.log(req.params.tickerName.toUpperCase() + " Meta Data finished at " + Date());
+    console.log(`${req.params.tickerName.toUpperCase()} Meta Data finished at ${Date()}\n`);
     return res.send(origRes);
     // if (origRes)
     //     return res.status(200).json(origRes);
@@ -51,11 +50,10 @@ app.get('/api/v1.0.0/metadata/:tickerName', async function (req, res) {
 
 
 app.get('/api/v1.0.0/latestprice/:tickerName', async function (req, res) {
-    console.log("\nCompany Latest Price Call");
-    console.log("Ticker: " + req.params.tickerName.toUpperCase());
+    console.log(`\nLatest Price Call: ${req.params.tickerName.toUpperCase()}`);
     // if not found, response is {"detail":"Not found."}
     let origRes = await outerAPI.getLatestPrice(req.params.tickerName);
-    console.log(req.params.tickerName.toUpperCase() + " Latest Price finished at " + Date());
+    console.log(`${req.params.tickerName.toUpperCase()} Latest Price finished at ${Date()}\n`);
     return res.send(origRes);
 })
 
@@ -88,7 +86,7 @@ app.get('/api/v1.0.0/dailycharts/:tickerName/date/:startDate', async function (r
 })
 
 app.get('/api/v1.0.0/histcharts/:tickerName/date/:startDate', async function (req, res) {
-    console.log(`Historical chart data Call: ${req.params.tickerName.toUpperCase()}; Start Date: ${req.params.startDate}\n`);
+    console.log(`\nHistorical chart data Call: ${req.params.tickerName.toUpperCase()}; Start Date: ${req.params.startDate}\n`);
     // if not found, response is object {"detail":"Error: Ticker 'xxxx' not found"}
     // otherwise response is array of object
     let origRes = await outerAPI.getHistChartsData(req.params.startDate, req.params.tickerName);
