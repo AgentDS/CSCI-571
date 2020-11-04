@@ -5,6 +5,51 @@ import { BackendService } from '../backend.service';
 
 import { Latestprice } from '../latestprice';
 
+let mockInfoArr = [
+  {
+    ticker: 'AAPL',
+    name: 'Apple company',
+    last: 122.5,
+    change: 23.4,
+    changePercent: 2.34,
+    timestamp: '125456',
+  },
+  {
+    ticker: 'AAA',
+    name: 'AAA Cor',
+    last: 121.34,
+    change: -2.4,
+    changePercent: -0.34,
+    timestamp: '125456',
+  },
+  {
+    ticker: '3ADDDY',
+    name: 'Adidas Cor',
+    last: 227.12,
+    change: -44.4,
+    changePercent: -1.54,
+    timestamp: '125456',
+  },
+  {
+    ticker: '4PUMA',
+    name: 'PUMA Sports',
+    last: 11.34,
+    change: 2.4,
+    changePercent: 1.34,
+    timestamp: '125456',
+  },
+];
+
+function addLocalStorage() {
+  let watchedItems = [
+    { ticker: '1AAPL', name: 'Apple company' },
+    { ticker: '2AAA', name: 'AAA Cor' },
+    { ticker: '3ADDDY', name: 'Adidas Cor' },
+    { ticker: '4PUMA', name: 'PUMA Sports' },
+  ];
+  localStorage.setItem('Watchlist', JSON.stringify(watchedItems));
+}
+
 @Component({
   selector: 'app-watchlist',
   templateUrl: './watchlist.component.html',
@@ -24,7 +69,7 @@ export class WatchlistComponent implements OnInit {
     let stop: boolean = false;
     console.log('Start fetch ' + Date());
 
-    this.fetchSubscribe = timer(0, 1500000).subscribe(() => {
+    this.fetchSubscribe = timer(0, 15000).subscribe(() => {
       this.checkEmpty();
       let callArr = [];
       this.watchlistArr.forEach((item) => {
@@ -57,33 +102,37 @@ export class WatchlistComponent implements OnInit {
   }
 
   checkEmpty() {
-    let tickerCache = [];
     this.watchlistArr = localStorage.getItem('Watchlist')
       ? JSON.parse(localStorage.getItem('Watchlist'))
       : [];
     if (this.watchlistArr.length) {
       this.isEmpty = false;
-      for (let j = 0; j < this.watchlistArr.length; j++) {
-        tickerCache.push(true);
-      }
-      this.tickerCache = tickerCache;
     } else {
       this.isEmpty = true;
     }
   }
 
-  public removeFromWatchlist(ticker, tickerId) {
-    this.tickerCache[tickerId] = false;
+  public removeFromWatchlist(tickerItem) {
+    this.tickerInfoArr.splice(this.tickerInfoArr.indexOf(tickerItem), 1);
     let watchlistArrOld = JSON.parse(localStorage.getItem('Watchlist'));
     let watchlistArrNew = watchlistArrOld.filter(
-      (data) => data.ticker != ticker.toUpperCase()
+      (data) => data.ticker != tickerItem.ticker.toUpperCase()
     );
     localStorage.setItem('Watchlist', JSON.stringify(watchlistArrNew));
     this.checkEmpty();
   }
 
   ngOnInit() {
-    this.fetchAllTicker();
+    this.fetchAllTicker();  // TODO: remove comment after testing
+
+    // for style testing-----Start
+    // console.log("Init Watchlist");
+    // addLocalStorage();
+    // this.checkEmpty();
+    // this.tickerInfoArr = mockInfoArr;
+    // this.fetchFinish = true;
+    // console.log("In watchlist");
+    // for testing-----End
   }
 
   ngOnDestroy() {
