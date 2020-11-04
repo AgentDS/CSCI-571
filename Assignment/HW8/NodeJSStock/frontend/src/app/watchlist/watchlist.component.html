@@ -16,7 +16,7 @@
       class="card p-0 my-3 mx-2 border"
       (close)="removeFromWatchlist(tickerItem)"
     >
-      <div class="row mx-3 my-4">
+      <div class="row mx-3 my-4" (click)="linkToDetails(tickerItem.ticker)">
         <div class="col">
           <h1 class="m-0 p-0 flex-row item-ticker">
             {{ tickerItem.ticker }}

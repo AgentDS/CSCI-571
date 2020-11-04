@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, Subscription, timer, forkJoin } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { BackendService } from '../backend.service';
 
@@ -63,7 +64,7 @@ export class WatchlistComponent implements OnInit {
   fetchFinish = false;
   fetchSubscribe: Subscription;
 
-  constructor(private backendService: BackendService) {}
+  constructor(private backendService: BackendService, private router: Router) {}
 
   fetchAllTicker() {
     let stop: boolean = false;
@@ -122,8 +123,12 @@ export class WatchlistComponent implements OnInit {
     this.checkEmpty();
   }
 
+  public linkToDetails(ticker) {
+    this.router.navigateByUrl('/details/' + ticker);
+  }
+
   ngOnInit() {
-    this.fetchAllTicker();  // TODO: remove comment after testing
+    this.fetchAllTicker(); // TODO: remove comment after testing
 
     // for style testing-----Start
     // console.log("Init Watchlist");
