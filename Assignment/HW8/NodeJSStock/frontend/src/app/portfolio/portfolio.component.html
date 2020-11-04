@@ -1,3 +1,11 @@
-<p>
-  portfolio works!
-</p>
+<div class="container my-5 p-0">
+  <h1 class="watchlist-header mx-2">My Watchlist</h1>
+</div>
+<div class="container my-0 p-0">
+  <mat-spinner *ngIf="false"
+    class="mt-4 mx-auto"
+  ></mat-spinner>
+  <ngb-alert [dismissible]="false" *ngIf="isEmpty" class="text-center text-dark mx-3"
+    >Currently you don't have any stock in your watchlist.
+  </ngb-alert>
+  </div>

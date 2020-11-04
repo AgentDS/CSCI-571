@@ -322,8 +322,10 @@ export class DetailsComponent implements OnInit {
             this.change = this.latestprice.last - this.latestprice.prevClose;
             if (this.change > 0) {
               this.dailyChartsColor = '#008000';
-            } else {
+            } else if (this.change < 0) {
               this.dailyChartsColor = '#FF0000';
+            } else {
+              this.dailyChartsColor = '#000000';
             }
             this.changePercent =
               (100 * this.change) / this.latestprice.prevClose;
