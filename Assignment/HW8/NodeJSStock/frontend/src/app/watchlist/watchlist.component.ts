@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { interval, Subject, Subscription, timer, forkJoin } from 'rxjs';
-import { switchMap, takeWhile, map, last } from 'rxjs/operators';
+import { Subject, Subscription, timer, forkJoin } from 'rxjs';
 
 import { BackendService } from '../backend.service';
 
