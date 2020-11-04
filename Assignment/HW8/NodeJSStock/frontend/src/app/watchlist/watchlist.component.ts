@@ -12,7 +12,7 @@ import { Latestprice } from '../latestprice';
 })
 export class WatchlistComponent implements OnInit {
   isEmpty;
-  tmpArr = [];
+  tickerCache: any[];
   watchlistArr;
   tickerInfoArr; // array of LatestPrice objects, obtained from latest price fetch
   fetchFinish = false;
@@ -24,7 +24,7 @@ export class WatchlistComponent implements OnInit {
     let stop: boolean = false;
     console.log('Start fetch ' + Date());
 
-    this.fetchSubscribe = timer(0, 15000).subscribe(() => {
+    this.fetchSubscribe = timer(0, 1500000).subscribe(() => {
       this.checkEmpty();
       let callArr = [];
       this.watchlistArr.forEach((item) => {
@@ -33,6 +33,8 @@ export class WatchlistComponent implements OnInit {
       forkJoin(callArr).subscribe((responses) => {
         console.log('real fetch time: ' + Date());
         let infoArr = [];
+        console.log('Response in forkJoin: ' + responses);
+
         responses.forEach((res: Latestprice) => {
           let tickerName = this.watchlistArr.filter(
             (data) => data.ticker === res.ticker
@@ -43,7 +45,7 @@ export class WatchlistComponent implements OnInit {
             last: res.last,
             change: res.last - res.prevClose,
             changePercent: (100 * (res.last - res.prevClose)) / res.prevClose,
-            timestamp: res.timestamp
+            timestamp: res.timestamp,
           };
           infoArr.push(info);
         });
@@ -55,15 +57,31 @@ export class WatchlistComponent implements OnInit {
   }
 
   checkEmpty() {
+    let tickerCache = [];
     this.watchlistArr = localStorage.getItem('Watchlist')
       ? JSON.parse(localStorage.getItem('Watchlist'))
       : [];
     if (this.watchlistArr.length) {
       this.isEmpty = false;
+      for (let j = 0; j < this.watchlistArr.length; j++) {
+        tickerCache.push(true);
+      }
+      this.tickerCache = tickerCache;
     } else {
       this.isEmpty = true;
     }
   }
+
+  public removeFromWatchlist(ticker, tickerId) {
+    this.tickerCache[tickerId] = false;
+    let watchlistArrOld = JSON.parse(localStorage.getItem('Watchlist'));
+    let watchlistArrNew = watchlistArrOld.filter(
+      (data) => data.ticker != ticker.toUpperCase()
+    );
+    localStorage.setItem('Watchlist', JSON.stringify(watchlistArrNew));
+    this.checkEmpty();
+  }
+
   ngOnInit() {
     this.fetchAllTicker();
   }

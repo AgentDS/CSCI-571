@@ -1,18 +1,75 @@
-<div class="watchlist-header container border my-5 p-0">My Watchlist</div>
+<div class="container my-5 p-0"><h1 class="watchlist-header mx-3">My Watchlist</h1></div>
 <div class="container my-0 p-0">
   <mat-spinner
     *ngIf="!fetchFinish && !isEmpty"
     class="mt-4 mx-auto"
   ></mat-spinner>
-  <ngb-alert *ngIf="isEmpty" class="text-center text-dark"
+  <ngb-alert *ngIf="isEmpty" class="text-center text-dark mx-3"
     >Currently you don't have any stock in your watchlist.
   </ngb-alert>
   <div *ngIf="fetchFinish && !isEmpty">
-    <div *ngFor="let tickerItem of tickerInfoArr" class="card">
-      {{ tickerItem.ticker }}<br />
-      {{ tickerItem.name }}<br />
-      {{ tickerItem.change | number: "1.2-2" }} <br />
-      ({{ tickerItem.changePercent | number: "1.2-2" }}%)
+    <div *ngFor="let tickerItem of tickerInfoArr; index as tickerId" class="card my-3 mx-3">
+      <button type="button" class="close" aria-label="Close" (click)="removeFromWatchlist(tickerItem.ticker, tickerId)">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="row mx-3 my-3">
+        <div class="col">
+          <h1 class="m-0 p-0 flex-row item-ticker">
+            {{ tickerItem.ticker }}
+          </h1>
+          <h3 class="m-0 p-0 flex-row text-dark item-name">
+            {{ tickerItem.name }}
+          </h3>
+        </div>
+        <div class="col">
+          <h1
+            class="m-0 p-0 flex-row  last-price d-flex flex-row-reverse"
+            [class.text-danger]="tickerItem.change < 0"
+            [class.text-success]="tickerItem.change > 0"
+          >
+            {{ tickerItem.last }}
+          </h1>
+          <div
+            class="m-0 p-0 flex-row d-flex flex-row-reverse change"
+            [class.text-danger]="tickerItem.change < 0"
+            [class.text-success]="tickerItem.change > 0"
+          >
+          <p class="m-0 p-0">
+            <svg
+              *ngIf="tickerItem.change > 0"
+              width="1em"
+              height="1em"
+              viewBox="0 0 16 16"
+              class="bi bi-caret-up-fill"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                class="pos"
+                d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+              />
+            </svg>
+            <svg
+              *ngIf="tickerItem.change < 0"
+              width="1em"
+              height="1em"
+              viewBox="0 0 16 16"
+              class="bi bi-caret-down-fill"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                class="neg"
+                d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+              />
+            </svg>
+            {{ tickerItem.change | number: "1.2-2" }}({{
+              tickerItem.changePercent | number: "1.2-2"
+            }}%)
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
