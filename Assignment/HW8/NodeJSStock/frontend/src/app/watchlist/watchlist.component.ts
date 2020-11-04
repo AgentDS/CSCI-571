@@ -53,37 +53,6 @@ export class WatchlistComponent implements OnInit {
         console.log(this.tickerInfoArr);
       });
     });
-
-    // this.fetchSubscribe = interval(15000)
-    //   .pipe(takeWhile(() => !stop))
-    //   .subscribe(() => {
-    //     console.log('real Start fetch ' + Date());
-    //     this.checkEmpty();
-    //     this.watchlistArr.map((item) =>
-    //       this.backendService
-    //         .fetchLatestPrice(item.ticker)
-    //         .subscribe((latestprice: Latestprice) => {
-    //           let tickerInfo = {
-    //             ticker: latestprice.ticker,
-    //             name: item.name,
-    //             change: latestprice.last - latestprice.prevClose,
-    //             changePercent:
-    //               (100 * (latestprice.last - latestprice.prevClose)) /
-    //               latestprice.prevClose,
-    //           };
-    //           this.tmpArr.push(tickerInfo);
-    //           console.log(this.tmpArr.length + ' items: ' + Date());
-
-    //           // console.log(this.tmpArr);
-    //           // console.log(latestprice);
-    //         })
-    //     );
-    //     this.tickerInfoArr = this.tmpArr;
-    //     this.tmpArr = [];
-    //     if (this.tickerInfoArr.length) {
-    //       this.fetchFinish = true;
-    //     }
-    //   });
   }
 
   checkEmpty() {
