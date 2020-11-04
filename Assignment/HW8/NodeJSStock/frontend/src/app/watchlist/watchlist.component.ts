@@ -23,7 +23,7 @@ let mockInfoArr = [
     timestamp: '125456',
   },
   {
-    ticker: '3ADDDY',
+    ticker: 'ADDDY',
     name: 'Adidas Cor',
     last: 227.12,
     change: -44.4,
@@ -31,7 +31,7 @@ let mockInfoArr = [
     timestamp: '125456',
   },
   {
-    ticker: '4PUMA',
+    ticker: 'PUMA',
     name: 'PUMA Sports',
     last: 11.34,
     change: 2.4,
@@ -42,10 +42,10 @@ let mockInfoArr = [
 
 function addLocalStorage() {
   let watchedItems = [
-    { ticker: '1AAPL', name: 'Apple company' },
-    { ticker: '2AAA', name: 'AAA Cor' },
-    { ticker: '3ADDDY', name: 'Adidas Cor' },
-    { ticker: '4PUMA', name: 'PUMA Sports' },
+    { ticker: 'AAPL', name: 'Apple company' },
+    { ticker: 'AAA', name: 'AAA Cor' },
+    { ticker: 'ADDDY', name: 'Adidas Cor' },
+    { ticker: 'PUMA', name: 'PUMA Sports' },
   ];
   localStorage.setItem('Watchlist', JSON.stringify(watchedItems));
 }

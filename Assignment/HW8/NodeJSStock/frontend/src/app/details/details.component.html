@@ -23,11 +23,21 @@
   "
   class="container mt-5"
 >
-
   <!-- watchlist alert -->
-  <ngb-alert *ngIf="starSuccessMessage && inWatchlist" type="success" class="text-center" (close)="starSuccessMessage = ''">{{ ticker | uppercase }} added to Watchlist.</ngb-alert>
-  <ngb-alert *ngIf="starSuccessMessage && !inWatchlist" type="danger" class="text-center" (close)="starSuccessMessage = ''">{{ ticker | uppercase }} removed from Watchlist.</ngb-alert>
-
+  <ngb-alert
+    *ngIf="starSuccessMessage && inWatchlist"
+    type="success"
+    class="text-center"
+    (close)="starSuccessMessage = ''"
+    >{{ ticker | uppercase }} added to Watchlist.</ngb-alert
+  >
+  <ngb-alert
+    *ngIf="starSuccessMessage && !inWatchlist"
+    type="danger"
+    class="text-center"
+    (close)="starSuccessMessage = ''"
+    >{{ ticker | uppercase }} removed from Watchlist.</ngb-alert
+  >
 
   <div class="detail-header">
     <div class="row">
@@ -75,26 +85,18 @@
       </div>
       <div class="col">
         <h1
-          *ngIf="change > 0"
-          class="m-0 p-0 d-flex flex-row-reverse text-success"
-          id="latest-last-pos"
+          class="m-0 p-0 d-flex flex-row-reverse latest-last"
+          [class.text-success]="change > 0"
+          [class.text-danger]="change < 0"
         >
           {{ latestprice.last }}
         </h1>
-        <h1
-          *ngIf="change < 0"
-          class="m-0 p-0 d-flex flex-row-reverse text-danger"
-          id="latest-last-neg"
-        >
-          {{ latestprice.last }}
-        </h1>
-        <!-- if change positive, green latest price -->
-        <div
-          *ngIf="changePercent > 0"
-          class="row mr-1 flex-row justify-content-end"
-        >
+        <!-- if change positive, green price; if negative red; if 0, black -->
+        <div class="row mr-1 flex-row justify-content-end">
           <div class="row m-0 p-0">
+            <!-- green arrow up if positive change -->
             <svg
+              *ngIf="change > 0"
               width="2em"
               height="2em"
               viewBox="0 0 16 16"
@@ -107,30 +109,9 @@
                 d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
               />
             </svg>
-            <h2
-              class="m-0 p-0 d-flex flex-row-reverse text-success"
-              id="change-latest-pos"
-            >
-              {{ change | number: "1.2-2" }}
-            </h2>
-          </div>
-          <div class="col-sm m-0 p-0 col-md-auto">
-            <h2
-              class="m-0 p-0 d-flex flex-row-reverse text-success"
-              id="change-latest-pos"
-            >
-              ({{ changePercent | number: "1.2-2" }}%)
-            </h2>
-          </div>
-        </div>
-
-        <!-- if change negative, red latest price -->
-        <div
-          *ngIf="changePercent < 0"
-          class="row mr-1 flex-row justify-content-end"
-        >
-          <div class="row m-0 p-0">
+            <!-- red arrow down if negative change -->
             <svg
+              *ngIf="change < 0"
               width="2em"
               height="2em"
               viewBox="0 0 16 16"
@@ -144,16 +125,18 @@
               />
             </svg>
             <h2
-              class="m-0 p-0 d-flex flex-row-reverse text-danger"
-              id="change-latest-neg"
+              class="m-0 p-0 d-flex flex-row-reverse change-latest"
+              [class.text-success]="change > 0"
+              [class.text-danger]="change < 0"
             >
               {{ change | number: "1.2-2" }}
             </h2>
           </div>
           <div class="col-sm m-0 p-0 col-md-auto">
             <h2
-              class="m-0 p-0 d-flex flex-row-reverse text-danger"
-              id="change-latest-neg"
+              class="m-0 p-0 d-flex flex-row-reverse change-latest"
+              [class.text-success]="change > 0"
+              [class.text-danger]="change < 0"
             >
               ({{ changePercent | number: "1.2-2" }}%)
             </h2>

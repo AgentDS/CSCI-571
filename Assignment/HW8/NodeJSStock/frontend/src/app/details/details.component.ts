@@ -309,7 +309,6 @@ export class DetailsComponent implements OnInit {
 
   fetchLatestPriceNDailyCharts() {
     // update data every 15 seconds
-    // let stop: boolean = false;
     console.log('LatestPriceNDailyCharts Start: ' + Date());
 
     this.fetchSubscribe = timer(0, 15000).subscribe(() => {
@@ -365,56 +364,6 @@ export class DetailsComponent implements OnInit {
           console.log('LatestPrice fetched ' + Date());
         });
     });
-
-    // this.fetchSubscribe = interval(15000)
-    //   .pipe(takeWhile(() => !stop))
-    //   .subscribe(() => {
-    //     this.backendService
-    //       .fetchLatestPrice(this.ticker)
-    //       .subscribe((latestprice) => {
-    //         this.latestprice = latestprice;
-    //         if (this.latestprice.last) {
-    //           this.tickerExist = true;
-    //           this.change = this.latestprice.last - this.latestprice.prevClose;
-    //           if (this.change > 0) {
-    //             this.dailyChartsColor = '#008000';
-    //           } else {
-    //             this.dailyChartsColor = '#FF0000';
-    //           }
-    //           this.changePercent =
-    //             (100 * this.change) / this.latestprice.prevClose;
-    //           this.lasttimestamp = new Date(this.latestprice.timestamp);
-    //           this.getCurrentTime();
-    //           let timeDifference = this.localCurrentTime - this.lasttimestamp;
-    //           // console.log('Time difference:' + timeDifference / 1000 + 's');
-
-    //           if (timeDifference < 60 * 1000) {
-    //             this.openstatus = true;
-    //           } else {
-    //             this.openstatus = false;
-    //           }
-
-    //           // last working day can be achieve from last timestamp
-    //           let lastWorkingDate = this.latestprice.timestamp.slice(0, 10);
-    //           console.log('Last working date: ' + lastWorkingDate);
-    //           this.backendService
-    //             .fetchDailyCharts(this.ticker, lastWorkingDate)
-    //             .subscribe((dailycharts) => {
-    //               this.dailycharts = dailycharts;
-    //               console.log('DailyCharts fetched ' + Date() + "; Length: " + this.dailycharts.length);
-    //               this.dailyChartsFinish = false;
-    //               this.createDailyCharts();
-    //               this.dailyChartsFinish = true;
-    //               console.log('DailyCharts created ' + Date());
-    //             });
-    //         } else {
-    //           this.tickerExist = false;
-    //           this.dailycharts = { detail: 'Not found.' };
-    //         }
-
-    //         console.log('LatestPrice fetched ' + Date());
-    //       });
-    // });
   }
 
   fetchHistCharts() {
