@@ -3,3 +3,11 @@ h1.portfolio-header {
   font-weight: 500;
   line-height: 45px;
 }
+
+path.pos {
+  color: green;
+}
+
+path.neg {
+  color: red;
+}
