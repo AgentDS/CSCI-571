@@ -14,7 +14,7 @@
       type="alert.type"
       *ngFor="let tickerItem of tickerInfoArr"
       class="card p-0 my-3 mx-2 border"
-      (click)="removeFromWatchlist(tickerItem)"
+      (close)="removeFromWatchlist(tickerItem)"
     >
       <div class="row mx-3 my-4">
         <div class="col">
