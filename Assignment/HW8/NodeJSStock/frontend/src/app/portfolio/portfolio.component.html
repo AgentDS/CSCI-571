@@ -1,11 +1,40 @@
 <div class="container my-5 p-0">
-  <h1 class="watchlist-header mx-2">My Watchlist</h1>
+  <h1 class="watchlist-header mx-2">My Portfolio</h1>
 </div>
 <div class="container my-0 p-0">
-  <mat-spinner *ngIf="false"
+  <!-- spinner area -->
+  <mat-spinner
+    *ngIf="!fetchFinish && !isEmpty"
     class="mt-4 mx-auto"
   ></mat-spinner>
-  <ngb-alert [dismissible]="false" class="text-center text-dark mx-3"
-    >Currently you don't have any stock in your watchlist.
+
+  <!-- empty portfolio alert area -->
+  <ngb-alert
+    [dismissible]="false"
+    *ngIf="isEmpty"
+    class="text-center text-dark mx-3"
+    >Currently you don't have any stock.
   </ngb-alert>
+
+  <!-- purchased stock cards area -->
+  <div *ngIf="fetchFinish && !isEmpty">
+    <div *ngFor="let tickerItem of tickerInfoArr" class="card p-0 my-3 mx-2">
+      <div class="card-header py-0 px-3">
+        <div class="row p-2 d-flex align-items-end">
+          <h1 class="m-0 p-0">{{ tickerItem.ticker }}</h1>
+          <h3 class="my-0 mx-2 p-0 text-secondary">{{ tickerItem.name }}</h3>
+        </div>
+      </div>
+      <div class="card-body py-0 px-3">
+        <div class="card-text row p-2">
+          <div class="col-sm p-0 m-0">first column</div>
+          <div class="col-sm p-0 m-0">second column</div>
+        </div>
+      </div>
+      <div class="card-footer py-1 d-flex justify-content-end">
+        <button class="btn btn-primary mx-1 border-0">Buy</button>
+        <button class="btn btn-primary mx-1 bg-danger border-0">Sell</button>
+      </div>
+    </div>
   </div>
+</div>

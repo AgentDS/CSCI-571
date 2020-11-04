@@ -58,7 +58,6 @@ function addLocalStorage() {
 })
 export class WatchlistComponent implements OnInit {
   isEmpty;
-  tickerCache: any[];
   watchlistArr;
   tickerInfoArr; // array of LatestPrice objects, obtained from latest price fetch
   fetchFinish = false;
@@ -67,9 +66,7 @@ export class WatchlistComponent implements OnInit {
   constructor(private backendService: BackendService, private router: Router) {}
 
   fetchAllTicker() {
-    let stop: boolean = false;
-    console.log('Start fetch ' + Date());
-
+    // console.log('Start fetch ' + Date());
     this.fetchSubscribe = timer(0, 15000).subscribe(() => {
       this.checkEmpty();
       let callArr = [];
@@ -77,9 +74,9 @@ export class WatchlistComponent implements OnInit {
         callArr.push(this.backendService.fetchLatestPrice(item.ticker));
       });
       forkJoin(callArr).subscribe((responses) => {
-        console.log('real fetch time: ' + Date());
+        // console.log('real fetch time: ' + Date());
         let infoArr = [];
-        console.log('Response in forkJoin: ' + responses);
+        // console.log('Response in forkJoin: ' + responses);
 
         responses.forEach((res: Latestprice) => {
           let tickerName = this.watchlistArr.filter(
