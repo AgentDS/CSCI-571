@@ -29,50 +29,50 @@ let mockInfoArr = [
     ticker: 'AAPL',
     name: 'Apple company',
     quantity: 100,
-    totalCost: 3541,
-    avgCost: 3541 / 100,
-    change: 123 - 3541 / 100,
-    currentPrice: 123, // latestprice.last
-    marketValue: 123 * 100,
+    totalCost: 3541.23,
+    avgCost: 3541.23 / 100,
+    change: 123.2 - 3541.23 / 100,
+    currentPrice: 123.2, // latestprice.last
+    marketValue: 123.2 * 100,
   },
   {
     ticker: 'AAA',
     name: 'AAA Cor',
     quantity: 200,
-    totalCost: 12441,
-    avgCost: 12441 / 200,
-    change: 52 - 12441 / 200,
-    currentPrice: 52, // latestprice.last
-    marketValue: 52 * 200,
+    totalCost: 124.41,
+    avgCost: 124.41 / 200,
+    change: 52.624 - 124.41 / 200,
+    currentPrice: 52.624, // latestprice.last
+    marketValue: 52.624 * 200,
   },
   {
     ticker: 'ADDDY',
     name: 'Adidas Cor',
-    quantity: 300,
-    totalCost: 341,
-    avgCost: 341 / 300,
-    change: 34.1 - 341 / 300,
-    currentPrice: 34.1,
-    marketValue: 34.1 * 300,
+    quantity: 30,
+    totalCost: 34.1,
+    avgCost: 34.1 / 30,
+    change: 34.12 - 34.1 / 30,
+    currentPrice: 34.12,
+    marketValue: 34.12 * 30,
   },
   {
     ticker: 'PUMA',
     name: 'PUMA Sports',
-    quantity: 400,
-    totalCost: 65040,
-    avgCost: 65040 / 400,
-    change: 34.1 - 65040 / 400,
-    currentPrice: 102334.12,
-    marketValue: 102334.12 * 400,
+    quantity: 40,
+    totalCost: 6504.34,
+    avgCost: 6504.34 / 40,
+    change: 34.131 - 6504.34 / 40,
+    currentPrice: 34.131,
+    marketValue: 34.131 * 40,
   },
 ];
 
 function addLocalStorage() {
   let purchasedItems = [
-    { ticker: 'AAPL', name: 'Apple company', quantity: 100, totalCost: 3541 },
-    { ticker: 'AAA', name: 'AAA Cor', quantity: 200, totalCost: 12441 },
-    { ticker: 'ADDDY', name: 'Adidas Cor', quantity: 300, totalCost: 341 },
-    { ticker: 'PUMA', name: 'PUMA Sports', quantity: 400, totalCost: 65040 },
+    { ticker: 'AAPL', name: 'Apple company', quantity: 100, totalCost: 3541.23 },
+    { ticker: 'AAA', name: 'AAA Cor', quantity: 200, totalCost: 124.41 },
+    { ticker: 'ADDDY', name: 'Adidas Cor', quantity: 30, totalCost: 34.1 },
+    { ticker: 'PUMA', name: 'PUMA Sports', quantity: 40, totalCost: 6504.34 },
   ];
   localStorage.setItem('Portfolio', JSON.stringify(purchasedItems));
 }

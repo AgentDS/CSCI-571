@@ -1,5 +1,5 @@
 <div class="container my-5 p-0">
-  <h1 class="watchlist-header mx-2">My Portfolio</h1>
+  <h1 class="portfolio-header mx-2">My Portfolio</h1>
 </div>
 <div class="container my-0 p-0">
   <!-- spinner area -->
@@ -25,10 +25,62 @@
           <h3 class="my-0 mx-2 p-0 text-secondary">{{ tickerItem.name }}</h3>
         </div>
       </div>
-      <div class="card-body py-0 px-3">
-        <div class="card-text row p-2">
-          <div class="col-sm p-0 m-0">first column</div>
-          <div class="col-sm p-0 m-0">second column</div>
+      <div class="card-body p-0 border border-danger">
+        <div class="card-text row m-0 px-0">
+          <!-- first column -->
+          <div class="col-sm p-0 m-0 mx-2 border border-warning">
+            <div class="row m-0 p-0 border">
+              <div class="col m-0 p-0 border">Quantity:</div>
+              <div class="col m-0 p-0 text-right border">
+                {{ tickerItem.quantity }}
+              </div>
+            </div>
+            <div class="row m-0 p-0 border">
+              <div class="col m-0 p-0 border">Avg. Cost / Share:</div>
+              <div class="col m-0 p-0 text-right border">
+                {{ tickerItem.avgCost | number: "1.0-2" }}
+              </div>
+            </div>
+            <div class="row m-0 p-0 border">
+              <div class="col m-0 p-0 border">Total Cost:</div>
+              <div class="col m-0 p-0 text-right border">
+                {{ tickerItem.totalCost | number: "1.0-2" }}
+              </div>
+            </div>
+          </div>
+          <!-- second column -->
+          <div class="col-sm p-0 m-0 mx-2">
+            <div class="row m-0 p-0 border">
+              <div class="col m-0 p-0 border">Change:</div>
+              <div
+                class="col m-0 p-0 text-right font-weight-bold border"
+                [class.text-danger]="tickerItem.change < 0"
+                [class.text-success]="tickerItem.change > 0"
+              >
+                {{ tickerItem.change | number: "1.0-2" }}
+              </div>
+            </div>
+            <div class="row m-0 p-0 border">
+              <div class="col m-0 p-0 border">Current Price:</div>
+              <div
+                class="col m-0 p-0 text-right font-weight-bold border"
+                [class.text-danger]="tickerItem.change < 0"
+                [class.text-success]="tickerItem.change > 0"
+              >
+                {{ tickerItem.currentPrice | number: "1.0-2" }}
+              </div>
+            </div>
+            <div class="row m-0 p-0 border">
+              <div class="col m-0 p-0 border">Market Value:</div>
+              <div
+                class="col m-0 p-0 text-right font-weight-bold border"
+                [class.text-danger]="tickerItem.change < 0"
+                [class.text-success]="tickerItem.change > 0"
+              >
+                {{ tickerItem.marketValue | number: "1.0-2" }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="card-footer py-1 d-flex justify-content-end">
