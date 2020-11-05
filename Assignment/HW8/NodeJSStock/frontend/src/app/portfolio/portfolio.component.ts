@@ -70,20 +70,20 @@ let mockInfoArr = [
   },
 ];
 
-function addLocalStorage() {
-  let purchasedItems = [
-    {
-      ticker: 'AAPL',
-      name: 'Apple company',
-      quantity: 100,
-      totalCost: 3541.23,
-    },
-    { ticker: 'AAA', name: 'AAA Cor', quantity: 200, totalCost: 124.41 },
-    { ticker: 'ADDDY', name: 'Adidas Cor', quantity: 30, totalCost: 34.1 },
-    { ticker: 'PUMA', name: 'PUMA Sports', quantity: 40, totalCost: 6504.34 },
-  ];
-  localStorage.setItem('Portfolio', JSON.stringify(purchasedItems));
-}
+// function addLocalStorage() {
+//   let purchasedItems = [
+//     {
+//       ticker: 'AAPL',
+//       name: 'Apple company',
+//       quantity: 100,
+//       totalCost: 3541.23,
+//     },
+//     { ticker: 'AAA', name: 'AAA Cor', quantity: 200, totalCost: 124.41 },
+//     { ticker: 'ADDDY', name: 'Adidas Cor', quantity: 30, totalCost: 34.1 },
+//     { ticker: 'PUMA', name: 'PUMA Sports', quantity: 40, totalCost: 6504.34 },
+//   ];
+//   localStorage.setItem('Portfolio', JSON.stringify(purchasedItems));
+// }
 
 @Component({
   selector: 'app-portfolio',
@@ -104,7 +104,7 @@ export class PortfolioComponent implements OnInit {
 
   fetchAllTicker() {
     console.log('Start fetch ' + Date());
-    this.fetchSubscribe = timer(0, 1500000).subscribe(() => {
+    this.fetchSubscribe = timer(0, 15000).subscribe(() => {
       this.checkEmpty();
       let callArr = [];
       this.portfolioArr.forEach((item) => {
@@ -112,7 +112,7 @@ export class PortfolioComponent implements OnInit {
       });
       forkJoin(callArr).subscribe((responses) => {
         console.log('real fetch time: ' + Date());
-        console.log('Response in forkJoin: ' + responses);
+        // console.log('Response in forkJoin: ' + responses);
 
         let infoArr = [];
         responses.forEach((res: Latestprice) => {
@@ -215,7 +215,7 @@ export class PortfolioComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    // this.fetchSubscribe.unsubscribe();  // TODO: remove comment after testing
+    this.fetchSubscribe.unsubscribe();  // TODO: remove comment after testing
     console.log('Exist from Portfolio');
   }
 }

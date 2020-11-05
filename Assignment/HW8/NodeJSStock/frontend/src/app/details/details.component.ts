@@ -3,9 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { interval, Subject, Subscription, timer } from 'rxjs';
 import { switchMap, debounceTime, takeWhile } from 'rxjs/operators';
+
 import * as Highcharts from 'highcharts/highstock';
-// import VBPIndicator from 'highcharts/indicators/volume-by-price';  // ????? import name unknown
-// import IndicatorsCore from "highcharts/indicators/indicators";
 import { Options } from 'highcharts/highstock';
 declare var require: any;
 require('highcharts/indicators/indicators')(Highcharts); // loads core and enables sma
@@ -16,6 +15,7 @@ import 'moment-timezone';
 
 import { BackendService } from '../backend.service';
 
+import { TransactionButtonComponent } from '../transaction-button/transaction-button.component';
 import { NewsDetailComponent } from '../news-detail/news-detail.component';
 
 import { Metadata } from '../metadata';
@@ -44,8 +44,10 @@ function LATimezonOffset(timestamp) {
 })
 export class DetailsComponent implements OnInit {
   private _StarAlertSuccess = new Subject<string>();
+  private _buyAlertSuccess = new Subject<string>();
   fetchSubscribe; // for unsubscribe interval() on ngDestroy()
   starSuccessMessage = '';
+  buySuccessMessage = '';
   ticker: string = '';
   metadata;
   latestprice;
@@ -279,7 +281,8 @@ export class DetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private backendService: BackendService,
-    private newsModalService: NgbModal
+    private newsModalService: NgbModal,
+    private transModalService: NgbModal
   ) {}
 
   openNewsDetail(news: News) {
@@ -311,7 +314,7 @@ export class DetailsComponent implements OnInit {
     // update data every 15 seconds
     console.log('LatestPriceNDailyCharts Start: ' + Date());
 
-    this.fetchSubscribe = timer(0, 15000).subscribe(() => {
+    this.fetchSubscribe = timer(0, 1500000).subscribe(() => {
       console.log('Real LatestPriceNDailyCharts Start: ' + Date());
       this.backendService
         .fetchLatestPrice(this.ticker)
@@ -429,6 +432,22 @@ export class DetailsComponent implements OnInit {
     this._StarAlertSuccess.next('Message successfully changed.');
   }
 
+  openTransectionButton(ticker, name, currentPrice, opt) {
+    const transModalRef = this.transModalService.open(
+      TransactionButtonComponent
+    );
+    transModalRef.componentInstance.ticker = ticker;
+    transModalRef.componentInstance.name = name;
+    transModalRef.componentInstance.currentPrice = currentPrice;
+    transModalRef.componentInstance.opt = opt;
+    transModalRef.result.then((recItem) => {
+      // trigger opt alert
+      console.log(recItem);
+      // for buy alert
+      this._buyAlertSuccess.next('Message successfully changed.');
+    });
+  }
+
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       this.ticker = params.get('ticker');
@@ -441,13 +460,21 @@ export class DetailsComponent implements OnInit {
     this.fetchLatestPriceNDailyCharts();
     this.fetchHistCharts();
 
-    // for star alert
+    // for star alert -------
     this._StarAlertSuccess.subscribe(
       (message) => (this.starSuccessMessage = message)
     );
     this._StarAlertSuccess
       .pipe(debounceTime(5000))
       .subscribe(() => (this.starSuccessMessage = ''));
+
+    // for buy success alert -------
+    this._buyAlertSuccess.subscribe(
+      (message) => (this.buySuccessMessage = message)
+    );
+    this._buyAlertSuccess
+      .pipe(debounceTime(5000))
+      .subscribe(() => (this.buySuccessMessage = ''));
   }
 
   ngOnDestroy() {

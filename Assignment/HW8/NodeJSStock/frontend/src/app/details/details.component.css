@@ -6,6 +6,10 @@
   font-size: 28px;
 }
 
+#buy-button {
+  outline: none;
+  box-shadow: none;
+}
 
 path.neg {
   color: red;
