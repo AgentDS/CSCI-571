@@ -32,11 +32,11 @@
             <div class="row m-0 p-0">
               <div class="col m-0 p-0">Quantity:</div>
               <div class="col m-0 p-0 text-right">
-                {{ tickerItem.quantity}}
+                {{ tickerItem.quantity }}
               </div>
             </div>
             <div class="row m-0 p-0">
-              <div class="col m-0 p-0">Avg. Cost / Share:</div>
+              <div class="col m-0 p-0">Avg. Cost/Share:</div>
               <div class="col m-0 p-0 text-right">
                 {{ tickerItem.avgCost | number: "1.0-2" }}
               </div>
@@ -113,8 +113,32 @@
         </div>
       </div>
       <div class="card-footer py-1 d-flex justify-content-end">
-        <button class="btn btn-primary mx-1 border-0" (click)="openTransectionButton(tickerItem.ticker, tickerItem.currentPrice, 'Buy')">Buy</button>
-        <button class="btn btn-primary mx-1 bg-danger border-0" (click)="openTransectionButton(tickerItem.ticker, tickerItem.currentPrice, 'Sell')">Sell</button>
+        <button
+          class="btn btn-primary mx-1 border-0"
+          (click)="
+            openTransectionButton(
+              tickerItem.ticker,
+              tickerItem.name,
+              tickerItem.currentPrice,
+              'Buy'
+            )
+          "
+        >
+          Buy
+        </button>
+        <button
+          class="btn btn-primary mx-1 bg-danger border-0"
+          (click)="
+            openTransectionButton(
+              tickerItem.ticker,
+              tickerItem.name,
+              tickerItem.currentPrice,
+              'Sell'
+            )
+          "
+        >
+          Sell
+        </button>
       </div>
     </div>
   </div>

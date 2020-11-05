@@ -67,7 +67,7 @@ import { NewsDetailComponent } from './news-detail/news-detail.component';
 import { TransactionButtonComponent } from './transaction-button/transaction-button.component';
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     TopBarComponent,
     FooterComponent,
@@ -135,6 +135,6 @@ import { TransactionButtonComponent } from './transaction-button/transaction-but
   exports: [DetailsComponent],
   providers: [BackendService],
   bootstrap: [AppComponent],
-  entryComponents: [NewsDetailComponent],
+  entryComponents: [NewsDetailComponent, TransactionButtonComponent],
 })
 export class AppModule {}

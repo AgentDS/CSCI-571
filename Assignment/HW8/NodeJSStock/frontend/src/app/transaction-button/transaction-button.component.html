@@ -8,7 +8,7 @@
     id="close-btn"
     class="close p-0 border-0 m-1"
     aria-label="Close"
-    (click)="transModalService.dismiss('Cross click')"
+    (click)="transModalService.close('Cross click')"
   >
     <span class="m-0 border-0" aria-hidden="true">&times;</span>
   </button>
@@ -16,7 +16,7 @@
 
 <!-- modal body part -->
 <div class="modal-body">
-  <p>Current Price: {{ currentPrice }}</p>
+  <p>Current Price: {{ currentPrice | number: "1.0-2" }}</p>
   <p>Quantity <input [(ngModel)]="inputQuantity" type="number" min="0" /></p>
 </div>
 
@@ -31,7 +31,7 @@
       !inputQuantity || (purchasedQuantity && inputQuantity > purchasedQuantity)
     "
     class="btn btn-outline-dark border-0 text-white bg-success border"
-    (click)="executeOpt(inputQuantity, opt)"
+    (click)="executeOpt()"
   >
     {{ opt }}
   </button>

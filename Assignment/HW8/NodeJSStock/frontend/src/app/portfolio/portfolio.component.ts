@@ -140,13 +140,19 @@ export class PortfolioComponent implements OnInit {
   }
 
   public removeFromPortfolio(tickerItem) {
-    this.tickerInfoArr.splice(this.tickerInfoArr.indexOf(tickerItem), 1);
     let portfolioArrOld = JSON.parse(localStorage.getItem('Portfolio'));
     let portfolioArrNew = portfolioArrOld.filter(
       (data) => data.ticker != tickerItem.ticker.toUpperCase()
     );
     localStorage.setItem('Portfolio', JSON.stringify(portfolioArrNew));
     this.checkEmpty();
+  }
+
+  removeFromTickerInfoArr(tickerItem) {
+    let tickerInfoArrNew = this.tickerInfoArr.filter(
+      (data) => data.ticker != tickerItem.ticker
+    );
+    this.tickerInfoArr = tickerInfoArrNew;
   }
 
   checkEmpty() {
@@ -160,25 +166,51 @@ export class PortfolioComponent implements OnInit {
     }
   }
 
-  openTransectionButton(ticker, currentPrice, opt) {
+  openTransectionButton(ticker, name, currentPrice, opt) {
     const transModalRef = this.transModalService.open(
       TransactionButtonComponent
     );
     transModalRef.componentInstance.ticker = ticker;
+    transModalRef.componentInstance.name = name;
     transModalRef.componentInstance.currentPrice = currentPrice;
     transModalRef.componentInstance.opt = opt;
+    transModalRef.result.then((recItem) => {
+      if (recItem) {
+        console.log(recItem);
+        if (recItem.quantity === 0) {
+          // remove from this.portfolioArr and update
+          this.removeFromPortfolio(recItem);
+          this.removeFromTickerInfoArr(recItem);
+        } else {
+          // modify this.portfolioArr & this.tickerInforArr
+          this.checkEmpty();  // update this.portfolioArr from localStorage
+          this.tickerInfoArr.forEach((item, i) => {
+            if (item.ticker == recItem.ticker) {
+              this.tickerInfoArr[i].quantity = recItem.quantity;
+              this.tickerInfoArr[i].totalCost = recItem.totalCost;
+              this.tickerInfoArr[i].avgCost =
+                recItem.totalCost / recItem.quantity;
+              this.tickerInfoArr[i].marketValue =
+                recItem.quantity * this.tickerInfoArr[i].currentPrice;
+              this.tickerInfoArr[i].change =
+                this.tickerInfoArr[i].currentPrice -
+                recItem.totalCost / recItem.quantity;
+            }
+          });
+        }
+      }
+    });
   }
 
   ngOnInit() {
     console.log('Open Portfolio');
-    // this.fetchAllTicker(); // TODO: remove comment after testing
+    this.fetchAllTicker(); // TODO: remove comment after testing
 
     // for style testing-----Start
-    console.log('Init Watchlist');
-    addLocalStorage();
-    this.checkEmpty();
-    this.tickerInfoArr = mockInfoArr;
-    this.fetchFinish = true;
+    // addLocalStorage();
+    // this.checkEmpty();
+    // this.tickerInfoArr = mockInfoArr;
+    // this.fetchFinish = true;
     // for testing-----End
   }
 
