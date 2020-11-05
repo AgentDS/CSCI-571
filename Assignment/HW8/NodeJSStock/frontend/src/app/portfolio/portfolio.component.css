@@ -16,3 +16,7 @@ div.card-footer button {
   outline: none;
   box-shadow: none;
 }
+
+.card-text div.col-sm div.row div.col {
+  font-size: 17px;
+}

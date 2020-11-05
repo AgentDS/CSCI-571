@@ -17,16 +17,22 @@
 <!-- modal body part -->
 <div class="modal-body">
   <p>Current Price: {{ currentPrice }}</p>
-  <p>Quantity <input [(ngModel)]="quantity" type="number" min="0" /></p>
+  <p>Quantity <input [(ngModel)]="inputQuantity" type="number" min="0" /></p>
 </div>
 
 <!-- modal footer part -->
 <div class="modal-footer">
-    <p class="mr-auto">Total : {{ quantity * currentPrice | number: "1.2-2" }}</p>
-    <button
-      type="button"
-      class="btn btn-outline-dark border-0 text-white bg-success border"
-    >
-      {{ opt }}
-    </button>
+  <p class="mr-auto">
+    Total : {{ inputQuantity * currentPrice | number: "1.2-2" }}
+  </p>
+  <button
+    type="button"
+    [disabled]="
+      !inputQuantity || (purchasedQuantity && inputQuantity > purchasedQuantity)
+    "
+    class="btn btn-outline-dark border-0 text-white bg-success border"
+    (click)="executeOpt(inputQuantity, opt)"
+  >
+    {{ opt }}
+  </button>
 </div>
