@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, Subscription, timer, forkJoin } from 'rxjs';
+
+import { TransactionButtonComponent } from '../transaction-button/transaction-button.component';
 
 import { BackendService } from '../backend.service';
 
@@ -69,7 +72,12 @@ let mockInfoArr = [
 
 function addLocalStorage() {
   let purchasedItems = [
-    { ticker: 'AAPL', name: 'Apple company', quantity: 100, totalCost: 3541.23 },
+    {
+      ticker: 'AAPL',
+      name: 'Apple company',
+      quantity: 100,
+      totalCost: 3541.23,
+    },
     { ticker: 'AAA', name: 'AAA Cor', quantity: 200, totalCost: 124.41 },
     { ticker: 'ADDDY', name: 'Adidas Cor', quantity: 30, totalCost: 34.1 },
     { ticker: 'PUMA', name: 'PUMA Sports', quantity: 40, totalCost: 6504.34 },
@@ -89,7 +97,10 @@ export class PortfolioComponent implements OnInit {
   fetchFinish = false;
   fetchSubscribe: Subscription;
 
-  constructor(private backendService: BackendService) {}
+  constructor(
+    private backendService: BackendService,
+    private transModalService: NgbModal
+  ) {}
 
   fetchAllTicker() {
     console.log('Start fetch ' + Date());
@@ -147,6 +158,15 @@ export class PortfolioComponent implements OnInit {
     } else {
       this.isEmpty = true;
     }
+  }
+
+  openTransectionButton(ticker, currentPrice, opt) {
+    const transModalRef = this.transModalService.open(
+      TransactionButtonComponent
+    );
+    transModalRef.componentInstance.ticker = ticker;
+    transModalRef.componentInstance.currentPrice = currentPrice;
+    transModalRef.componentInstance.opt = opt;
   }
 
   ngOnInit() {

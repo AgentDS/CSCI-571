@@ -1,0 +1,32 @@
+<!-- modal header part -->
+<div class="modal-header">
+  <div class="modal-title" id="modal-basic-title">
+    <h1 class="m-0 mb-3">{{ ticker }}</h1>
+  </div>
+  <button
+    type="button"
+    id="close-btn"
+    class="close p-0 border-0 m-1"
+    aria-label="Close"
+    (click)="transModalService.dismiss('Cross click')"
+  >
+    <span class="m-0 border-0" aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<!-- modal body part -->
+<div class="modal-body">
+  <p>Current Price: {{ currentPrice }}</p>
+  <p>Quantity <input [(ngModel)]="quantity" type="number" min="0" /></p>
+</div>
+
+<!-- modal footer part -->
+<div class="modal-footer">
+    <p class="mr-auto">Total : {{ quantity * currentPrice | number: "1.2-2" }}</p>
+    <button
+      type="button"
+      class="btn btn-outline-dark border-0 text-white bg-success border"
+    >
+      {{ opt }}
+    </button>
+</div>

@@ -11,3 +11,8 @@ path.pos {
 path.neg {
   color: red;
 }
+
+div.card-footer button {
+  outline: none;
+  box-shadow: none;
+}

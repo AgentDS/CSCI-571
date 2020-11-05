@@ -64,9 +64,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { NewsDetailComponent } from './news-detail/news-detail.component';
+import { TransactionButtonComponent } from './transaction-button/transaction-button.component';
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     TopBarComponent,
     FooterComponent,
@@ -75,7 +76,8 @@ import { NewsDetailComponent } from './news-detail/news-detail.component';
     WatchlistComponent,
     PortfolioComponent,
     NewsDetailComponent,
-  ],
+      TransactionButtonComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,

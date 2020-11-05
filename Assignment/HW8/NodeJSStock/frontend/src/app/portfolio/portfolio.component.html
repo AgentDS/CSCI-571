@@ -113,8 +113,8 @@
         </div>
       </div>
       <div class="card-footer py-1 d-flex justify-content-end">
-        <button class="btn btn-primary mx-1 border-0">Buy</button>
-        <button class="btn btn-primary mx-1 bg-danger border-0">Sell</button>
+        <button class="btn btn-primary mx-1 border-0" (click)="openTransectionButton(tickerItem.ticker, tickerItem.currentPrice, 'Buy')">Buy</button>
+        <button class="btn btn-primary mx-1 bg-danger border-0" (click)="openTransectionButton(tickerItem.ticker, tickerItem.currentPrice, 'Sell')">Sell</button>
       </div>
     </div>
   </div>
