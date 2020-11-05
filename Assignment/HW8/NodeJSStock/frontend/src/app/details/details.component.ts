@@ -314,7 +314,7 @@ export class DetailsComponent implements OnInit {
     // update data every 15 seconds
     console.log('LatestPriceNDailyCharts Start: ' + Date());
 
-    this.fetchSubscribe = timer(0, 1500000).subscribe(() => {
+    this.fetchSubscribe = timer(0, 15000).subscribe(() => {
       console.log('Real LatestPriceNDailyCharts Start: ' + Date());
       this.backendService
         .fetchLatestPrice(this.ticker)
