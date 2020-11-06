@@ -232,3 +232,13 @@ __Resources:__
 
 - https://youtu.be/LF3T3ghxHDU (mobile)
 
+
+
+
+
+backend: https://csci571-hw8backend.wl.r.appspot.com/
+
+backend api example: https://csci571-hw8backend.wl.r.appspot.com/api/v1.0.0/metadata/aapl
+
+frontend project id: csci571-hw8frontend
+

@@ -2,7 +2,6 @@ const express = require('express');
 const outerAPI = require('./outerAPI');
 const cors = require('cors');
 const app = express();
-const port = 3000;
 
 function ignoreFavicon(req, res, next) {
     if (req.originalUrl.includes('favicon.ico')) {
@@ -98,9 +97,11 @@ app.get('/api/v1.0.0/histcharts/:tickerName/date/:startDate', async function (re
 })
 
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}\n`);
-})
+// Listen to the App Engine-specified port, or 3000 otherwise
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`NodeJS Stock Server listening on port ${PORT}...`);
+});
 
 
 
