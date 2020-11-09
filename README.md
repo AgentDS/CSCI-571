@@ -242,3 +242,17 @@ backend api example: https://csci571-hw8backend.wl.r.appspot.com/api/v1.0.0/meta
 
 frontend project id: csci571-hw8frontend
 
+### Homework 9
+
+try Android!!!
+
+
+
+
+
+#### Video
+
+- Android: https://youtu.be/VH63nyau-Nc
+- iOS: https://youtu.be/7agdj51H4iA
+
+#### Grading
