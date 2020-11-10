@@ -246,9 +246,88 @@ frontend project id: csci571-hw8frontend
 
 try Android!!!
 
+#### Objectives
+
+- __Java__, __JSON__, __Android Lifecycle__ and __Android Studio__ for Android app development
+- __Google's Material design__ rules for Android apps
+- tiingo APIs and Android SDK
+- get familiar with __Picasso__, __Glide__ and __Volley__
 
 
 
+#### Summary
+
+- 2 screens:
+
+  - Home screen
+  - Detailed Stock information screen
+
+- 5 API calls
+
+  - tiingo: 
+    - company description
+    - stock prices
+    - autocomplete
+    - chart data points
+  - newsAPI: News search
+
+  __Node.js backend of HW8 can be used in this HW.__
+
+- Use __Java__!! No Kotlin
+
+- Use __Pixel 2XL__ with __SDK API 29__
+
+#### Details
+
+- Splash page
+
+- Home page:
+
+  - Portfolio section
+  - Favorites section
+  - functionalities:
+    - swipe to delete functionality
+    - drag and reorder functionality
+
+  > Change: 
+  >
+  > - positive: green
+  > - negative: red
+  > - no change: gray
+
+  - ``Powered by tiingo`` at bottom: URL https://www.tiingo.com/
+  - The home screen has been implemented by using a **RecyclerView** with the **SectionedRecyclerViewAdapter.** Each of the stock listings has been implemented using **ConstraintLayout, TextView, ImageView.**
+  - The **Search** button on the toolbar opens the search bar to type the stock symbol to search. The search bar uses the **autocomplete** functionality: <u>only make an API call after 3 characters</u>
+
+- Detailed page: 
+
+  - a **WebView** element which is blank till the chart loads in Detailed search page
+
+  - __Portfolio section__: initial pre-loaded amount of $20, 000 to trade
+    - __TRADE__ button error checking:
+      -  sell more shares than they own
+      - buy more shares than money available
+      - sell zeros or negative shares
+      - buy zeros or negative shares
+      - enter invalid input like text or punctuations
+  - __Stats section__: Current price, Low, Bid price, Open price, Mid, High and Volume. Set as ``0.0`` if missing in JSON. Use __GridView element__.
+  - __About section__: description of company. Max as 2 lines with clickable ``Show more...``
+  - __News section__: uses **RecyclerView** and **ArticleDialog** elements. notice the ``time ago`` format calculation
+
+#### Additional Info
+
+- You can only make HTTP/HTTPS requests to your backend Node.js on
+
+  GAE/AWS/Azure.
+
+- All HTTP requests should be asynchronous and should not block the main UI thread. You can use third party libraries like Volley to achieve this in a simple manner.
+
+#### Hints
+
+- third party libraries
+  - Volley HTTP requests
+  - Picasso
+  - Glide
 
 #### Video
 
