@@ -1581,7 +1581,19 @@ Strict-Transport-Security: max-age=expireTime [; includeSubdomains]
 
 
 
-## Lec13 Web Service and REST
+
+
+## Lec14 Web Server Performance
+
+
+
+
+
+
+
+
+
+## Lec15 Web Service and REST
 
 Implementation of Web Services is roughly divided into three categories:
 
@@ -1665,7 +1677,7 @@ __All three types of Web Services provide access through APIs.__
 
 
 
-## Lec15 Ajax: Asynchronous JavaScript + XML
+## Lec16 Ajax: Asynchronous JavaScript + XML
 
 Ajax incorporates:
 
@@ -1768,7 +1780,7 @@ image doesn't need to worry about cross domain issues.
 
 
 
-## Lec16 Responsive Web Design
+## Lec17 Responsive Web Design
 
 ### The Need: Mobile Growth
 
@@ -1898,7 +1910,7 @@ __Mobile devices offer:__
 
 
 
-## Lec17 JS Frameworks
+## Lec18 JS Frameworks
 
 ### Node.JS
 
@@ -1955,6 +1967,72 @@ __Angular 2+ doesn’t support *FilterPipe* or *OrderByPipe*.__
 - RxJS is a library for reactive programming
 - Reactive programming is an asynchronous programming paradigm concerned with data streams and the propagation of change
 - RxJS uses **Observables** for asynchronous or callback-based code
+
+
+
+## Lec19 jQuery
+
+
+
+
+
+
+
+## Lec20 Building High Performance Websites
+
+
+
+
+
+## Lec21 React
+
+
+
+
+
+
+
+## Lec22 Mobile App: Android
+
+
+
+
+
+
+
+## Lec23 Mobile App: iOS
+
+
+
+
+
+## Lec24 Serverless Application
+
+### AWS Lambda
+
+
+
+
+
+### GCP Functions
+
+
+
+
+
+## Lec25 HTML5: the Next Generation
+
+
+
+
+
+## Lec26 HTML5: Cookies and Privacy
+
+
+
+
+
+## Lec27 Web Security
 
 
 
