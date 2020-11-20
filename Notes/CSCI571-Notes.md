@@ -1583,7 +1583,233 @@ Strict-Transport-Security: max-age=expireTime [; includeSubdomains]
 
 
 
-## Lec14 Web Server Performance
+## Lec14 Secure Web Communication & Web Server Performance
+
+### Secure Web Communication
+
+#### Public & private key encryption
+
+- Private key encryption: sender/receiver share private key
+- Public key encryption: for __authentication__
+- Receiver has private & public keys: for __privacy__
+
+
+
+__Cryptographic Hash functions:__
+
+- Given data X and hash function H, H(X) is called __message digest__ or __digital signature__ of X under hashing algorithm H
+- famous hash functions: __MD5__, __SHA__
+
+
+
+__Bulk Cipher Methods:__
+
+- public/private key encryption methods are not suitable for general purposes:
+  - RSA can only encrypt blocks of data which are 11 bytes less than key size, and each decryption involves complex calculation
+- secure communication on the web uses a combination of __public-key encryption__ and __conventional one way ciphers__
+- **bulk cipher**: the same key are used for encrypt/decrypt the data, fast and can encrypt files of any sizes
+- famous bulk ciphers: __RC2__, __RC4-40__, __RC4-56__, __DES40-CBC__,
+
+
+
+#### Digital Certificates & Certifying Authorities
+
+- A **message digest** is the number produced by applying a cryptographic hash function to a message
+
+  - Message will be sent with message digest together to receiver for later certification
+
+  - Systems combining public key cryptography and message digests are called **digital signatures**
+
+
+
+**How do we guarantee that the organizations that we are dealing with are legitimate?**
+
+- A certificate authority (__CA__) is an organization that both parties involved in a secure communication, trust
+- CA will verify the identity of an entity (client/server)
+- once CA verifies the entity, it issues a digitally signed <u>electronic certificate</u> with CA's __private key__ 
+- Web browsers are usually pre-configured with a list of CAs that are trusted
+
+
+
+#### Secure Sockets Layer Protocol (SSL) and https
+
+- __SSL__: a protocal establishes an encrypted link between server & client, using __authentication/encryption__ of transactional data
+
+  - original designer for SSL: Netscape
+
+  - SSL is also called __TLS__, transport layer security protocol 
+
+  - SSL is transparent to users, except for the https that appears
+    - HPPTS = HTTP + SSL/TCP
+
+  - the SSL protocol fits between the TCP layer and the HTTP layer
+    - SSL can be used to encrypt other application level protocols such as FTP and NNTP
+
+- provides end-to-end security between client/server
+
+- __authentication__ of both parties is done using digital certificates
+
+- __privacy__ is maintained using encryption
+
+- **message integrity** is accomplished using message digests
+
+- SSL for HTTP is referred to as HTTPS and operates on port 443
+
+<img src="./networkLayer.png" height=250px>
+
+
+
+
+
+### Web Server Performance
+
+__What needed to be considered when selecting a Web Platform?__ Capacity, Cost/investment, Maintenance, Security, Development support.
+
+#### Popular platforms
+
+- Microsoft
+  - Windows Server 2012 or 2016, Microsoft Nano Server – Internet Information Services (IIS) version 8 or 10 – MS SQL Server 
+  - Active Server Pages or ASP.NET applications
+  - Develop with VB, COM, C++, C#, or HTML/CSS/JS
+  - PHP Manager for IIS 7
+  - Available on Cloud
+- Linux
+  - Ubuntu / Red Hat / SuSe or any other distribution
+  - Apache web server
+  - Oracle mySQL
+  - HTML preprocessor (PHP 7)
+  - JAVA serverlets & JSP (Tomcat 8/9)
+  - available on Cloud
+- UNIX
+  - Oracle Solaris 11
+  - Oracle WebLogic 12c 
+  - IBM WebSphere
+
+__Estimate Server Performance Requirements:__
+
+- Estimate 
+
+  -  \# of clients that will connect each second (connection per sec)
+  - \# of bytes the client will send to the server during each transaction
+  - \# of bytes the server will send to the client during each transaction (bytes transferred)
+  - how much of link the web server is allowed to use
+
+  $$
+  \frac{\text{#connects_per_sec} \times (\text{#bytes_from_client_each_trans}+\text{#bytes_from_server_each_trans})}{\text{#links_allow_by_server}}
+  $$
+
+- __General rules:__ <u>the link should have at least twice the bandwidth as the average above</u>
+
+
+
+
+
+#### Web Server Farms
+
+- A web server farm consists of **multiple server** machines and **load balancing** hardware that distributes web requests across the servers
+- Web servers have a relatively __small amount of static data__, and an application server (behind the firewall) provides __dynamic content__ from information stored in a database or exiting applications
+-  if storage is shared across all servers, then there is a single point of failure
+  - mirroring is one possible solution using a DBMS feature to push new data to all servers
+
+#### Load Balancing
+
+Load balancing (using round Robin DNS) can detect the event of a failure, and route the request elsewhere. Persistent data must be fuilly replaced and all nodes are identical.
+
+Two possible approach: __switches__ & __DNS redirection__.
+
+##### Switches
+
+- Load balancing hardware exists to prevent requests going to servers that have failed; e.g.
+  - Cisco Content Switching Module, Cisco Catalyst 6500; RADware appDirector
+- can perform an HTTP redirect to a different location upon failure of a real or virtual IP address
+- Supports Cookie, HTTP redirect, and SSL session ID persistence features guaranteeing that a specific client gets the correct content
+
+
+
+##### DNS redirection
+
+- This form of load balancing has problems because
+  - web browsers will cache the IP address for a given domain
+  - some operating systems cache IP addresses for given domains
+
+- However, some DNS servers use algorithms other than round robin, e.g.
+
+  - load-balancing: they check the load on many web servers and send the request to the least loaded
+
+  - proximity-routing: they send the request to the nearest server, when the servers are geographically distributed
+
+  - fault-masking: check for down web servers and avoid them
+
+### Web Server Performance Testing
+
+#### Benchmarking
+
+**Web server benchmarking**: process of estimating a web server performance in order to find if the server can serve sufficiently high workload.  
+
+- *Number of requests that can be served per sec*
+- *Latency response time in ms for each new connection or request*
+- *throughput in bytes per sec*
+
+>  #### Other Web Servers
+>
+> - ``lighttpd``
+> - ``Nginx``
+> - ``Apache``
+>
+> __Memory Usage:__ ``lighttp`` < ``Nginx`` < ``Apache``
+>
+> __Requests Per Second:__ ``Apache`` < ``lighttpd`` < ``Nginx``
+
+#### Improving Apache Web Server Performance
+
+- ``Additional RAM``
+
+- Load ``only the required modules``: reduce the memory footprint
+
+- ``HostnameLookups`` directive enables DNS lookup
+
+- Do not set ``MaxClients`` too low (may causes requests queue and lost); 
+
+  Do not set ``MaxClients`` too high (may causes server to start swapping and response time will degrade)
+
+  - ``MaxClients = (Total RAM dedicated to Web Server)/Max child process size``
+
+- Tune ``MinSpareServers`` and ``MaxSpareServers``
+
+- HTTP compression can been abled using ``mod_gzip`` or ``mod_deflate``; the payload is compressed only if the browser requests it
+
+- ``mod_fastcgi`` uses FastCGI rather than normal CGI to connect to the CGI scripts
+
+- Use ``direct modules``: ``mod_perl``, ``mod_php5``, ``mod_python``, etc
+
+- Use two versions of Apache, one “tiny version” to serve static content and forward requests for dynamic content to the “larger version”
+
+  - Alternatively use **Nginx** as **“reverse” proxy** (tier-1) and Apache as App Server (tier-2)
+
+
+
+### Web Server as Proxy Server
+
+__Proxy Server:__ An intermediary server that accepts requests from clients and either forwards them or services the request from its own cache. Also called ``forward proxy``.
+
+- The protocol between client and proxy server, or between proxy servers is HTTP, even if the request is for ftp, telnet, mailto
+
+__Why a forward Proxy Server?__ 
+
+- runs on client side
+-  **prevent access** to restricted sites
+- **control access** to a restricted site (proxy server can request name/password)
+- enhance security by **controlling** which application level **protocols** are permitted
+- improve performance by maintaining a **cache**
+- modify content before delivery to the client
+- act as an **anonymizer**, removing identifying information from HTTP messages
+
+#### HTML Meta Tags vs. HTTP Headers
+
+- HTML authors can put tags in a document's ``<HEAD>`` section that describe its attributes. These *Meta tags* are often used that they can mark a document as uncacheable or expire it at a certain time
+- Meta tags are easy to use but **aren't very effective**. They are never honored by proxy caches and they are honored by browser caches only together with HTTP Headers
+
+#### Using Apache as a proxy server
 
 
 
@@ -1843,12 +2069,6 @@ __Mobile devices offer:__
   - **fluid**, proportion-based **grids**
   - **flexible images**
   - **CSS3** **media queries**
-
-
-
-### How to Design Responsively
-
-
 
 
 
