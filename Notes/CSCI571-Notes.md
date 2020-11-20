@@ -2192,7 +2192,16 @@ __Angular 2+ doesn’t support *FilterPipe* or *OrderByPipe*.__
 
 ## Lec19 jQuery
 
+__What is jQuery?__
 
+- framework for client-side JavaScript
+- provide useful alternatives for common programming tasks
+- open source project
+- it simplifies
+  - HTML document traversing
+  - Event Handling
+  - Animating
+  - AJAX interactions
 
 
 
