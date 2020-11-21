@@ -2474,7 +2474,23 @@ __Some new rules:__
 
 ## Lec21 React
 
+__ReactJS:__
 
+- A light-weight JavaScript library for building user interfaces 
+- Developed by Facebook
+- React is a **view layer library**, **not** a **framework** like Backbone, Angular, etc
+- You can’t use React to build a fully-functional web app
+
+
+
+__How does React tackle challenges?__
+
+- Use 1-way data binding
+- Virtual DOM ( Efficient for frequent updates )
+- Easy to understand what a component will render
+- JSX - Easy to mix HTML and JS
+- React dev tools and excellent community
+- Server-side rendering (useful for SEO)
 
 
 
@@ -2510,7 +2526,56 @@ __Some new rules:__
 
 ## Lec25 HTML5: the Next Generation
 
+### Major New Elements in HTML5
 
+- New semantic elements like ``<header>``, ``<footer>``, ``<article>`` and ``<section>``
+
+- ``<video>`` and ``<audio>`` that you can embed on your web pages without resorting to third-party plug-ins
+
+  - MPEG4 compressed video (mp4 or m4v)
+  - QuickTime (.mov)
+  - Flash Video (.flv) from Adobe
+  - Ogg (.ogv) open source
+  - WebM (VP8/VP9 video + Vorbis audio), from Google
+  - Audio Video Interleave (.avi), invented by Microsoft
+  - Audio:
+    - MP3: 2 channels, encode bitrates 64/128/192 kbps
+    - AAC & AAC+: 48 channels
+
+  ```html
+  <video src="pr6-1.webm" width="320" height="240" preload></video>
+  <video src="pr6-2.webm" width="320" height="240" preload="none"></video>
+  ```
+
+  ``pr6-1.webm`` will start downloading as soon as the pages loads, while ``pr6-2.webm`` will not.
+
+  ```html
+  <video src="pr6.webm" width="320" height="240" autoplay></video>
+  ```
+
+  ``pr6.webm`` will start downloading and playing as soon as possible after the page loads.
+
+- ``<canvas>`` element, a two-dimensional drawing surface that you can program with JavaScript (<u>No support for event handlers</u>)
+
+- Scalable vector graphics (__SVG__): a container for SVG graphics (<u>support for event handlers</u>)
+
+- __Geolocation__, whereby visitors can choose to share their physical location with your web application
+
+- __Persistent local storage__ without resorting to third-party plug-ins ``localStorage``
+
+  - data is stored in the users browser and remains there **even across sessions** (open/close browser)
+  - data is only available when on that machine and in that browser
+  - localStorage is per browser not per computer
+  - only supports storing of strings
+  - The ``sessionStorage`` object is equal to the ``localStorage object``, **except** that it stores the data for only one session. **The data is deleted when the user closes the specific browser tab**
+
+- __Offline web applications__ that work even after network access is interrupted
+
+- Improvements to HTML web forms
+
+- __Microdata__, which lets you create your own vocabularies beyond HTML5 and extend your web pages with custom semantics
+
+- __New APIs__ for complex web applications including support for mobile devices
 
 
 
