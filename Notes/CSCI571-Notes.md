@@ -2205,6 +2205,188 @@ __What is jQuery?__
 
 
 
+**How Does jQuery Change How You Write JavaScript?**
+
+- jQuery adds a JavaScript object called **$** or **jQuery** to your JavaScript code
+
+  - Example: Instead of
+
+     ````javascript
+    var myButton = document.getElementById("myButton");
+     ````
+
+    In jQuery, it’s just ``$("#myButton");``
+
+### jQuery Basic Selectors
+
+- All Selector (“*”): selects all elements, sets css properties and returns the number of elements found
+
+  ```javascript
+  var elementCount = $("*").css("border", "3px solid red" ).length;
+  ```
+
+- Class Selector (“.class”): selects all elements with a given class and sets css properties
+
+  ```javascript
+  $(".myClass").css("border", "3px solid red");
+  ```
+
+- Element selector (“element”): selects all elements with the given tag name, e.g. div, and sets css properties
+
+  ```javascript
+  $("div").css("border", "9px solid red");
+  ```
+
+- ID selector (“#id”): selects a single element with the given id attribute
+
+  ```javascript
+  $("#myDiv").css("border", "3px solid red");
+  ```
+
+- Multiple selector (“selector1, selector2, selectorN"): selects a combined result of all the specified selectors
+
+  ```javascript
+  $("div, span, p.myClass").css("border", "3px solid red");
+  ```
+
+- Attribute: selects elements that have the specified attribute and changes the associated text
+
+  ```javascript
+  $("input[value='Hot Fuzz']").text("Hot Fuzz");
+  ```
+
+- Basic Filter, e.g. selects all elements that are h1, h2, h3, etc and assigns css properties
+
+  ```javascript
+  $(":header").css({background: "#ccc", color: "blue"});
+  ```
+
+- Child Filter, e.g. finds the first span in each div and underlines the text
+
+  ```javascript
+  $("div span:first-child").css("text-decoration", "underline");
+  ```
+
+- Content Filter, e.g. finds all div containing “John” and underlines them
+
+  ```javascript
+  $("div:contains('John')").css("text-decoration", "underline");
+  ```
+
+- Form, e.g. finds all buttons and adds the css class “marked” to their properties
+
+  ```javascript
+  var input = $(":button").addClass("marked");
+  ```
+
+### jQuery Functions
+
+- Either __attached to the jQuery object__ or __chained off of a selector statement__
+
+  - Run a function when the page is fully loaded
+
+    ```javascript
+    $(window).load(function() {
+                   //run code
+            } );
+    ```
+
+- Most functions return the jQuery object they were originally passed, so you can perform many actions in a single line.
+
+  - Add the class *bigImg* to all images with height > 100 once the image is loaded
+
+    ```javascript
+    $("img.userIcon" ).load(function() { 
+        if ( $( this ).height() > 100 ) {
+               $( this ).addClass("bigImg"); 
+        }
+    });
+    ```
+
+### jQuery & AJAX
+
+- jQuery has a series of functions which provide a common interface for AJAX
+
+- ``load()`` method: load data from a server and puts the returned data into the selected element
+
+  - ```javascript
+    $(selector).load(URL,[data,callback]);
+    ```
+
+### jQuery Event
+
+- jQuery way of a mouseover event that shows a submenu when menu is selected:
+
+  ```javascript
+  $('#menu').mouseover(function() { // Anonymous function
+         $('#submenu').show(); 
+  });
+  ```
+
+- Stopping a normal **event** action: Suppose we want to stop the action of following a URL when a link is clicked
+
+  ```javascript
+  $('#menu').click(function(evt){ //JS code here
+        evt.preventDefault(); 
+  });
+  ```
+
+- Form selectors
+
+  - selects all text fields:
+
+    ```javascript
+    $(":text")
+    ```
+
+  - Set the value of a form element
+
+    ```javascript
+    var fieldvalue = $('#total').val(YOURVALUE);
+    ```
+
+- Attribute: determining if checkbox is checked
+
+  ```javascript
+  if ($('#total').attr('checked')) {
+    // if check part
+  }
+  else {
+    // if not checked part
+  }
+  ```
+
+- Form event: submit
+
+  ```javascript
+  $(document).ready(function() { 
+    $('#signup').submit(function() {
+      if ($('#username').val() =='') {
+          alert (‘Please supply name to name
+          field’);
+          return false;}
+    })
+  });
+  ```
+
+- click: if any radio button is clicked
+
+  ```javascript
+  $(':radio').click(function() {
+    // do stuff
+  });
+  ```
+
+- add focus to the first element of the form
+
+  ```javascript
+  $('username').focus;
+  ```
+
+
+
+__<u>Cross Browser Support – no need extra code for browser compatibility using jQuery.</u>__
+
 
 
 ## Lec20 Building High Performance Websites
