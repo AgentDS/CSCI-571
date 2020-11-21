@@ -2389,9 +2389,86 @@ __<u>Cross Browser Support – no need extra code for browser compatibility usin
 
 
 
-## Lec20 Building High Performance Websites
+## Lec20 High Performance Websites
+
+__The Performance Golden Rule:__
+
+- 80-90% of the end-user response time is spent on the front-end
 
 
+
+__The initial 14 rules:__
+
+1. Make fewer HTTP requests
+
+   - combine scripts
+   - combine stylesheets
+   - combine images into an image map (<u>images must contiguous</u>)
+   - combine images using "sprites"
+
+2. Use a CDN (content distribution network): have servers around the world
+
+3. Add an Expires header
+
+4. Gzip components
+
+   - gzip
+   - deflate 
+
+5. Put stylesheets at the top
+
+   - Stylesheets block rendering in IE
+   - use ``<link>``
+
+6. Move scripts to the bottom
+
+   - **loading of JavaScript** can cause the browser to **stop rendering** the page until the JavaScript is fully loaded
+
+   - ```html
+     <script type="text/javascript" defer="defer"> some script .... </script>
+     ```
+
+     also works
+
+7. Avoid CSS expressions
+
+8. Make JS and CSS external
+
+   - **External JS and CSS can be cached**, HTML will not be cached
+
+9. Reduce DNS lookups
+
+   - DNS lookups will block parallel downloads
+
+10. Minify JS
+
+11. Avoid redirects
+
+12. Remove duplicate scripts
+
+    - Extra HTTP requests (IE only)
+    - Extra executions
+
+13. Configure Etags
+
+14. Make AJAX cacheable
+
+
+
+__Some new rules:__
+
+- avoid empty src or href
+- Use GET for AJAX requests
+- reduce the number of DOM elements
+- avoid HTTP 404 (not found) error
+- reduce cookie size
+- use cookie-free domains
+- do not scale images in HTML
+- make favicon small and cacheable
+
+
+
+<u>PageSpeed is available in __Google Analytics__.</u>
 
 
 
