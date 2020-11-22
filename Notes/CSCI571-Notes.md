@@ -2512,15 +2512,210 @@ __How does React tackle challenges?__
 
 ## Lec24 Serverless Application
 
+#### Overview of Serverless
+
+1. The need for Virtual Machine
+2. Vitual Machines are expensive and slow
+3. new solutions:
+   - __Serverless Architectures__
+   - __Containers__: Operating System Level virtualization, a lightweight approach to virtualization that only provides the bare minimum that an application requires to run and function as intended
+
+#### Serverless Architectures
+
+__Serverless Architectures__: applications that depend on 
+
+- third party-services (__Baas__) 
+- custom code that’s run in ephemeral containers (__FaaS__)
+
+##### Features of Serverless Architectures
+
+- No compute resource to manage
+- Provisioning/scaling handled by the service itself
+- You write code and the execution environment is provided by the service
+- Core functionality (e.g. database, authentication and authorization) is provided by at-scale Web Services
+
+##### Faas
+
+- Origin:
+  - __AWS Lambda:__ first web service of it's kind that completely abstracted the execution environment from the code
+  - __API Gateway:__ critical ingredient for building service endpoints with Lambda
+  - combined with existing back-plane services like DynamoDB, Cloudformation and S3 and the "serverless " development was born
+
+- How does it work?
+  - You write a function and deploy it to the cloud service for execution
+
+##### Baas
+
+- Type:
+
+  - Data storage:
+
+    - NoSQL database
+    - BLOB storage
+    - Cache (CDN)
+
+  - Analytics
+
+    - Query
+    - Search
+    - IoT
+    - stram processing
+
+  - AI
+
+    - machine learning
+
+    - image recognition
+
+    - NLP
+    - Speech to text / Text to Speech
+
+    
+
 ### AWS Lambda
 
+#### AWS Lambda Example Architecture
 
+- Search
+- Location-Awareness
+- Machine-learning powered recommendations
+- NoSQL
+- Microservices
+- API Management
+- Static website with CDN
+- Not a single server to manage!
+
+
+
+#### Overview of Containers
+
+- Virtualization at the OS level
+- based on __Linux kernel__ features
+- __Docker__ has brought containers mainstream
+
+
+
+__Key features:__
+
+- <u>Light-weight</u>: 
+  - container images no need for full OS install like a VM
+  - all containers run on the same host share one Linux kernel
+- <u>Portable</u>:
+  - Execution environment abstracts the underlying host from the container
+  - No dependency on a specific virtual machine technology
+  - Container images can be shared using GitHub-like repositories, such as **Docker Hub**
+
+
+
+#### Container Architectures: Docker
+
+- **Docker** allows developers to deploy Apps in a sandbox (containers) to run on the host operating system i.e. Linux
+- __Benefit:__ Allows users to **package an application** with all its **dependencies** into a standardized unit for software development
+- Unlike virtual machines, Containers do **no**t have the **high overhead** and enable more efficient usage of the system/resources
+- **efficient sharing of resources**
+- Provides standard and minimizes software packaging
+- **Decouples software** from underlying **host** w/ no hypervisor
+
+
+
+**Container Issues:**
+
+- Security
+- Less Flexibility in OS, Networking
+- Management of Docker and Container in production is challenge
+
+#### Where we go from here
+
+1. Serverless
+
+   - BaaS
+
+     - AI
+       - Fraud detection
+       - Latent sematic analysis
+     - Geospatial
+       - Satellite imagery • Hyper-Locality
+
+     - Analytics
+       - Query
+       - Search
+       - Stream Processing
+     - Database
+       - Graph
+     - HPC
+
+   - FaaS
+
+     - Polyglot language support (each function written in a different language)
+     - Stateful endpoints (Web Sockets)
+     - Remote Debugging
+     - Enhanced Monitoring
+     - Evolution of CI/CD Patterns (Continuous Integration / Continuous Depoyment)
+     - IDE’s
+
+2. Container 
+
+   - Networking
+     - Overlay networks between containers running across separate hosts
+
+   - Stateful Containers
+     - Support for container architectures that read and write persistent data
+
+   - Monitoring and Logging
+     - Evolution of design patterns for capturing telemetry and log data from running containers
+
+   - Debugging
+     - Attach to running containers and debug code
+
+   - Security
+     - Better isolation at the kernel level between containers running on the same host
+     - Secret/Key management – Transparently pass sensitive configuration
+
+
+
+#### AWS Lambda + AWS API Gateway
 
 
 
 ### GCP Functions
 
+- No servers to provision, manage, or upgrade
+- Automatically scale based on the load
+- Integrated monitoring, logging, and debugging capability
+- Built-in security at role and per function level based on the principle of least privilege
+- Key networking capabilities for hybrid and multi-cloud scenarios
 
+
+
+Mobile app developers can use Cloud Functions directly from **Firebase**, Google Cloud’s mobile
+
+platform.
+
+
+
+__Google Cloud Functions Use Cases:__
+
+- Mobile Backend
+- API & Microservices
+- Data Processing / ETL
+- Webhooks
+- IoT
+
+
+
+__Features:__
+
+- Cloud Pub/Sub Triggers
+
+- Cloud Storage Triggers
+
+- Firebase Triggers
+
+- HTTP/S Invocation
+
+- GitHub/Bitbucket
+
+- Logging, Monitoring & Debugging
 
 
 
