@@ -2579,11 +2579,89 @@ __How does React tackle challenges?__
 
 
 
-## Lec26 HTML5: Cookies and Privacy
+## Lec26 Cookies and Privacy
+
+### What is a Cookie?
+
+- Short pieces of text generated during web activity and stored in the user’s machine by the user’s web browser for future reference
+- Cookies are created by website authors who write software for reading and writing cookies
+- Cookies were initially used so websites would remember that a user had visited before, allowing customization of sites without need for repeating preferences
+
+### Elements of a Cookie
+
+- A cookie is associated with a website’s domain and contains: **name**, **value**, **path**, and **expiration date**
+- Such cookies are sometimes referred to as HTTP cookies because they are placed there using the HTTP protocol as the delivery mechanism
+
+### Cookie Scope
+
+- __What They Can Do?__
+  - **Store** and manipulate any **information** you explicitly provide to a site
+  - **Track** your interaction with the **site** such as pages visited, time of visits, number of visits
+- __What They Cannot Do?__
+  - Have automatic access to Personal Identifiable Information (PII) like name, address, email
+  - Read or write data to disk
+  - Read or write information in cookies placed by other sites
+  - Run programs on your computer
+  - As a result they
+    - Cannot carry viruses
+    - Cannot install malware on the host computer
+
+### Cookie Types and Taxonomy
+
+- __By Lifespan__
+  - *Session* Cookies (stored in RAM)
+    - exist only while the user is reading and navigating the website; browsers normally delete session cookies when the user exits the browser
+  - *Persistent* Cookies (stored on disk)
+    - a.k.a. tracking cookies have an expiration date
+- **By Read-Write Mechanism**
+  - *Server-Side* Cookies (included in HTTP Headers)
+  - *Client-Side* Cookies (manipulated with JavaScript)
+- **By Structure**
+  - *Simple* Cookies
+  - *Array* Cookies
+- **Secure cookies** have the secure attribute enabled and are only used via **https**, so the cookie is always encrypted
+- **Third-party cookies** are not from the “visited” site: are cookies set with a different domain than the one in the browser’s address bar
+  - can be placed by an **advertisement** on the page or an image on the page
+  - Advertisers use third party cookies to **track a user** across multiple sites
+
+### Cookie Processing Algorithm
+
+> __Cookie & Browser Cache__
+>
+> - Cookie: 
+>
+>   - 2 way transfer: server --> client, client --> server
+>   - only text information 
+>
+> - Browser Cache: 
+>
+>   - one-way transfer (from server to local cache)
+>
+>   - images can also be cached
 
 
 
+### Additional Facts about Cookies
 
+- **Scope:** by default, cookie scope is limited to the current host name. Scope may be limited with the **path=** parameter to specify a specific path prefix to which the cookie should be sent, or broadened to a group of DNS names, with **domain=**.
+- **Time to live:** by default, each cookie has a lifetime limited to the duration of the current browser session. Alternatively, an **expires=** parameter can specify the cookie dropping date 
+- **Overwriting cookies:** if a new cookie with the same **NAME**, **domain**, and **path** as an existing cookie is encountered, the old cookie is discarded
+- **Deleting cookies:** no specific mechanism for deleting cookies, coomonly overwrite a cookie with a bogus value as outlined above, plus a backdated or short-lived **expires=**
+- **"Protected" cookies:** as a security feature, some cookies set may be marked with **secure** keyword, which causes them to be sent over HTTPS only
+
+
+
+### Client-Side Cookies
+
+- JavaScript can use ``document.cookie`` (a string variable that can be read and written using the JavaScript string functions)
+- need to define 3 js functions for handling cookies:
+  - ``setCookie(name, value, expiry)``
+  - ``getCookie(name)``
+  - ``removeCookie(name)``
+
+
+
+- **Canvas fingerprinting** is one of a number of browser fingerprinting techniques for tracking online users that allows websites to uniquely identify and track visitors **without** the use of browser cookies
 
 ## Lec27 Web Security
 
