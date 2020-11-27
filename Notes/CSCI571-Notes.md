@@ -2858,7 +2858,167 @@ __Features:__
 
 - **Canvas fingerprinting** is one of a number of browser fingerprinting techniques for tracking online users that allows websites to uniquely identify and track visitors **without** the use of browser cookies
 
-## Lec27 Web Security
+### Cookie-based marketing
+
+#### Opt-Out
+
+Anyone who prefers not to see ads with this level of relevance can opt out. 
+
+- select "do not track" in browser setting
+- download opt-out cookies
+- use the cookie management tools in web browser
+- view current cookie and delete what you don't need
+- check account preferences on registration sites
+- use browser Add-ons
+
+
+
+## Lec27 Web Security - Hacking the Web
+
+### General Introduction
+
+> __Why secure the Web?__
+>
+> Web has been used for the following types of criminal activities:
+>
+> - Chaos
+> - Deceit
+> - Extortion
+> - Identity Theft
+> - Information Warfare
+> - Monetary Loss
+> - Physical Pain
+> - Political Defacements
+> - Chinese Gaming sites hacked
+
+- Cross-Site Scripting (XSS) is #1 vulnerability
+- PHP Apps have highest risk of exposing vulnerabilities
+
+#### Common ways that websites get infected
+
+- **Cross-site scripting ** attacks(XSS)
+- **SQL injection** attacks
+- Search Engine result **Redirection**
+- Attacks on **backend virtual hosting** companies
+- Vulnerabilities in web-server or forum-hosting software
+- Using **social networks** to infect users (these are a combination of social engineering and above attacks)
+
+#### How users get the malware planted by hackers?
+
+- By installing “**fake codecs**” embedded with Trojans
+- By viewing malicious __advertisements__
+- By installing __fake scanners__ or misleading applications (shareware/rogueware)
+- by visiting malicious P2P sites and download malicious content
+- By visiting websites sent as email links by the hacker
+- By bisiting websites posted on __Blog Sites__ under Blog Comments
+- By installing __privated software__  from wares sites which are maliciously modified by hackers
+
+#### The Damage Caused by Hackers
+
+- On client machine
+
+  <img src="./hackerDamageClient.png">
+
+- On the server
+
+  <img src="./hackerDamageServer.png">
+
+
+
+### Authentication Attacks
+
+#### Brute-forcing Attacks
+
+Two types of Brute Force attacks:
+
+- Normal: Uses a single username against many passwords
+- Reverse: Use many usernames against a single password 
+
+__Brute-forcing is easy when websites don't implement any form of <u>account lockout policy</u>.__
+
+
+
+#### Insufficient Authentication
+
+- Happens when a website allows users to access sensitive content or functionality **without proper authentication**
+- eBay hacked and many users accounts got suspended by hacker
+
+
+
+#### Weak Password Recovery Validation
+
+- when a web site permits an attacker to illegally obtain, change or **recover another users credentials**
+- **bad recovery methods:**
+  - information verification
+  - password hints
+  - secret question + answers
+- Weak password: like ``123456``
+
+#### PassPhrases
+
+- a password but longer and more secure. It is an encryption key that you memorize
+- use __Diceware__
+- __Recommendation:__ use a password database (KeePassX) locked up with a master diceware passphrase
+
+
+
+### Client-Side Attacks
+
+#### Cross-site Scripting (XSS)
+
+- XSS enables attackers to **inject client-side script into Web pages** viewed by other users.
+- A cross-site scripting vulnerability may be used by attackers to **bypass access controls** such as the same origin policy
+- including other modes of code injection, including persistent and non-JavaScript vectors (including **Java, ActiveX, VBScript, Flash**, or even pure HTML, and SQL Queries)
+- 2 types of XSS attacks:
+  - __non-persistent (reflected) XSS:__ the most common type
+  - __persistent (stored) XSS:__ saved by server 
+- Reduce the threat:
+  - __contextual output encoding/escaping__
+  - __HttpOnly Flag__ allows a web server to set cookie that is unavailable to client-side scripts
+  - tie session cookies to IP address of the user who originally logged in
+
+#### Browser and plugin vulnerabilities 
+
+in the client browser software or client plugins (Java/ActiveX/Flash/Acrobat)
+
+
+
+#### Clickjacking
+
+- trick users into __clicking something without them knowing what they have clicked__
+- can be achieved through CSS alone, no JavaScript is required
+
+
+
+### Injection Attacks
+
+- Injection Attacks occurs when an application **does not properly validate user supplied input** and then includes that input blindly in further processing
+- **SQL**/LDAP/XPATH/SOAP/**JSON Injection** are all types of Injection Attacks that are enabled by improper input validation
+- __SQL Injection:__
+  - Normal SQL injection
+  - Blind SQL injection
+- __JS Hijacking:__ allows an unauthorized attacker to read confidential data from a vulnerable application using a technique similar to the one commonly used to create mashups, allows an attacker to bypass the Same Origin Policy
+  - **JSON array is directly vulnerable to JavaScript Hijacking**.
+- __Search Worms:__  automate finding of vulnerable web servers by sending carefully crafted queries to search engines
+
+### Recent Attacks
+
+- Worms: stuxnet
+- Email Hacks
+- account breaches
+- the NSA
+- Distributed Denial-of-Service (DDoS) Attacks
+
+
+
+### Privacy Tools
+
+#### TOR
+
+- web
+  - Surface Web
+  - Invisible Web
+  - Dark Web: accessible only to those who use software called TOR (The Union Router)
 
 
 
