@@ -21,6 +21,7 @@ public class FirstActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        Log.i(TAG, this.toString());
         setContentView(R.layout.first_layout);
         Button button1 = (Button) findViewById(R.id.button_1);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -31,11 +32,13 @@ public class FirstActivity extends AppCompatActivity {
 //                intent.addCategory("com.example.activitytest.MY_CATEGORY");
 //                Intent intent = new Intent(Intent.ACTION_DIAL);
 //                intent.setData(Uri.parse("tel:10086"));
-                Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
+//                Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
 //                String data = "Hello SecondActivity";
 //                intent.putExtra("extra_data", data);
 //                startActivity(intent);
-                startActivityForResult(intent, 1);
+//                startActivityForResult(intent, 1);
+                Intent intent = new Intent(FirstActivity.this, FirstActivity.class);
+                startActivity(intent);
             }
         });
     }

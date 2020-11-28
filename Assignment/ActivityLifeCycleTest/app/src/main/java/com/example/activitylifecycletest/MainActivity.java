@@ -19,9 +19,10 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onCreate");
 
         if (savedInstanceState != null) {
-            String tempData = savedInstanceState.getString("data_key");
-            Log.i(TAG, "onCreate: " + tempData);
+            String myString = savedInstanceState.getString("data_key");
+            Log.i(TAG, "onCreate: " + myString);
         }
+
 
         Button startNormalActivity = (Button) findViewById(R.id.start_normal_activity);
         Button startDialogActivity = (Button) findViewById(R.id.start_dialog_activity);
@@ -77,10 +78,21 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onRestart");
     }
 
+    // called after onStop() if not destroyed
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         String tempData = "Something you just typed";
         outState.putString("data_key", tempData);
+        Log.i(TAG, "onSaveInstanceState");
+    }
+
+
+    // called after rotate the screen
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String myString = savedInstanceState.getString("data_key");
+        Log.i(TAG, "onRestoreInstanceState: " + myString);
     }
 }
