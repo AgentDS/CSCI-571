@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SimpleProgram</string>
+    <string name="hello_world">Hello World!</string>
+    <string name="hello_edureka">Hello Edureka!</string>
+    <string name="push_me">Push Me ...</string>
+    <string name="push_me2">Push Me 2</string>
+</resources>
