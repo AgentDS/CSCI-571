@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#cd7c5c</color>
+    <color name="colorSecondary">#2465CA</color>
+    <color name="app_blue_eBay">#2465CA</color>
+    <color name="white">#ffffff</color>
+    <color name="accent">#cc99ff</color>
+    <color name="grey">#666666</color>
+    <color name="lightGrey">#bfbfbf</color>
+</resources>

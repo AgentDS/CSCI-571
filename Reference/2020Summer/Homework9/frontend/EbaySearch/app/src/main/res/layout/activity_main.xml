@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="60dp">
+
+
+    <!--Keyword-->
+        <TextView
+            android:id="@+id/keyWord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Keyword"
+            android:textColor="#3366ff"
+            android:paddingTop="10dp"
+            android:textSize="15sp"
+            android:letterSpacing="0.05"/>
+
+        <EditText
+            android:id="@+id/keyWordInput"
+            android:layout_below="@+id/keyWord"
+            android:layout_width="350dp"
+            android:hint="Enter Keyword"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/keyWordError"
+            android:layout_below="@id/keyWordInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please enter mandatory field"
+            android:textColor="#cc0000"
+            android:textStyle="italic"
+            android:paddingTop="7dp"
+            android:textSize="15sp"
+            android:visibility="gone"/>
+
+        <!--Price Range-->
+        <TextView
+            android:id="@+id/priceRange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price Range"
+            android:textColor="#3366ff"
+            android:paddingTop="10dp"
+            android:textSize="15sp"
+            android:letterSpacing="0.05"
+            android:layout_below="@id/keyWordError"/>
+
+        <EditText
+            android:id="@+id/minPrice"
+            android:layout_below="@+id/priceRange"
+            android:layout_width="150dp"
+            android:hint="Minimum Price"
+            android:inputType="numberDecimal"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/maxPrice"
+            android:layout_below="@+id/priceRange"
+            android:layout_toRightOf="@+id/minPrice"
+            android:layout_marginLeft="30dp"
+            android:hint="Maximum Price"
+            android:layout_width="150dp"
+            android:inputType="numberDecimal"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/PriceError"
+            android:layout_below="@id/minPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please enter valid price values"
+            android:textStyle="italic"
+            android:textColor="#cc0000"
+            android:paddingTop="7dp"
+            android:textSize="15sp"
+            android:visibility="gone"/>
+
+        <!--Condition-->
+        <TextView
+            android:id="@+id/condition"
+            android:paddingBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Condition"
+            android:textColor="#3366ff"
+            android:paddingTop="10dp"
+            android:textSize="15sp"
+            android:letterSpacing="0.05"
+            android:layout_below="@id/PriceError"/>
+
+        <CheckBox
+            android:id="@+id/NewCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:letterSpacing="0.05"
+            android:layout_below="@id/condition"/>
+
+        <CheckBox
+            android:id="@+id/UsedCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Used"
+            android:textStyle="italic"
+            android:layout_marginLeft="22dp"
+            android:textSize="18sp"
+            android:letterSpacing="0.05"
+            android:layout_below="@id/condition"
+            android:layout_toRightOf="@id/NewCondition"/>
+
+        <CheckBox
+            android:id="@+id/UnspecifiedCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unspecified"
+            android:textStyle="italic"
+            android:layout_marginLeft="22dp"
+            android:textSize="18sp"
+            android:letterSpacing="0.05"
+            android:layout_below="@id/condition"
+            android:layout_toRightOf="@id/UsedCondition"/>
+
+
+
+        <!--SortBy-->
+        <TextView
+            android:id="@+id/SortBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sort By"
+            android:paddingBottom="10dp"
+            android:textColor="#3366ff"
+            android:paddingTop="10dp"
+            android:textSize="15sp"
+            android:letterSpacing="0.05"
+            android:layout_below="@id/NewCondition"/>
+
+        <Spinner
+            android:id="@+id/SortByInput"
+            android:layout_below="@id/SortBy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tooltipText="Best Match"
+            android:spinnerMode="dropdown"
+            android:entries="@array/sortOrderValue"
+            android:layout_marginBottom="45dp"/>
+
+        <!--Button-->
+        <Button
+           android:id="@+id/SearchButton"
+           android:layout_width="165dp"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/SortByInput"
+           android:padding="10dp"
+           android:textColor="@color/white"
+           android:text="SEARCH"
+           android:letterSpacing="0.05"
+           android:background="#376aee"/>
+
+       <Button
+           android:id="@+id/ClearButton"
+           android:layout_width="165dp"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/SortByInput"
+           android:layout_toRightOf="@id/SearchButton"
+           android:layout_marginLeft="20dp"
+           android:background="#376aee"
+           android:textColor="@color/white"
+           android:letterSpacing="0.05"
+           android:text="Clear"/>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

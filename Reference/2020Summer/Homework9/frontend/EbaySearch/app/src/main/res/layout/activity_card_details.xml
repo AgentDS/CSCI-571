@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CardDetails"
+    android:orientation="vertical">
+
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        app:navigationIcon="@drawable/abc_vector_test"
+        android:id="@+id/card_detail_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        app:titleTextColor="@color/white">
+
+        <ImageView
+            android:id="@+id/redirect_image"
+            android:layout_width="20dp"
+            android:clickable="true"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_redirect"
+            android:layout_alignParentRight="true"/>
+    </androidx.appcompat.widget.Toolbar>
+
+
+<!--  -->
+<!--    <com.google.android.material.tabs.TabLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:tabGravity="fill"-->
+<!--        app:tabMode="fixed"-->
+<!--        android:background="@color/app_blue_eBay">-->
+
+<!--    </com.google.android.material.tabs.TabLayout>-->
+
+    <!-- progress bar-->
+    <LinearLayout
+        android:id="@+id/single_item_progress"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:gravity="center_horizontal">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/accent"
+            android:outlineAmbientShadowColor="#0308C3"
+            android:outlineSpotShadowColor="#0308C3"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Searching Products Details..."
+            android:textColor="#C2C2C5"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/accent"
+        app:tabIndicatorHeight="1dp"
+        app:tabMode="fixed"
+        app:tabTextColor="@color/app_blue_eBay">
+
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:icon="@drawable/information_variant_unselected"-->
+<!--            android:text="PRODUCT" />-->
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:icon="@drawable/seller"-->
+<!--            android:text="SELLER INFO" />-->
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:icon="@drawable/truck_delivery_unselected"-->
+<!--            android:text="SHIPPING" />-->
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.viewpager.widget.ViewPager>
+
+
+</LinearLayout>

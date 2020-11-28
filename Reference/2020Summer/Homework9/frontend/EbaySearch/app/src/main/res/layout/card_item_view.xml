@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.cardview.widget.CardView
+    android:id="@+id/card"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="185dp"
+    android:layout_height="320dp"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    cardview:cardCornerRadius="4dp">
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="fitCenter" />
+
+
+
+    <TextView
+        android:layout_marginHorizontal="5dp"
+        android:id="@+id/item_title"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="#000000"
+        android:text="Apple iPhone 7 - 32GB - Black (Factory GSM Unlocked; ATT / T-Mobile) Smartphone"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_marginHorizontal="5dp"
+        android:id="@+id/item_shipping"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:textSize="15sp"
+        android:text="Ships for $1000" />
+
+
+    <TextView
+        android:layout_marginHorizontal="5dp"
+        android:id="@+id/item_top_rated"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:textSize="15sp"
+        android:text="Top Rated Listing" />
+
+
+    <RelativeLayout
+        android:layout_marginHorizontal="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/item_condition"
+            android:layout_width="95dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_height="20dp"
+            android:textSize="15sp"
+            android:layout_marginTop="25dp"
+            android:text="Seller refurbished" />
+
+        <TextView
+            android:id="@+id/item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="25dp"
+            android:text="$270.0"
+            android:layout_alignParentRight="true"
+            android:textSize="15sp" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+
+<!--    <View-->
+<!--        android:layout_below="@id/card"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:background="#000000"/>-->
+
+<!--    <View-->
+<!--        android:layout_toRightOf="@id/card"-->
+<!--        android:layout_marginLeft="3dp"-->
+<!--        android:layout_width="1dp"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="#000000" />-->
+
