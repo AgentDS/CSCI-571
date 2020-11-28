@@ -4,12 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ThirdActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button_3"
-        android:text="Button 3"/>
+        android:id="@+id/start_normal_activity"
+        android:text="Start NormalActivity"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/start_dialog_activity"
+        android:text="Start DialogActivity"
+        />
+
 
 </LinearLayout>
