@@ -7,9 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="sectionTabColor">#FF000000</color>
+    <color name="sectionTabColor">#F2F2F4</color>
     <color name="trendingSearch">#E18E8E</color>
     <color name="colorAccent">#03A9F4</color>
-    <color name="splash">#FFFFFFFF</color>
+    <color name="splash">#F2F2F4</color>
     <color name="trendingColor">#FF03DAC5</color>
 </resources>
