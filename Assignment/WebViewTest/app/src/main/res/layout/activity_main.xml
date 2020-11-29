@@ -4,11 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
-    <WebView
+    <Button
+        android:id="@+id/send_request"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/web_view"/>
+        android:layout_height="wrap_content"
+        android:text="Send Request" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/response_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </ScrollView>
+
 
 </LinearLayout>
