@@ -32,7 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
         sectionedAdapter = new SectionedRecyclerViewAdapter();
         // Add your Sections
+        sectionedAdapter.addSection(new DateSection());
         sectionedAdapter.addSection(new PortfolioSection());
+        sectionedAdapter.addSection(new TiingoSection());
+
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(sectionedAdapter);

@@ -4,29 +4,32 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 
+final class DateSection extends Section {
 
-final class PortfolioSection extends Section {
+    Date date = new Date();
+    SimpleDateFormat simpleDate =  new SimpleDateFormat("MMMM d, yyyy");
+    String sectionTitle = simpleDate.format(date);
+    List<String> itemList = Arrays.asList();
 
-
-    String sectionTitle = "PORTFOLIO";
-    List<String> stockPortforlioList = Arrays.asList("AAPL", "DIS", "WMD", "NETFLIX", "BiliBili", "Twitter", "AAPL", "DIS", "WMD", "NETFLIX", "BiliBili", "Twitter", "AAPL", "DIS", "WMD", "NETFLIX", "BiliBili", "Twitter", "AAPL", "DIS", "WMD", "NETFLIX", "BiliBili", "Twitter");
-
-    public PortfolioSection() {
+    public DateSection() {
         super(SectionParameters.builder()
                 .itemResourceId(R.layout.section_item)
-                .headerResourceId(R.layout.section_header)
+                .headerResourceId(R.layout.date_header)
                 .build());
     }
 
+
     @Override
     public int getContentItemsTotal() {
-        return stockPortforlioList.size();
+        return 0;
     }
 
     @Override
@@ -35,13 +38,14 @@ final class PortfolioSection extends Section {
         return new StockItemViewHolder(view);
     }
 
+
     @Override
     public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
         StockItemViewHolder itemHolder = (StockItemViewHolder) holder;
-        String itemName = stockPortforlioList.get(position);
+        String itemName = itemList.get(position);
 
         // bind your view here
-        itemHolder.tvItem.setText(itemName);
+//        itemHolder.tvItem.setText(itemName);
     }
 
     @Override

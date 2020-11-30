@@ -19,7 +19,8 @@
         <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">23dp</item>
-        <item name="android:fontWeight">800</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontWeight">700</item>
     </style>
 </resources>

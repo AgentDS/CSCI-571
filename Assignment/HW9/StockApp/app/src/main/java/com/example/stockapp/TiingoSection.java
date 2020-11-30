@@ -1,5 +1,6 @@
 package com.example.stockapp;
 
+
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,23 +11,22 @@ import java.util.List;
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 
+final class TiingoSection extends Section {
 
-final class PortfolioSection extends Section {
+    String sectionTitle = "Powered by Tiingo";
+    List<String> itemList = Arrays.asList();
 
-
-    String sectionTitle = "PORTFOLIO";
-    List<String> stockPortforlioList = Arrays.asList("AAPL", "DIS", "WMD", "NETFLIX", "BiliBili", "Twitter", "AAPL", "DIS", "WMD", "NETFLIX", "BiliBili", "Twitter", "AAPL", "DIS", "WMD", "NETFLIX", "BiliBili", "Twitter", "AAPL", "DIS", "WMD", "NETFLIX", "BiliBili", "Twitter");
-
-    public PortfolioSection() {
+    public TiingoSection() {
         super(SectionParameters.builder()
                 .itemResourceId(R.layout.section_item)
-                .headerResourceId(R.layout.section_header)
+                .headerResourceId(R.layout.tiingo_header)
                 .build());
     }
 
+
     @Override
     public int getContentItemsTotal() {
-        return stockPortforlioList.size();
+        return 0;
     }
 
     @Override
@@ -35,13 +35,11 @@ final class PortfolioSection extends Section {
         return new StockItemViewHolder(view);
     }
 
+
     @Override
     public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
         StockItemViewHolder itemHolder = (StockItemViewHolder) holder;
-        String itemName = stockPortforlioList.get(position);
-
-        // bind your view here
-        itemHolder.tvItem.setText(itemName);
+        String itemName = itemList.get(position);
     }
 
     @Override
@@ -52,9 +50,11 @@ final class PortfolioSection extends Section {
     @Override
     public void onBindHeaderViewHolder(final RecyclerView.ViewHolder holder) {
         final HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
-
         headerHolder.tvTitle.setText(sectionTitle);
     }
 
 
+
+
 }
+

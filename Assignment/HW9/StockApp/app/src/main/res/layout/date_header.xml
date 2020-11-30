@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    android:paddingBottom="2dp"
-    android:paddingTop="2dp"
-    android:background="@color/sectionHeaderBG">
+    android:paddingBottom="1dp"
+    android:paddingTop="1dp"
+    android:background="@color/sectionTabColor">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -17,9 +17,8 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
-        android:textColor="@color/black"
+        android:textColor="@color/gray"
         android:textStyle="bold"
-        android:textSize="16dp"
-        tools:text="Section Header"/>
-
+        android:textSize="23dp"
+        tools:text="Date Header"/>
 </RelativeLayout>
