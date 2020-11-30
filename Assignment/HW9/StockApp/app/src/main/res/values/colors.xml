@@ -14,4 +14,6 @@
     <color name="trendingColor">#FF03DAC5</color>
     <color name="gray">#A7A7A9</color>
     <color name="sectionHeaderBG">#e1e3e5</color>
+    <color name="upTrend">#319C5E</color>
+    <color name="downTrend">#9B4049</color>
 </resources>

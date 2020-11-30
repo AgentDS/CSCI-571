@@ -5,20 +5,18 @@ public class Stock {
     private String companyName;
     private float priceChange;
     private float currentPrice;
-    private int trendingImageId;
-    private boolean inPortfolio = false;
-    private float shareNum = 0;  // number of shares if in portfolio
+    private int shareNum;  // number of shares if in portfolio
 
     public Stock(String tickerName,
                  String companyName,
                  float priceChange,
                  float currentPrice,
-                 int trendingImageId) {
+                 int shareNum) {
         this.tickerName = tickerName;
         this.companyName = companyName;
         this.priceChange = priceChange;
         this.currentPrice = currentPrice;
-        this.trendingImageId = trendingImageId;
+        this.shareNum = shareNum;
     }
 
     public String getTickerName() {
@@ -33,7 +31,7 @@ public class Stock {
         return currentPrice;
     }
 
-    public float getShareNum() {
+    public int getShareNum() {
         return shareNum;
     }
 
@@ -41,11 +39,5 @@ public class Stock {
         return priceChange;
     }
 
-    public int getTrendingImageId() {
-        return trendingImageId;
-    }
 
-    public boolean isInPortfolio() {
-        return inPortfolio;
-    }
 }

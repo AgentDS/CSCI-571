@@ -1,5 +1,6 @@
 package com.example.stockapp;
 
+import android.graphics.Color;
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,18 +13,20 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 
 final class FavoriteSection extends Section {
     String sectionTitle = "FAVORITES";
-    List<String> stockPortforlioList = Arrays.asList("AAPL", "DIS", "WMD", "AAPL", "DIS", "WMD", "NETFLIX", "BiliBili", "Twitter", "AAPL", "DIS", "WMD", "Twitter", "AAPL", "DIS", "WMD", "NETFLIX", "BiliBili", "Twitter");
+    //    List<String> stockPortforlioList = Arrays.asList("AAPL", "DIS", "WMD", "AAPL", "DIS", "WMD", "NETFLIX", "BiliBili", "Twitter", "AAPL", "DIS", "WMD", "Twitter", "AAPL", "DIS", "WMD", "NETFLIX", "BiliBili", "Twitter");
+    List<Stock> stockList;
 
-    public FavoriteSection() {
+    public FavoriteSection(List<Stock> favoriteList) {
         super(SectionParameters.builder()
                 .itemResourceId(R.layout.stock_item)
                 .headerResourceId(R.layout.section_header)
                 .build());
+        stockList = favoriteList;
     }
 
     @Override
     public int getContentItemsTotal() {
-        return stockPortforlioList.size();
+        return stockList.size();
     }
 
     @Override
@@ -35,10 +38,30 @@ final class FavoriteSection extends Section {
     @Override
     public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
         StockItemViewHolder itemHolder = (StockItemViewHolder) holder;
-        String itemName = stockPortforlioList.get(position);
+        Stock stock = stockList.get(position);
 
         // bind your view here
-        itemHolder.ticker_name.setText(itemName);
+        itemHolder.ticker_name.setText(stock.getTickerName());
+        itemHolder.current_price.setText(String.format("%.2f", stock.getCurrentPrice()));
+        itemHolder.price_change.setText(String.format("%.2f", Math.abs(stock.getPriceChange())));
+
+        if (stock.getShareNum() > 0) {
+            itemHolder.company_name.setText(String.format("%d.0 shares", stock.getShareNum()));
+        } else {
+            itemHolder.company_name.setText(stock.getCompanyName()); // if share is 0 set company name
+        }
+
+        if (stock.getPriceChange() > 0) {
+            itemHolder.price_change.setTextColor(Color.rgb(49, 156, 94));  // green
+            itemHolder.trending_img.setImageResource(R.drawable.ic_twotone_trending_up_24);
+        } else if (stock.getPriceChange() < 0) {
+            itemHolder.price_change.setTextColor(Color.rgb(155, 64, 73));  // red
+            itemHolder.trending_img.setImageResource(R.drawable.ic_baseline_trending_down_24);
+        } else {
+            itemHolder.price_change.setTextColor(Color.rgb(167, 167, 169)); // grey
+            // no need for trending img
+        }
+
     }
 
     @Override
@@ -49,7 +72,6 @@ final class FavoriteSection extends Section {
     @Override
     public void onBindHeaderViewHolder(final RecyclerView.ViewHolder holder) {
         final HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
-
         headerHolder.tvTitle.setText(sectionTitle);
     }
 

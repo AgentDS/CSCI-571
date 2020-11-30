@@ -16,11 +16,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
     private SectionedRecyclerViewAdapter sectionedAdapter;
+    private List<Stock> portfolioList = new ArrayList<>();
+    private List<Stock> favoriteList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +38,10 @@ public class MainActivity extends AppCompatActivity {
 
         sectionedAdapter = new SectionedRecyclerViewAdapter();
         // Add your Sections
+        initLists();
         sectionedAdapter.addSection(new DateSection());
-        sectionedAdapter.addSection(new PortfolioSection());
-        sectionedAdapter.addSection(new FavoriteSection());
+        sectionedAdapter.addSection(new PortfolioSection(portfolioList));
+        sectionedAdapter.addSection(new FavoriteSection(favoriteList));
         sectionedAdapter.addSection(new TiingoSection());
 
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
@@ -57,5 +64,29 @@ public class MainActivity extends AppCompatActivity {
         searchView.setSearchableInfo(searchableInfo);
 
         return true;
+    }
+
+    private void initLists() {
+        for (int i = 0; i < 15; i++) {
+            Random random = new Random();
+            float price = random.nextFloat() * 5000;
+            int shareNum = random.nextInt(300) + 10;   // positive integers for portfolio
+            float change = random.nextFloat() * 40 - 20;
+            Stock stock = new Stock("AAPL", "Apple Corp.", change, price, shareNum);
+            portfolioList.add(stock);
+        }
+        Stock stock_tmp = new Stock("AAPL", "Apple Corp.", 0, 23.52f, 43);
+        portfolioList.add(stock_tmp);
+
+
+
+        for (int i = 0; i < 10; i++) {
+            Random random = new Random();
+            float price = random.nextFloat() * 5000;
+            int shareNum = random.nextBoolean() ? random.nextInt(300) + 10 : 0;   // 0 or positive integers
+            float change = random.nextFloat() * 40 - 20;
+            Stock stock = new Stock("DIS", "Disney Land", change, price, shareNum);
+            favoriteList.add(stock);
+        }
     }
 }

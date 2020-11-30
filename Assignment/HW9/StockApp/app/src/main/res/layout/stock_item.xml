@@ -49,15 +49,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!--    android:src="@drawable/ic_twotone_trending_up_24"-->
+
     <ImageView
         android:id="@+id/trending_img"
         android:layout_width="23dp"
         android:layout_height="18dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="60dp"
-        android:src="@drawable/ic_twotone_trending_up_24"
+        android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/price_change"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.846" />
 
@@ -69,6 +70,8 @@
         android:layout_marginBottom="4dp"
         android:text="0.01"
         android:textSize="15dp"
+        android:fontFamily="sans-serif"
+        android:textFontWeight="500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
