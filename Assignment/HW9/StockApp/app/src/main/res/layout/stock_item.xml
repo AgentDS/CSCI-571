@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="45dp">
+    android:layout_height="60dp">
 
 
     <TextView
@@ -11,21 +11,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:gravity="top|left"
         android:text="AAPL"
+        android:fontFamily="sans-serif"
         android:textColor="@color/black"
-        android:textFontWeight="900"
+        android:textFontWeight="700"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/company_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:gravity="bottom|left"
         android:text="Apple Cor"
         android:textColor="@color/gray"
@@ -39,10 +40,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="28dp"
         android:text="3454.09"
         android:textColor="@color/black"
         android:textSize="18dp"
+        android:fontFamily="sans-serif"
+        android:textFontWeight="700"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -51,12 +54,12 @@
         android:layout_width="23dp"
         android:layout_height="18dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="52dp"
+        android:layout_marginEnd="60dp"
         android:src="@drawable/ic_twotone_trending_up_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.636" />
+        app:layout_constraintVertical_bias="0.846" />
 
     <TextView
         android:id="@+id/price_change"

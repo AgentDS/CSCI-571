@@ -19,7 +19,7 @@ final class PortfolioSection extends Section {
 
     public PortfolioSection() {
         super(SectionParameters.builder()
-                .itemResourceId(R.layout.section_item)
+                .itemResourceId(R.layout.stock_item)
                 .headerResourceId(R.layout.section_header)
                 .build());
     }
@@ -41,7 +41,7 @@ final class PortfolioSection extends Section {
         String itemName = stockPortforlioList.get(position);
 
         // bind your view here
-        itemHolder.tvItem.setText(itemName);
+        itemHolder.ticker_name.setText(itemName);
     }
 
     @Override
