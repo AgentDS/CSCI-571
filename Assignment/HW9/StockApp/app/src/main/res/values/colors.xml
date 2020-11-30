@@ -13,4 +13,5 @@
     <color name="splash">#F2F2F4</color>
     <color name="trendingColor">#FF03DAC5</color>
     <color name="gray">#A7A7A9</color>
+    <color name="sectionHeaderBG">#e1e3e5</color>
 </resources>
