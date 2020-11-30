@@ -1,6 +1,8 @@
 package com.example.stockapp;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,7 +46,16 @@ final class TiingoSection extends Section {
 
     @Override
     public RecyclerView.ViewHolder getHeaderViewHolder(final View view) {
-        return new HeaderViewHolder(view);
+        HeaderViewHolder holder = new HeaderViewHolder(view);
+        holder.tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.tiingo.com/"));
+                v.getContext().startActivity(intent);
+            }
+        });
+        return holder;
     }
 
     @Override

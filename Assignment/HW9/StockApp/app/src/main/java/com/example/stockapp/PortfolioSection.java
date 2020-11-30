@@ -54,6 +54,7 @@ final class PortfolioSection extends Section {
         final HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
 
         headerHolder.tvTitle.setText(sectionTitle);
+
     }
 
 
