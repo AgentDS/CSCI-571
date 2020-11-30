@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         // Add your Sections
         sectionedAdapter.addSection(new DateSection());
         sectionedAdapter.addSection(new PortfolioSection());
+        sectionedAdapter.addSection(new FavoriteSection());
         sectionedAdapter.addSection(new TiingoSection());
 
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);

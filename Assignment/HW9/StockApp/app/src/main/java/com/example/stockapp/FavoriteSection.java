@@ -10,14 +10,11 @@ import java.util.List;
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 
-
-final class PortfolioSection extends Section {
-
-
-    String sectionTitle = "PORTFOLIO";
+final class FavoriteSection extends Section {
+    String sectionTitle = "FAVORITES";
     List<String> stockPortforlioList = Arrays.asList("AAPL", "DIS", "WMD", "AAPL", "DIS", "WMD", "NETFLIX", "BiliBili", "Twitter", "AAPL", "DIS", "WMD", "Twitter", "AAPL", "DIS", "WMD", "NETFLIX", "BiliBili", "Twitter");
 
-    public PortfolioSection() {
+    public FavoriteSection() {
         super(SectionParameters.builder()
                 .itemResourceId(R.layout.section_item)
                 .headerResourceId(R.layout.section_header)
@@ -55,6 +52,5 @@ final class PortfolioSection extends Section {
 
         headerHolder.tvTitle.setText(sectionTitle);
     }
-
 
 }
