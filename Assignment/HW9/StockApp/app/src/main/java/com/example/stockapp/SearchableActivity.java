@@ -33,11 +33,13 @@ public class SearchableActivity extends AppCompatActivity {
     String TAG = "SearchableActivity";
     private Menu menu;
     public boolean stared = false;
+    private int sharesNum = 400;
     private String ticker = "MSFT";
     private String companyName = "Microsoft Corporation";
     private String companyDescription;
     private float currentPrice = 210.08f;
     private float priceChange = 0f;
+    private float marketValue = 134514.34f;
     private GridView statesAreaGridView;
     private List<StatesAreaPriceStr> statesPriceStrList = new ArrayList<>();
     private StatesAreaPriceStrAdapter gridViewAdapter;
@@ -56,8 +58,11 @@ public class SearchableActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // set summary area
+        // set Summary area
         setSummaryArea();
+
+        // set Portfolio area
+        setPortfolioArea();
 
         // set About area
         companyDescription = getString(R.string.about_test); // R.string.about_test for long string, R.string.about_test2 for short string
@@ -67,8 +72,35 @@ public class SearchableActivity extends AppCompatActivity {
         initStatesPriceStrs();  // init data for States area
         setStatesArea();
 
-
         // TODO: check local storage and set 'stared'
+    }
+
+    @Override
+    protected void onStart() {
+        Log.i(TAG, "onStart start");
+        super.onStart();
+        Log.i(TAG, "onStart end");
+    }
+
+    @Override
+    protected void onResume() {
+        Log.i(TAG, "onResume start");
+        super.onResume();
+        Log.i(TAG, "onResume end");
+    }
+
+    @Override
+    protected void onPause() {
+        Log.i(TAG, "onPause start");
+        super.onPause();
+        Log.i(TAG, "onPause end");
+    }
+
+    @Override
+    protected void onStop() {
+        Log.i(TAG, "onStop start");
+        super.onStop();
+        Log.i(TAG, "onStop end");
     }
 
     @Override
@@ -99,10 +131,6 @@ public class SearchableActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-//            case R.id.back:
-//                onBackPressed();
-////                Toast.makeText(this, "Back button clicked", Toast.LENGTH_SHORT).show();
-//                break;
             case R.id.star:
                 switchStar();
                 break;
@@ -156,17 +184,37 @@ public class SearchableActivity extends AppCompatActivity {
         priceChangeTextView.setTextColor(textColor);
     }
 
-    private void setAboutArea() {
-        // IMPORTANT - call setText on the ExpandableTextView to set text content
-        // DO NOT change the id name for this area!!!!!
-        ExpandableTextView expTextView = (ExpandableTextView) findViewById(R.id.about_area).findViewById(R.id.expand_text_view);
-        expTextView.setText(companyDescription);
+    private void setPortfolioArea() {
+        View portfolioView = (View) findViewById(R.id.portfolio_area);
+        TextView firstTextView = (TextView) portfolioView.findViewById(R.id.portfolio_text_first_line);
+        TextView secondTextView = (TextView) portfolioView.findViewById(R.id.portfolio_text_second_line);
+
+        String firstLine;
+        String secondLine;
+
+        if (sharesNum == 0) {
+            firstLine = String.format("You have 0 shares of %s.", ticker);
+            secondLine = "Start trading!";
+        } else {
+            firstLine = String.format("Shares owned: %d.0", sharesNum);
+            secondLine = String.format("Market Value: $%.2f", marketValue);
+        }
+        firstTextView.setText(firstLine);
+        secondTextView.setText(secondLine);
     }
+
 
     private void setStatesArea() {
         statesAreaGridView = (GridView) findViewById(R.id.states_area).findViewById(R.id.states_area_gridView);
         gridViewAdapter = new StatesAreaPriceStrAdapter(SearchableActivity.this, R.layout.states_area_price_str, statesPriceStrList);
         statesAreaGridView.setAdapter(gridViewAdapter);
+    }
+
+    private void setAboutArea() {
+        // IMPORTANT - call setText on the ExpandableTextView to set text content
+        // DO NOT change the id name for this area!!!!!
+        ExpandableTextView expTextView = (ExpandableTextView) findViewById(R.id.about_area).findViewById(R.id.expand_text_view);
+        expTextView.setText(companyDescription);
     }
 
     private void initStatesPriceStrs() {
