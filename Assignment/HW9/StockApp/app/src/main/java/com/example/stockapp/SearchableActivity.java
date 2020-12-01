@@ -45,9 +45,9 @@ public class SearchableActivity extends AppCompatActivity {
         // ExpandableTextView in About area
         // IMPORTANT - call setText on the ExpandableTextView to set text content
         // DO NOT change the id name for this area!!!!!
-        ExpandableTextView expTv1 = (ExpandableTextView) findViewById(R.id.about_area).findViewById(R.id.expand_text_view);
+        ExpandableTextView expTv = (ExpandableTextView) findViewById(R.id.about_area).findViewById(R.id.expand_text_view);
         // R.string.about_test for long string, R.string.about_test2 for short string
-        expTv1.setText(getString(R.string.about_test));
+        expTv.setText(getString(R.string.about_test));
 
         // TODO: check local storage and set 'stared'
     }
