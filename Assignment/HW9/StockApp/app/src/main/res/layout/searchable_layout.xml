@@ -17,31 +17,31 @@
         app:titleTextAppearance="@style/Toolbar.TitleText" />
 
     <!--    detail page content -->
-    <!--    <androidx.core.widget.NestedScrollView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:fillViewport="true">-->
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
 
-    <!--   Stock summary area-->
-    <include layout="@layout/detail_summary_area"/>
+        <!--   Stock summary area-->
+        <include layout="@layout/detail_summary_area" />
 
-    <!-- charts area-->
-    <include layout="@layout/detail_charts_area"/>
+        <!-- charts area-->
+        <include layout="@layout/detail_charts_area" />
 
 
-    <!--       portfolio area-->
-    <include layout="@layout/detail_portfolio_area" />
+        <!--       portfolio area-->
+        <include layout="@layout/detail_portfolio_area" />
 
-    <!--  states area-->
-    <include layout="@layout/detail_states_area"/>
+        <!--  states area-->
+        <include layout="@layout/detail_states_area" />
 
-    <!-- about area-->
-    <include layout="@layout/detail_about_area"/>
+        <!-- about area-->
 
     <!-- news area-->
-    <include layout="@layout/detail_news_area"/>
+    <include layout="@layout/detail_about_area" />
 
-    <!--    </androidx.core.widget.NestedScrollView>-->
+    <include layout="@layout/detail_news_area" />
+
+<!--    </ScrollView>-->
 
 
 </LinearLayout>
