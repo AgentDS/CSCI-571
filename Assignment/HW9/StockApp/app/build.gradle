@@ -34,6 +34,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:2.1.0'
+    compile 'com.ms-square:expandableTextView:0.1.4'
+
 
     testImplementation 'junit:junit:4.+'
 

@@ -18,6 +18,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.ms.square.android.expandabletextview.ExpandableTextView;
+
 public class SearchableActivity extends AppCompatActivity {
 
     String TAG = "SearchableActivity";
@@ -32,12 +34,20 @@ public class SearchableActivity extends AppCompatActivity {
         // set toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // todo: useful??
+
+        // back to home page button
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Get the intent, verify the action and get the query, handled in onNewIntent
         // handleIntent(getIntent());
+
+        // sample code snippet to set the text content on the ExpandableTextView
+        ExpandableTextView expTv1 = (ExpandableTextView) findViewById(R.id.about_area).findViewById(R.id.expand_text_view);
+
+        // IMPORTANT - call setText on the ExpandableTextView to set the text content to display
+        // TODO: R.string.about_test for long string, R.string.about_test2 for short string
+        expTv1.setText(getString(R.string.about_test));
 
         // TODO: check local storage and set 'stared'
     }
