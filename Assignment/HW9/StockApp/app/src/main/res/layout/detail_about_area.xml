@@ -28,6 +28,8 @@
 <!--        />-->
 <!--    android:ellipsize="end"-->
 <!--    android:maxLines="2"-->
+
+    <!--    DO NOT change the id name for this area!!!!!-->
     <com.ms.square.android.expandabletextview.ExpandableTextView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
