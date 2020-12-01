@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/states_area"
+    android:orientation="vertical">
+
+    <!--    area header-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="States"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/black"
+        android:textFontWeight="@dimen/detail_area_header_FontWeight"
+        android:textSize="@dimen/detail_area_header_textSize"
+        android:paddingLeft="@dimen/detail_area_header_padding"/>
+
+<!--    <GridView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:gravity="center"-->
+<!--        android:paddingHorizontal="@dimen/detail_area_content_paddingHorizontal"-->
+<!--        >-->
+
+<!--    </GridView>-->
+
+
+</LinearLayout>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--    area header-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:paddingLeft="@dimen/detail_area_header_padding"
+        android:text="News"
+        android:textColor="@color/black"
+        android:textFontWeight="@dimen/detail_area_header_FontWeight"
+        android:textSize="@dimen/detail_area_header_textSize" />
+
+    <!--    area content-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/news_area_news"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/detail_area_content_paddingHorizontal" />
+
+
+</LinearLayout>

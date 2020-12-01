@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/portfolio_area"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:orientation="vertical">
+
+    <!--    area header-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Portfolio"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/black"
+        android:textFontWeight="@dimen/detail_area_header_FontWeight"
+        android:textSize="@dimen/detail_area_header_textSize"
+        android:paddingLeft="@dimen/detail_area_header_padding"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingHorizontal="@dimen/detail_area_content_paddingHorizontal">
+        <!--  portforlio area left text-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/portfolio_text_first_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Shares owned: 12.0"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/portfolio_text_second_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Market Value: $2520.96"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/trade_button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_weight="5"
+            android:backgroundTint="@color/upTrend"
+            android:text="TRADE"
+            android:background="@drawable/round_btn_grey"
+            android:textColor="@color/white" />
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/summary_area"
+    android:paddingHorizontal="@dimen/detail_area_header_padding">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/summary_ticker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MSFT"
+            android:fontFamily="sans-serif"
+            android:textFontWeight="700"
+            android:textSize="30dp"
+            android:textColor="@color/black"
+            android:layout_alignParentLeft="true"/>
+
+        <TextView
+            android:id="@+id/summary_current_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:fontFamily="sans-serif"
+            android:text="$210.08"
+            android:textColor="@color/black"
+            android:textFontWeight="700"
+            android:textSize="25dp"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/summary_company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MSFT"
+            android:fontFamily="sans-serif"
+            android:textFontWeight="700"
+            android:textSize="17dp"
+            android:textColor="@color/gray"
+            android:layout_alignParentLeft="true"/>
+
+        <TextView
+            android:id="@+id/summary_price_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:fontFamily="sans-serif"
+            android:text="-$6.08"
+            android:textColor="@color/black"
+            android:textFontWeight="700"
+            android:textSize="17dp"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+
+
+</LinearLayout>
