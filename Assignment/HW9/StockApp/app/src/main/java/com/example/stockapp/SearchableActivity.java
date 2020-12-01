@@ -58,21 +58,39 @@ public class SearchableActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // TODO: check local storage and set 'stared' ------ Begin
+        //
+        //
+        // TODO: check local storage and set 'stared' ------ End
+
+
         // set Summary area
         setSummaryArea();
 
+        // set Charts area
+        // TODO: set Charts area ------ Begin//
+        //
+        //
+        // TODO: set Charts area ------ End
+
         // set Portfolio area
         setPortfolioArea();
-
-        // set About area
-        companyDescription = getString(R.string.about_test); // R.string.about_test for long string, R.string.about_test2 for short string
-        setAboutArea();
 
         // set States area gridView
         initStatesPriceStrs();  // init data for States area
         setStatesArea();
 
-        // TODO: check local storage and set 'stared'
+        // set About area
+        companyDescription = getString(R.string.about_test); // R.string.about_test for long string, R.string.about_test2 for short string
+        setAboutArea();
+
+
+        // set News area
+        // TODO: set News area ------ Begin
+        //
+        //
+        // TODO: set News area ------ End
+
     }
 
     @Override
