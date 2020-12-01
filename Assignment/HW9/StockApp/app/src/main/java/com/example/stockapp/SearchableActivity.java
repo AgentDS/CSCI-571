@@ -23,6 +23,7 @@ public class SearchableActivity extends AppCompatActivity {
     String TAG = "SearchableActivity";
     private Menu menu;
     public boolean stared = false;
+    private String ticker;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class SearchableActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             Log.i(TAG, "handleIntent: query=" + query);
+            ticker = query.toUpperCase();
 //            doMySearch(query);
         }
     }
@@ -66,11 +68,11 @@ public class SearchableActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.back:
-                Toast.makeText(this, "Back button clicked", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+//                Toast.makeText(this, "Back button clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.star:
                 switchStar();
-                Toast.makeText(this, "Star clicked", Toast.LENGTH_SHORT).show();
                 break;
             default:
         }
@@ -83,8 +85,10 @@ public class SearchableActivity extends AppCompatActivity {
         stared = !stared;
 
         if (stared) {
+            Toast.makeText(this, "\"" + ticker + "\" was added to favorites", Toast.LENGTH_SHORT).show();
             starItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_star_24));
         } else {
+            Toast.makeText(this, "\"" + ticker + "\" was removed from favorites", Toast.LENGTH_SHORT).show();
             starItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_star_border_24));
         }
         // TODO: modify local storage
