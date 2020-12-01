@@ -173,7 +173,10 @@ public class SearchableActivity extends AppCompatActivity {
             Toast.makeText(this, "\"" + ticker + "\" was removed from favorites", Toast.LENGTH_SHORT).show();
             starItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_star_border_24));
         }
-        // TODO: modify local storage
+        // TODO: modify local storage ------ Begin
+        //
+        //
+        // TODO: modify local storage ------ End
 
     }
 
