@@ -35,64 +35,37 @@ public class SearchableActivity extends AppCompatActivity {
     public boolean stared = false;
     private String ticker = "MSFT";
     private String companyName = "Microsoft Corporation";
+    private String companyDescription;
     private float currentPrice = 210.08f;
     private float priceChange = 0f;
     private GridView statesAreaGridView;
     private List<StatesAreaPriceStr> statesPriceStrList = new ArrayList<>();
     private StatesAreaPriceStrAdapter gridViewAdapter;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.searchable_layout);
+
         // set toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // back to home page button
+        // set back to home page button
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Get the intent, verify the action and get the query, handled in onNewIntent now
-        // handleIntent(getIntent());
-
-        // ExpandableTextView in About area
-        // IMPORTANT - call setText on the ExpandableTextView to set text content
-        // DO NOT change the id name for this area!!!!!
-        ExpandableTextView expTextView = (ExpandableTextView) findViewById(R.id.about_area).findViewById(R.id.expand_text_view);
-        // R.string.about_test for long string, R.string.about_test2 for short string
-        expTextView.setText(getString(R.string.about_test));
-
-
-        // set gridView
-        initStatesPriceStrs();
-        statesAreaGridView = (GridView) findViewById(R.id.states_area).findViewById(R.id.states_area_gridView);
-        gridViewAdapter = new StatesAreaPriceStrAdapter(SearchableActivity.this, R.layout.states_area_price_str, statesPriceStrList);
-        statesAreaGridView.setAdapter(gridViewAdapter);
-
         // set summary area
-        View summaryView = (View) findViewById(R.id.summary_area);
-        TextView tickerTextView = (TextView) summaryView.findViewById(R.id.summary_ticker);
-        TextView companyNameTextView = (TextView) summaryView.findViewById(R.id.summary_company_name);
-        TextView currentPriceTextView = (TextView) summaryView.findViewById(R.id.summary_current_price);
-        TextView priceChangeTextView = (TextView) summaryView.findViewById(R.id.summary_price_change);
-        tickerTextView.setText(ticker);
-        companyNameTextView.setText(companyName);
-        currentPriceTextView.setText(String.format("$%.2f", currentPrice));
-        String changePriceStr;
-        int textColor;
-        if (priceChange > 0) {
-            changePriceStr = String.format("$%.2f", Math.abs(priceChange));
-            textColor = Color.rgb(49, 156, 94); // green
-        } else if (priceChange < 0) {
-            changePriceStr = String.format("-$%.2f", Math.abs(priceChange));
-            textColor = Color.rgb(155, 64, 73); //red
-        } else {
-            changePriceStr = "$0.0";
-            textColor = Color.rgb(167, 167, 169); // grey
-        }
-        priceChangeTextView.setText(changePriceStr);
-        priceChangeTextView.setTextColor(textColor);
+        setSummaryArea();
+
+        // set About area
+        companyDescription = getString(R.string.about_test); // R.string.about_test for long string, R.string.about_test2 for short string
+        setAboutArea();
+
+        // set States area gridView
+        initStatesPriceStrs();  // init data for States area
+        setStatesArea();
 
 
         // TODO: check local storage and set 'stared'
@@ -156,6 +129,44 @@ public class SearchableActivity extends AppCompatActivity {
         }
         // TODO: modify local storage
 
+    }
+
+    private void setSummaryArea() {
+        View summaryView = (View) findViewById(R.id.summary_area);
+        TextView tickerTextView = (TextView) summaryView.findViewById(R.id.summary_ticker);
+        TextView companyNameTextView = (TextView) summaryView.findViewById(R.id.summary_company_name);
+        TextView currentPriceTextView = (TextView) summaryView.findViewById(R.id.summary_current_price);
+        TextView priceChangeTextView = (TextView) summaryView.findViewById(R.id.summary_price_change);
+        tickerTextView.setText(ticker);
+        companyNameTextView.setText(companyName);
+        currentPriceTextView.setText(String.format("$%.2f", currentPrice));
+        String changePriceStr;
+        int textColor;
+        if (priceChange > 0) {
+            changePriceStr = String.format("$%.2f", Math.abs(priceChange));
+            textColor = Color.rgb(49, 156, 94); // green
+        } else if (priceChange < 0) {
+            changePriceStr = String.format("-$%.2f", Math.abs(priceChange));
+            textColor = Color.rgb(155, 64, 73); //red
+        } else {
+            changePriceStr = "$0.0";
+            textColor = Color.rgb(167, 167, 169); // grey
+        }
+        priceChangeTextView.setText(changePriceStr);
+        priceChangeTextView.setTextColor(textColor);
+    }
+
+    private void setAboutArea() {
+        // IMPORTANT - call setText on the ExpandableTextView to set text content
+        // DO NOT change the id name for this area!!!!!
+        ExpandableTextView expTextView = (ExpandableTextView) findViewById(R.id.about_area).findViewById(R.id.expand_text_view);
+        expTextView.setText(companyDescription);
+    }
+
+    private void setStatesArea() {
+        statesAreaGridView = (GridView) findViewById(R.id.states_area).findViewById(R.id.states_area_gridView);
+        gridViewAdapter = new StatesAreaPriceStrAdapter(SearchableActivity.this, R.layout.states_area_price_str, statesPriceStrList);
+        statesAreaGridView.setAdapter(gridViewAdapter);
     }
 
     private void initStatesPriceStrs() {
