@@ -32,6 +32,9 @@ public class SearchableActivity extends AppCompatActivity {
         // set toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        // todo: useful??
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);// set drawable icon
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Get the intent, verify the action and get the query, handled in onNewIntent
         // handleIntent(getIntent());
@@ -67,14 +70,18 @@ public class SearchableActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.back:
-                onBackPressed();
-//                Toast.makeText(this, "Back button clicked", Toast.LENGTH_SHORT).show();
-                break;
+//            case R.id.back:
+//                onBackPressed();
+////                Toast.makeText(this, "Back button clicked", Toast.LENGTH_SHORT).show();
+//                break;
             case R.id.star:
                 switchStar();
                 break;
             default:
+                // back to homepage
+//                Toast.makeText(this, "Back button clicked", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+                break;
         }
         return true;
     }

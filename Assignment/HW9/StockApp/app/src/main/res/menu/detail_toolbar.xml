@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/back"
-        android:title="@string/toolbar_back_button"
-        android:icon="@drawable/ic_arrow_back_grey_24dp"
-        app:showAsAction="ifRoom|collapseActionView" />
+<!--    <item android:id="@+id/back"-->
+<!--        android:title="@string/toolbar_back_button"-->
+<!--        android:icon="@drawable/ic_arrow_back_grey_24dp"-->
+<!--        app:showAsAction="ifRoom|collapseActionView" />-->
     <item android:id="@+id/star"
         android:title="Favorite"
         android:icon="@drawable/ic_baseline_star_border_24"
