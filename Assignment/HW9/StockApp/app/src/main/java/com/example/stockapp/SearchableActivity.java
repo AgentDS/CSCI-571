@@ -131,7 +131,7 @@ public class SearchableActivity extends AppCompatActivity {
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            Log.i(TAG, "handleIntent: query=" + query);
+            Log.i(TAG, "handleIntent: query = " + query);
             ticker = query.toUpperCase();
 //            doMySearch(query);
         }
