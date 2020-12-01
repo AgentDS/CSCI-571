@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import android.app.SearchManager;
 import android.app.SearchableInfo;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 public class SearchableActivity extends AppCompatActivity {
 
     String TAG = "SearchableActivity";
+    private Menu menu;
+    public boolean stared = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,8 @@ public class SearchableActivity extends AppCompatActivity {
 
         // Get the intent, verify the action and get the query, handled in onNewIntent
         // handleIntent(getIntent());
+
+        // TODO: check local storage and set 'stared'
     }
 
     @Override
@@ -53,6 +58,7 @@ public class SearchableActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.detail_toolbar, menu);
+        this.menu = menu;
         return true;
     }
 
@@ -63,10 +69,25 @@ public class SearchableActivity extends AppCompatActivity {
                 Toast.makeText(this, "Back button clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.star:
-                Toast.makeText(this,"Star clicked", Toast.LENGTH_SHORT).show();
+                switchStar();
+                Toast.makeText(this, "Star clicked", Toast.LENGTH_SHORT).show();
                 break;
             default:
         }
         return true;
+    }
+
+    private void switchStar() {
+        // switch icon of star when clicked
+        MenuItem starItem = menu.findItem(R.id.star);
+        stared = !stared;
+
+        if (stared) {
+            starItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_star_24));
+        } else {
+            starItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_star_border_24));
+        }
+        // TODO: modify local storage
+
     }
 }
