@@ -11,12 +11,15 @@ import android.app.SearchableInfo;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ms.square.android.expandabletextview.ExpandableTextView;
@@ -30,7 +33,10 @@ public class SearchableActivity extends AppCompatActivity {
     String TAG = "SearchableActivity";
     private Menu menu;
     public boolean stared = false;
-    private String ticker;
+    private String ticker = "MSFT";
+    private String companyName = "Microsoft Corporation";
+    private float currentPrice = 210.08f;
+    private float priceChange = 0f;
     private GridView statesAreaGridView;
     private List<StatesAreaPriceStr> statesPriceStrList = new ArrayList<>();
     private StatesAreaPriceStrAdapter gridViewAdapter;
@@ -53,9 +59,9 @@ public class SearchableActivity extends AppCompatActivity {
         // ExpandableTextView in About area
         // IMPORTANT - call setText on the ExpandableTextView to set text content
         // DO NOT change the id name for this area!!!!!
-        ExpandableTextView expTv = (ExpandableTextView) findViewById(R.id.about_area).findViewById(R.id.expand_text_view);
+        ExpandableTextView expTextView = (ExpandableTextView) findViewById(R.id.about_area).findViewById(R.id.expand_text_view);
         // R.string.about_test for long string, R.string.about_test2 for short string
-        expTv.setText(getString(R.string.about_test));
+        expTextView.setText(getString(R.string.about_test));
 
 
         // set gridView
@@ -64,6 +70,29 @@ public class SearchableActivity extends AppCompatActivity {
         gridViewAdapter = new StatesAreaPriceStrAdapter(SearchableActivity.this, R.layout.states_area_price_str, statesPriceStrList);
         statesAreaGridView.setAdapter(gridViewAdapter);
 
+        // set summary area
+        View summaryView = (View) findViewById(R.id.summary_area);
+        TextView tickerTextView = (TextView) summaryView.findViewById(R.id.summary_ticker);
+        TextView companyNameTextView = (TextView) summaryView.findViewById(R.id.summary_company_name);
+        TextView currentPriceTextView = (TextView) summaryView.findViewById(R.id.summary_current_price);
+        TextView priceChangeTextView = (TextView) summaryView.findViewById(R.id.summary_price_change);
+        tickerTextView.setText(ticker);
+        companyNameTextView.setText(companyName);
+        currentPriceTextView.setText(String.format("$%.2f", currentPrice));
+        String changePriceStr;
+        int textColor;
+        if (priceChange > 0) {
+            changePriceStr = String.format("$%.2f", Math.abs(priceChange));
+            textColor = Color.rgb(49, 156, 94); // green
+        } else if (priceChange < 0) {
+            changePriceStr = String.format("-$%.2f", Math.abs(priceChange));
+            textColor = Color.rgb(155, 64, 73); //red
+        } else {
+            changePriceStr = "$0.0";
+            textColor = Color.rgb(167, 167, 169); // grey
+        }
+        priceChangeTextView.setText(changePriceStr);
+        priceChangeTextView.setTextColor(textColor);
 
 
         // TODO: check local storage and set 'stared'

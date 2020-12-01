@@ -15,6 +15,8 @@
 2. Make sure all icons and texts are correctly positioned as in the video/screenshots 3. Make sure the screens and toasts are correctly displayed.
 ing Node.js backend. On clicking the Goto button on any stock listing or searching for a stock symbol, the loading spinner symbol should be displayed while the details are being fetched (see Figure 4). Once the data has been fetched except the chart (since the chart takes longer to load), the spinner should disappear and information regarding the stock should be available to the user (Figure 5 and Figure 6).1. Make sure there are no conditions under which the app crashes
 2. Make sure all icons and texts are correctly positioned as in the video/screenshots 3. Make sure the screens and toasts are correctly displayed.
-ing Node.js backend. </string>
+ing Node.js backend. 2. Make sure all icons and texts are correctly positioned as in the video/screenshots 3. Make sure the screens and toasts are correctly displayed.
+ing Node.js backend. 2. Make sure all icons and texts are correctly positioned as in the video/screenshots 3. Make sure the screens and toasts are correctly displayed.
+ing Node.js backend.</string>
     <string name="about_test2">snowflake Inc - Class A</string>
 </resources>
