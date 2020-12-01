@@ -12,7 +12,7 @@
         android:paddingLeft="@dimen/detail_area_header_padding"
         android:text="News"
         android:textColor="@color/black"
-        android:textFontWeight="@dimen/detail_area_header_FontWeight"
+        android:textFontWeight="700"
         android:textSize="@dimen/detail_area_header_textSize" />
 
     <!--    area content-->

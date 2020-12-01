@@ -11,5 +11,13 @@
     <string name="app_label">Stocks</string>
     <string name="testtext">Hello World!Hello World!Hello Worldo Worllo World!</string>
     <string name="toolbar_back_button">Back</string>
-    <string name="about_test">On clicking the Goto button on any stock listing or searching for a stock symbol, the loading spinner symbol should be displayed while the details are being fetched (see Figure 4). Once the data has been fetched except the chart (since the chart takes longer to load), the spinner should disappear and information regarding the stock should be available to the user (Figure 5 and Figure 6).</string>
+    <string name="about_test">On clicking the Goto button on any stock listing or searching for a stock symbol, the loading spinner symbol should be displayed while the details are being fetched (see Figure 4). Once the data has been fetched except the chart (since the chart takes longer to load), the spinner should disappear and information regarding the stock should be available to the user (Figure 5 and Figure 6).1. Make sure there are no conditions under which the app crashes
+2. Make sure all icons and texts are correctly positioned as in the video/screenshots 3. Make sure the screens and toasts are correctly displayed.
+4. Make sure there is a progress bar every time there is nothing to show
+5. Make sure the styling for different features matches the video/screenshots.
+5. All API calls are to be made using Node.js backend.1. Make sure there are no conditions under which the app crashes
+2. Make sure all icons and texts are correctly positioned as in the video/screenshots 3. Make sure the screens and toasts are correctly displayed.
+4. Make sure there is a progress bar every time there is nothing to show
+5. Make sure the styling for different features matches the video/screenshots.
+5. All API calls are to be made using Node.js backend.</string>
 </resources>

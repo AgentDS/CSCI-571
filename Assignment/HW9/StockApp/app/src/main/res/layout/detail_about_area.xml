@@ -12,7 +12,7 @@
         android:text="About"
         android:fontFamily="sans-serif"
         android:textColor="@color/black"
-        android:textFontWeight="@dimen/detail_area_header_FontWeight"
+        android:textFontWeight="700"
         android:textSize="@dimen/detail_area_header_textSize"
         android:paddingLeft="@dimen/detail_area_header_padding"/>
 
@@ -25,8 +25,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollHorizontally="true"
-        android:ellipsize="end"
-        android:maxLines="2"/>
+        />
+<!--    android:ellipsize="end"-->
+<!--    android:maxLines="2"-->
 
 
 </LinearLayout>
