@@ -16,9 +16,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import com.ms.square.android.expandabletextview.ExpandableTextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class SearchableActivity extends AppCompatActivity {
 
@@ -26,6 +31,9 @@ public class SearchableActivity extends AppCompatActivity {
     private Menu menu;
     public boolean stared = false;
     private String ticker;
+    private GridView statesAreaGridView;
+    private List<StatesAreaPriceStr> statesPriceStrList = new ArrayList<>();
+    private StatesAreaPriceStrAdapter gridViewAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +47,7 @@ public class SearchableActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Get the intent, verify the action and get the query, handled in onNewIntent
+        // Get the intent, verify the action and get the query, handled in onNewIntent now
         // handleIntent(getIntent());
 
         // ExpandableTextView in About area
@@ -48,6 +56,15 @@ public class SearchableActivity extends AppCompatActivity {
         ExpandableTextView expTv = (ExpandableTextView) findViewById(R.id.about_area).findViewById(R.id.expand_text_view);
         // R.string.about_test for long string, R.string.about_test2 for short string
         expTv.setText(getString(R.string.about_test));
+
+
+        // set gridView
+        initStatesPriceStrs();
+        statesAreaGridView = (GridView) findViewById(R.id.states_area).findViewById(R.id.states_area_gridView);
+        gridViewAdapter = new StatesAreaPriceStrAdapter(SearchableActivity.this, R.layout.states_area_price_str, statesPriceStrList);
+        statesAreaGridView.setAdapter(gridViewAdapter);
+
+
 
         // TODO: check local storage and set 'stared'
     }
@@ -110,5 +127,23 @@ public class SearchableActivity extends AppCompatActivity {
         }
         // TODO: modify local storage
 
+    }
+
+    private void initStatesPriceStrs() {
+        HashMap<String, String> latestPrice = new HashMap<String, String>();
+        float currentPrice = 245.53f;
+        float lowPrice = 23.3f;
+        float bitPrice = 45.52f;
+        float highPrice = 354.34f;
+        float midPrice = 23.9f;
+        float openPrice = 23.2f;
+        int volume = 23443;
+        statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", currentPrice), "current"));
+        statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", lowPrice), "low"));
+        statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", bitPrice), "bid"));
+        statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", openPrice), "open"));
+        statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", midPrice), "mid"));
+        statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", highPrice), "high"));
+        statesPriceStrList.add(new StatesAreaPriceStr(String.format("%d.00", volume), "volume"));
     }
 }

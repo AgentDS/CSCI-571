@@ -24,6 +24,15 @@
 <!--        >-->
 
 <!--    </GridView>-->
+    <GridView
+        android:id="@+id/states_area_gridView"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:numColumns="3"
+        android:paddingHorizontal="@dimen/detail_area_content_paddingHorizontal"
+        android:gravity="center"
+        android:stretchMode="columnWidth"
+        />
 
 
 </LinearLayout>

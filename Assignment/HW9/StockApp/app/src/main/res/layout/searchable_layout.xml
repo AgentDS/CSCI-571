@@ -16,43 +16,49 @@
         app:buttonGravity="bottom"
         app:titleTextAppearance="@style/Toolbar.TitleText" />
 
-    <!--    detail page content -->
-    <!--    <ScrollView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content">-->
+    <!--   detail page content-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <!--   Stock summary area-->
-    <include
-        android:id="@+id/summary_area"
-        layout="@layout/detail_summary_area" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <!-- charts area-->
-    <include
-        android:id="@+id/charts_area"
-        layout="@layout/detail_charts_area" />
+            <!--   Stock summary area-->
+            <include
+                android:id="@+id/summary_area"
+                layout="@layout/detail_summary_area" />
 
+            <!-- charts area-->
+            <include
+                android:id="@+id/charts_area"
+                layout="@layout/detail_charts_area" />
 
-    <!--       portfolio area-->
-    <include
-        android:id="@+id/portfolio_area"
-        layout="@layout/detail_portfolio_area" />
+            <!--       portfolio area-->
+            <include
+                android:id="@+id/portfolio_area"
+                layout="@layout/detail_portfolio_area" />
 
-    <!--  states area-->
-    <include
-        android:id="@+id/states_area"
-        layout="@layout/detail_states_area" />
+            <!--  states area-->
+            <include
+                android:id="@+id/states_area"
+                layout="@layout/detail_states_area" />
 
-    <!-- about area-->
-    <include
-        android:id="@+id/about_area"
-        layout="@layout/detail_about_area" />
+            <!-- about area-->
+            <include
+                android:id="@+id/about_area"
+                layout="@layout/detail_about_area" />
 
-    <!-- news area-->
-    <include
-        android:id="@+id/news_area"
-        layout="@layout/detail_news_area" />
+            <!-- news area-->
+            <include
+                android:id="@+id/news_area"
+                layout="@layout/detail_news_area" />
 
-    <!--    </ScrollView>-->
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </LinearLayout>

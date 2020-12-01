@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         expandableTextView:maxCollapsedLines="2"
-        expandableTextView:animDuration="200"
+        expandableTextView:animDuration="100"
         expandableTextView:expandDrawable="@drawable/show_more"
         expandableTextView:collapseDrawable="@drawable/show_less">
         <TextView
