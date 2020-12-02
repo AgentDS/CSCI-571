@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class BackendUrlMaker {
 
-    private String HOST = "https://csci571-hw8backend.wl.r.appspot.com/";
+    private String HOST = "http://csci571-hw8backend.wl.r.appspot.com/";
     private String searchutilPre = HOST + "api/v1.0.0/searchutil/";
     private String metadataPre = HOST + "api/v1.0.0/metadata/";
     private String latestPricePre = HOST + "api/v1.0.0/latestprice/";

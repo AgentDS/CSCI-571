@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">csci571-hw8backend.wl.r.appspot.com</domain>
+        <domain includeSubdomains="true">cs571hw8yitaojin-back-v04.wl.r.appspot.com</domain>
+    </domain-config>
+</network-security-config>
