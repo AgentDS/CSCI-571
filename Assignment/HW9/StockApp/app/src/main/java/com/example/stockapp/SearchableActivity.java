@@ -40,7 +40,10 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -180,7 +183,9 @@ public class SearchableActivity extends AppCompatActivity {
 
             // TODO: real API call
 //            initSummary_Portfolio_StatesArea();
-            initChartsArea(ticker);
+//            initChartsArea();
+
+
 
         }
     }
@@ -357,7 +362,7 @@ public class SearchableActivity extends AppCompatActivity {
         // TODO: handling charts JSONArray and feed to charts ---- End
     }
 
-    private void initChartsArea(String ticker) {
+    private void initChartsArea() {
         WebView webView;
         webView = (WebView) findViewById(R.id.charts_area).findViewById(R.id.chart_area_webView);
         WebSettings settings = webView.getSettings();
@@ -372,7 +377,6 @@ public class SearchableActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-//                String dataUrl = "file:///Users/liangsiqi/Desktop/response/histcharts.json";
                 String dataUrl = urlMaker.getHistChartsUrl();
 
                 view.loadUrl("javascript:setTicker('" + ticker + "', '" + dataUrl + "')");
@@ -398,6 +402,7 @@ public class SearchableActivity extends AppCompatActivity {
         statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", highPrice), "high"));
         statesPriceStrList.add(new StatesAreaPriceStr(String.format("%d.00", volume), "volume"));
     }
+
 
 
 }
