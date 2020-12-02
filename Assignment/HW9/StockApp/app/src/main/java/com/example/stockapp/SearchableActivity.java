@@ -353,54 +353,5 @@ public class SearchableActivity extends AppCompatActivity {
     }
 
 
-    // TODO: for hostname verify work???  -- begin
-//    public class newHurlStack extends HurlStack {
-//
-//        public newHurlStack(UrlRewriter urlRewriter, SSLSocketFactory sslSocketFactory) {
-//            super(urlRewriter, sslSocketFactory);
-//        }
-//
-//        @Override
-//        protected HttpURLConnection createConnection(URL url) throws IOException {
-//            HttpsURLConnection httpsURLConnection = (HttpsURLConnection) super.createConnection(url);
-//            try {
-//                httpsURLConnection.setHostnameVerifier(getHostnameVerifier());
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            return httpsURLConnection;
-//        }
-//
-//        // Let's assume your server app is hosting inside a server machine
-//        // which has a server certificate in which "Issued to" is "localhost",for example.
-//        // Then, inside verify method you can verify "localhost".
-//        // If not, you can temporarily return true
-//        private HostnameVerifier getHostnameVerifier() {
-//            return new HostnameVerifier() {
-//                @Override
-//                public boolean verify(String hostname, SSLSession session) {
-//                    //return true; // verify always returns true, which could cause insecure network traffic due to trusting TLS/SSL server certificates for wrong hostnames
-//
-////                    HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
-////                    boolean isVerify = hv.verify("121.25.201.236", session);
-////                    return isVerify;
-//                    return true;
-//                }
-//            };
-//        }
-//
-//    }
-//    public static RequestQueue newRequestQueue(Context context) {
-//
-//        SSLSocketFactory sslSocketFactory = initSSLSocketFactory(context);
-//        YxpHurlStack stack = new YxpHurlStack(null, sslSocketFactory);
-//        return Volley.newRequestQueue(context, stack);
-//    }
-
-    // TODO: for hostname verify work???  -- end
-
-
-
-
 
 }
