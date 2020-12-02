@@ -102,8 +102,6 @@ public class SearchableActivity extends AppCompatActivity {
         // TODO: set Charts area ------ End
 
 
-
-
         // set States area gridView
 //        initStatesPriceStrs();  // init data for States area
 //        setStatesArea();
@@ -180,7 +178,8 @@ public class SearchableActivity extends AppCompatActivity {
             // sample back: [{"date":"2018-12-03T00:00:00.000Z","close":184.82,"high":184.94,"low":181.21,"open":184.46,"volume":40798002,"adjClose":45.1285861362,"adjHigh":45.1578872418,"adjLow":44.2471112095,"adjOpen":45.0406828194,"adjVolume":163192008,"divCash":0,"splitFactor":1}, ...]
             Log.i(TAG, "chartsUrl: " + urlMaker.getHistChartsUrl());
 
-//            initSummary_Portfolio_StatesArea();  // TODO: real API call
+            // TODO: real API call
+//            initSummary_Portfolio_StatesArea();
             initChartsArea(ticker);
 
         }
@@ -373,7 +372,10 @@ public class SearchableActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                view.loadUrl("javascript:setTicker('" + ticker + "')");
+//                String dataUrl = "file:///Users/liangsiqi/Desktop/response/histcharts.json";
+                String dataUrl = urlMaker.getHistChartsUrl();
+
+                view.loadUrl("javascript:setTicker('" + ticker + "', '" + dataUrl + "')");
             }
         });
 

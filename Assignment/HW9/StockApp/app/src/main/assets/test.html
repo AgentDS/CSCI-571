@@ -20,12 +20,14 @@
 <script>
 
 ticker="BABA"
-function setTicker(str){
+function setTicker(str, url){
 	ticker=str
+	fakeUrl = 'https://demo-live-data.highcharts.com/aapl-ohlcv.json'
 	
-	Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-ohlcv.json', function (data) {
+	Highcharts.getJSON(url, function (data) {
 
 // split the data set into ohlc and volume
+let intTimestamp
 var ohlc = [],
     volume = [],
     dataLength = data.length,
@@ -41,18 +43,19 @@ var ohlc = [],
     i = 0;
 
 for (i; i < dataLength; i += 1) {
-    ohlc.push([
-        data[i][0], // the date
-        data[i][1], // open
-        data[i][2], // high
-        data[i][3], // low
-        data[i][4] // close
-    ]);
+    intTimestamp = Date.parse(data[i].date);
+      ohlc.push([
+        intTimestamp, // the date
+        data[i].open, // open
+        data[i].high, // high
+        data[i].low, // low
+        data[i].close, // close
+      ]);
 
-    volume.push([
-        data[i][0], // the date
-        data[i][5] // the volume
-    ]);
+      volume.push([
+        intTimestamp, // the date
+        data[i].volume, // the volume
+      ]);
 }
 
 
