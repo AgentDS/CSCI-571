@@ -25,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
@@ -51,16 +52,17 @@ public class SearchableActivity extends AppCompatActivity {
     private Menu menu;
     public boolean stared = false;
     private int sharesNum = 400;
-    private String ticker = "MSFT";
-    private String companyName = "Microsoft Corporation";
+    private String ticker;
+    private String companyName;
     private String companyDescription;
-    private float currentPrice = 210.08f;
-    private float priceChange = 0f;
-    private float marketValue = 134514.34f;
+    private double currentPrice;
+    private double priceChange;
+    private double marketValue;
     private GridView statesAreaGridView;
     private List<StatesAreaPriceStr> statesPriceStrList = new ArrayList<>();
     private StatesAreaPriceStrAdapter gridViewAdapter;
     private BackendUrlMaker urlMaker;
+    private RequestQueue queue;
 
     private String tiingoAPIKey = "be37d86b75ad931e483aaab61f620653921a7517";
     //    private String tiingoAPIKey = "dea471cb1109196d1921d429284606624f433067";
@@ -87,7 +89,8 @@ public class SearchableActivity extends AppCompatActivity {
 
 
         // set Summary area
-        setSummaryArea();
+//        setSummaryArea();
+
 
         // set Charts area
         // TODO: set Charts area ------ Begin//
@@ -95,16 +98,18 @@ public class SearchableActivity extends AppCompatActivity {
         //
         // TODO: set Charts area ------ End
 
-        // set Portfolio area
-        setPortfolioArea();
+
+
 
         // set States area gridView
-        initStatesPriceStrs();  // init data for States area
-        setStatesArea();
+//        initStatesPriceStrs();  // init data for States area
+//        setStatesArea();
 
         // set About area
-        companyDescription = getString(R.string.about_test); // R.string.about_test for long string, R.string.about_test2 for short string
-        setAboutArea();
+//        companyDescription = getString(R.string.about_test); // R.string.about_test for long string, R.string.about_test2 for short string
+//        setAboutArea();
+        // set Portfolio area
+//        setPortfolioArea();
 
 
         // set News area
@@ -153,83 +158,91 @@ public class SearchableActivity extends AppCompatActivity {
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             ticker = intent.getStringExtra(SearchManager.QUERY).toUpperCase();
-
-
-
-
-
-
-            RequestQueue queue = Volley.newRequestQueue(this);
             Log.i(TAG, "handleIntent: ticker entered : " + ticker);
-
+            queue = Volley.newRequestQueue(this);
             urlMaker = new BackendUrlMaker(ticker);
-            Log.i(TAG, "handleIntent: " + urlMaker.getSearchutilUrl());
-            // sample back: [{"name":"Apple Inc","ticker":"AAPL","permaTicker":"US000000000038","openFIGIComposite":"BBG000B9XRY4","assetType":"Stock","isActive":true,"countryCode":"US"}]
-//            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, urlMaker.getSearchutilUrl(), null,
-//                    new Response.Listener<JSONArray>() {
-//                        @Override
-//                        public void onResponse(JSONArray response) {
-//                            Log.i(TAG, "onResponse: \n" + response);
-//                        }
-//                    }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//                    Log.i(TAG, "onErrorResponse: Search util request failed");
-//                }
-//            });
 
-            // Add the request to the RequestQueue.
-//            queue.add(jsonArrayRequest);
+            // SearchutilUrl back: [{"name":"Apple Inc","ticker":"AAPL","permaTicker":"US000000000038","openFIGIComposite":"BBG000B9XRY4","assetType":"Stock","isActive":true,"countryCode":"US"}]
+            Log.i(TAG, "searchutilUrl: " + urlMaker.getSearchutilUrl());
 
+            // summaryUrl back: {"endDate":"2020-12-01","name":"Apple Inc","exchangeCode":"NASDAQ","description":"Apple Inc. (Apple) designs, manufactures and markets mobile communication and media devices, personal computers, and portable digital music players, and a variety of related software, services, peripherals, networking solutions, and third-party digital content and applications. The Company's products and services include iPhone, iPad, Mac, iPod, Apple TV, a portfolio of consumer and professional software applications, the iOS and OS X operating systems, iCloud, and a variety of accessory, service and support offerings. The Company also delivers digital content and applications through the iTunes Store, App StoreSM, iBookstoreSM, and Mac App Store. The Company distributes its products worldwide through its retail stores, online stores, and direct sales force, as well as through third-party cellular network carriers, wholesalers, retailers, and value-added resellers. In February 2012, the Company acquired app-search engine Chomp.","startDate":"1980-12-12","ticker":"AAPL"}
+            Log.i(TAG, "summaryUrl: " + urlMaker.getMetadataUrl());
 
-            Log.i(TAG, "handleIntent: " + urlMaker.getMetadataUrl());
-            // sample back: {"endDate":"2020-12-01","name":"Apple Inc","exchangeCode":"NASDAQ","description":"Apple Inc. (Apple) designs, manufactures and markets mobile communication and media devices, personal computers, and portable digital music players, and a variety of related software, services, peripherals, networking solutions, and third-party digital content and applications. The Company's products and services include iPhone, iPad, Mac, iPod, Apple TV, a portfolio of consumer and professional software applications, the iOS and OS X operating systems, iCloud, and a variety of accessory, service and support offerings. The Company also delivers digital content and applications through the iTunes Store, App StoreSM, iBookstoreSM, and Mac App Store. The Company distributes its products worldwide through its retail stores, online stores, and direct sales force, as well as through third-party cellular network carriers, wholesalers, retailers, and value-added resellers. In February 2012, the Company acquired app-search engine Chomp.","startDate":"1980-12-12","ticker":"AAPL"}
+            // statesUrl back: {"last":122.72,"quoteTimestamp":"2020-12-01T21:00:00+00:00","bidPrice":null,"bidSize":null,"mid":null,"high":123.4693,"lastSize":null,"tngoLast":122.72,"lastSaleTimestamp":"2020-12-01T21:00:00+00:00","open":121.01,"askSize":null,"low":120.01,"volume":125920963,"timestamp":"2020-12-01T21:00:00+00:00","prevClose":119.05,"askPrice":null,"ticker":"AAPL"}
+            Log.i(TAG, "statesUrl: " + urlMaker.getLatestPriceUrl());
 
+            // newsUrl back: [{"source":{"id":null,"name":"9to5Mac"},"author":"Ben Lovejoy","title":"AAPL and other tech stocks up in possible response to election uncertainty","description":"AAPL is up around 4% in pre-market trading, with other tech stocks up too. One theory being suggested is that tech giants are the new safe haven in uncertain times … \n more…\nThe post AAPL and other tech stocks up in possible response to election uncertainty a…","url":"https://9to5mac.com/2020/11/04/aapl-and-other-tech-stocks-up-in-possible-response-to-election-uncertainty/","urlToImage":"https://9to5mac.com/wp-content/uploads/sites/6/2020/11/tech-stocks-up.jpg?quality=82&strip=all","publishedAt":"2020-11-04T14:01:01Z","content":"AAPL is up around 4% in pre-market trading, with other tech stocks up too. One theory being suggested is that tech giants are the new safe haven in uncertain times … \r\nTechCrunchreports.\r\nOn the back… [+2232 chars]"}, ...]
+            Log.i(TAG, "newsUrl: " + urlMaker.getNewsUrl());
 
-            Log.i(TAG, "handleIntent: " + urlMaker.getLatestPriceUrl());
-            // sample back: {"last":122.72,"quoteTimestamp":"2020-12-01T21:00:00+00:00","bidPrice":null,"bidSize":null,"mid":null,"high":123.4693,"lastSize":null,"tngoLast":122.72,"lastSaleTimestamp":"2020-12-01T21:00:00+00:00","open":121.01,"askSize":null,"low":120.01,"volume":125920963,"timestamp":"2020-12-01T21:00:00+00:00","prevClose":119.05,"askPrice":null,"ticker":"AAPL"}
+            // sample back: [{"date":"2018-12-03T00:00:00.000Z","close":184.82,"high":184.94,"low":181.21,"open":184.46,"volume":40798002,"adjClose":45.1285861362,"adjHigh":45.1578872418,"adjLow":44.2471112095,"adjOpen":45.0406828194,"adjVolume":163192008,"divCash":0,"splitFactor":1}, ...]
+            Log.i(TAG, "chartsUrl: " + urlMaker.getHistChartsUrl());
 
-
-            Log.i(TAG, "handleIntent: " + urlMaker.getNewsUrl());
-            // sample back: [{"source":{"id":null,"name":"9to5Mac"},"author":"Ben Lovejoy","title":"AAPL and other tech stocks up in possible response to election uncertainty","description":"AAPL is up around 4% in pre-market trading, with other tech stocks up too. One theory being suggested is that tech giants are the new safe haven in uncertain times … \n more…\nThe post AAPL and other tech stocks up in possible response to election uncertainty a…","url":"https://9to5mac.com/2020/11/04/aapl-and-other-tech-stocks-up-in-possible-response-to-election-uncertainty/","urlToImage":"https://9to5mac.com/wp-content/uploads/sites/6/2020/11/tech-stocks-up.jpg?quality=82&strip=all","publishedAt":"2020-11-04T14:01:01Z","content":"AAPL is up around 4% in pre-market trading, with other tech stocks up too. One theory being suggested is that tech giants are the new safe haven in uncertain times … \r\nTechCrunchreports.\r\nOn the back… [+2232 chars]"}, ...]
-            String url2 = "https://api.tiingo.com/iex/" + ticker + "?token=013c834f9e7c0686b655cbf1867d0a9e0b60b5bd";
-
-            String jinUrl = "https://cs571hw8yitaojin-back-v04.wl.r.appspot.com/summary/AMZN";
-            JsonArrayRequest newsArrayReq = new JsonArrayRequest(Request.Method.GET, urlMaker.getHistChartsUrl(), null,
-                    new Response.Listener<JSONArray>() {
+            JsonObjectRequest summaryObjReq = new JsonObjectRequest(Request.Method.GET, urlMaker.getMetadataUrl(), null,
+                    new Response.Listener<JSONObject>() {
                         @Override
-                        public void onResponse(JSONArray response) {
+                        public void onResponse(JSONObject summaryRes) {
                             try {
-                                // Dealing with first element
-                                // Get current json object
-                                JSONObject student = response.getJSONObject(0);
-                                // Get the current student (json object) data
-//                                String tickerName = student.getString("ticker");
-//                                Double lastPrice = student.getDouble("last");
-//                                String msg = "onResponse:\ntickerName=" + tickerName + String.format("; last=%.2f; change=", lastPrice) + String.format("%.2f", change);
+                                companyDescription = summaryRes.getString("description");
+                                setAboutArea();
+                                companyName = summaryRes.getString("name");
+                                JsonObjectRequest statesObjReq = new JsonObjectRequest(Request.Method.GET, urlMaker.getLatestPriceUrl(), null,
+                                        new Response.Listener<JSONObject>() {
+                                            @Override
+                                            public void onResponse(JSONObject statesRes) {
+                                                try {
+                                                    currentPrice = statesRes.isNull("last") ? 0.0 : statesRes.getDouble("last");
+                                                    double lowPrice = statesRes.isNull("low") ? 0.0 : statesRes.getDouble("low");
+                                                    double bitPrice = statesRes.isNull("bidPrice") ? 0.0 : statesRes.getDouble("bidPrice");
+                                                    double highPrice = statesRes.isNull("high") ? 0.0 : statesRes.getDouble("high");
+                                                    double midPrice = statesRes.isNull("mid") ? 0.0 : statesRes.getDouble("mid");
+                                                    double openPrice = statesRes.isNull("open") ? 0.0 : statesRes.getDouble("open");
+                                                    double prevClose = statesRes.isNull("prevClose") ? 0.0 : statesRes.getDouble("prevClose");
+                                                    int volume = statesRes.getInt("volume");
+                                                    statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", currentPrice), "current"));
+                                                    statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", lowPrice), "low"));
+                                                    statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", bitPrice), "bid"));
+                                                    statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", openPrice), "open"));
+                                                    statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", midPrice), "mid"));
+                                                    statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", highPrice), "high"));
+                                                    statesPriceStrList.add(new StatesAreaPriceStr(String.format("%d.00", volume), "volume"));
+                                                    setStatesArea();
+                                                    Log.i(TAG, "States area data fetched & set");
+                                                    priceChange = currentPrice - prevClose;
+                                                    setSummaryArea();
+                                                    Log.i(TAG, "Summary area data fetched & set");
+                                                    setPortfolioArea();
+                                                    Log.i(TAG, "Portfolio area data fetched & set");
 
 
-                                Double open = student.getDouble("open");
-                                String msg = String.format("Open: %.2f", open);
+                                                } catch (JSONException statesE) {
+                                                    statesE.printStackTrace();
+                                                }
+                                            }
+                                        }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError statesError) {
+                                        Log.i(TAG, "onErrorResponse: LatestPrice Req failed -- " + statesError.toString());
+                                    }
+                                });
+                                queue.add(statesObjReq);
 
-                                Log.i(TAG, msg);
 
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            } catch (JSONException summaryE) {
+                                summaryE.printStackTrace();
                             }
                         }
                     }, new Response.ErrorListener() {
                 @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.i(TAG, "onErrorResponse: News request failed -- " + error.toString());
+                public void onErrorResponse(VolleyError summaryError) {
+                    Log.i(TAG, "onErrorResponse: Summary Req failed -- " + summaryError.toString());
                 }
             });
-            queue.add(newsArrayReq);
+            queue.add(summaryObjReq);
 
 
-            Log.i(TAG, "handleIntent: " + urlMaker.getHistChartsUrl());
-            // sample back: [{"date":"2018-12-03T00:00:00.000Z","close":184.82,"high":184.94,"low":181.21,"open":184.46,"volume":40798002,"adjClose":45.1285861362,"adjHigh":45.1578872418,"adjLow":44.2471112095,"adjOpen":45.0406828194,"adjVolume":163192008,"divCash":0,"splitFactor":1}, ...]
+
+//            fetchSetCharts();
+
         }
     }
 
@@ -250,7 +263,6 @@ public class SearchableActivity extends AppCompatActivity {
                 break;
             default:
                 // back to homepage
-//                Toast.makeText(this, "Back button clicked", Toast.LENGTH_SHORT).show();
                 onBackPressed();
                 break;
         }
@@ -313,6 +325,7 @@ public class SearchableActivity extends AppCompatActivity {
             firstLine = String.format("You have 0 shares of %s.", ticker);
             secondLine = "Start trading!";
         } else {
+            marketValue = sharesNum * currentPrice;
             firstLine = String.format("Shares owned: %d.0", sharesNum);
             secondLine = String.format("Market Value: $%.2f", marketValue);
         }
@@ -334,14 +347,21 @@ public class SearchableActivity extends AppCompatActivity {
         expTextView.setText(companyDescription);
     }
 
+
+    private void fetchSetCharts() {
+        // TODO: handling charts JSONArray and feed to charts ---- Begin
+        //
+        // TODO: handling charts JSONArray and feed to charts ---- End
+    }
+
+
     private void initStatesPriceStrs() {
-        HashMap<String, String> latestPrice = new HashMap<String, String>();
-        float currentPrice = 245.53f;
-        float lowPrice = 23.3f;
-        float bitPrice = 45.52f;
-        float highPrice = 354.34f;
-        float midPrice = 23.9f;
-        float openPrice = 23.2f;
+        double currentPrice = 245.53;
+        double lowPrice = 23.3;
+        double bitPrice = 45.52;
+        double highPrice = 354.34;
+        double midPrice = 23.9;
+        double openPrice = 23.2;
         int volume = 23443;
         statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", currentPrice), "current"));
         statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", lowPrice), "low"));
@@ -351,7 +371,6 @@ public class SearchableActivity extends AppCompatActivity {
         statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", highPrice), "high"));
         statesPriceStrList.add(new StatesAreaPriceStr(String.format("%d.00", volume), "volume"));
     }
-
 
 
 }

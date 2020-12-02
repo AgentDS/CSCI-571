@@ -3,14 +3,14 @@ package com.example.stockapp;
 public class Stock {
     private String tickerName;
     private String companyName;
-    private float priceChange;
-    private float currentPrice;
+    private double priceChange;
+    private double currentPrice;
     private int shareNum;  // number of shares if in portfolio
 
     public Stock(String tickerName,
                  String companyName,
-                 float priceChange,
-                 float currentPrice,
+                 double priceChange,
+                 double currentPrice,
                  int shareNum) {
         this.tickerName = tickerName;
         this.companyName = companyName;
@@ -27,7 +27,7 @@ public class Stock {
         return companyName;
     }
 
-    public float getCurrentPrice() {
+    public double getCurrentPrice() {
         return currentPrice;
     }
 
@@ -35,7 +35,7 @@ public class Stock {
         return shareNum;
     }
 
-    public float getPriceChange() {
+    public double getPriceChange() {
         return priceChange;
     }
 
