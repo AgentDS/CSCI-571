@@ -15,6 +15,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -178,6 +181,7 @@ public class SearchableActivity extends AppCompatActivity {
             Log.i(TAG, "chartsUrl: " + urlMaker.getHistChartsUrl());
 
 //            initSummary_Portfolio_StatesArea();  // TODO: real API call
+            initChartsArea(ticker);
 
         }
     }
@@ -352,6 +356,27 @@ public class SearchableActivity extends AppCompatActivity {
         // TODO: handling charts JSONArray and feed to charts ---- Begin
         //
         // TODO: handling charts JSONArray and feed to charts ---- End
+    }
+
+    private void initChartsArea(String ticker) {
+        WebView webView;
+        webView = (WebView) findViewById(R.id.charts_area).findViewById(R.id.chart_area_webView);
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        webView.clearCache(true);
+        settings.setDomStorageEnabled(true);
+        settings.setAllowFileAccessFromFileURLs(true);
+        settings.setAllowFileAccess(true);
+        webView.setWebViewClient(new WebViewClient());
+        webView.loadUrl("file:///android_asset/test.html");
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                view.loadUrl("javascript:setTicker('" + ticker + "')");
+            }
+        });
+
     }
 
 
