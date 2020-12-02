@@ -177,71 +177,7 @@ public class SearchableActivity extends AppCompatActivity {
             // sample back: [{"date":"2018-12-03T00:00:00.000Z","close":184.82,"high":184.94,"low":181.21,"open":184.46,"volume":40798002,"adjClose":45.1285861362,"adjHigh":45.1578872418,"adjLow":44.2471112095,"adjOpen":45.0406828194,"adjVolume":163192008,"divCash":0,"splitFactor":1}, ...]
             Log.i(TAG, "chartsUrl: " + urlMaker.getHistChartsUrl());
 
-            JsonObjectRequest summaryObjReq = new JsonObjectRequest(Request.Method.GET, urlMaker.getMetadataUrl(), null,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject summaryRes) {
-                            try {
-                                companyDescription = summaryRes.getString("description");
-                                setAboutArea();
-                                companyName = summaryRes.getString("name");
-                                JsonObjectRequest statesObjReq = new JsonObjectRequest(Request.Method.GET, urlMaker.getLatestPriceUrl(), null,
-                                        new Response.Listener<JSONObject>() {
-                                            @Override
-                                            public void onResponse(JSONObject statesRes) {
-                                                try {
-                                                    currentPrice = statesRes.isNull("last") ? 0.0 : statesRes.getDouble("last");
-                                                    double lowPrice = statesRes.isNull("low") ? 0.0 : statesRes.getDouble("low");
-                                                    double bitPrice = statesRes.isNull("bidPrice") ? 0.0 : statesRes.getDouble("bidPrice");
-                                                    double highPrice = statesRes.isNull("high") ? 0.0 : statesRes.getDouble("high");
-                                                    double midPrice = statesRes.isNull("mid") ? 0.0 : statesRes.getDouble("mid");
-                                                    double openPrice = statesRes.isNull("open") ? 0.0 : statesRes.getDouble("open");
-                                                    double prevClose = statesRes.isNull("prevClose") ? 0.0 : statesRes.getDouble("prevClose");
-                                                    int volume = statesRes.getInt("volume");
-                                                    statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", currentPrice), "current"));
-                                                    statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", lowPrice), "low"));
-                                                    statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", bitPrice), "bid"));
-                                                    statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", openPrice), "open"));
-                                                    statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", midPrice), "mid"));
-                                                    statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", highPrice), "high"));
-                                                    statesPriceStrList.add(new StatesAreaPriceStr(String.format("%d.00", volume), "volume"));
-                                                    setStatesArea();
-                                                    Log.i(TAG, "States area data fetched & set");
-                                                    priceChange = currentPrice - prevClose;
-                                                    setSummaryArea();
-                                                    Log.i(TAG, "Summary area data fetched & set");
-                                                    setPortfolioArea();
-                                                    Log.i(TAG, "Portfolio area data fetched & set");
-
-
-                                                } catch (JSONException statesE) {
-                                                    statesE.printStackTrace();
-                                                }
-                                            }
-                                        }, new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError statesError) {
-                                        Log.i(TAG, "onErrorResponse: LatestPrice Req failed -- " + statesError.toString());
-                                    }
-                                });
-                                queue.add(statesObjReq);
-
-
-                            } catch (JSONException summaryE) {
-                                summaryE.printStackTrace();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError summaryError) {
-                    Log.i(TAG, "onErrorResponse: Summary Req failed -- " + summaryError.toString());
-                }
-            });
-            queue.add(summaryObjReq);
-
-
-
-//            fetchSetCharts();
+//            initSummary_Portfolio_StatesArea();  // TODO: real API call
 
         }
     }
@@ -286,6 +222,70 @@ public class SearchableActivity extends AppCompatActivity {
         //
         // TODO: modify local storage ------ End
 
+    }
+
+    private void initSummary_Portfolio_StatesArea() {
+        JsonObjectRequest summaryObjReq = new JsonObjectRequest(Request.Method.GET, urlMaker.getMetadataUrl(), null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject summaryRes) {
+                        try {
+                            companyDescription = summaryRes.getString("description");
+                            setAboutArea();
+                            companyName = summaryRes.getString("name");
+                            JsonObjectRequest statesObjReq = new JsonObjectRequest(Request.Method.GET, urlMaker.getLatestPriceUrl(), null,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject statesRes) {
+                                            try {
+                                                currentPrice = statesRes.isNull("last") ? 0.0 : statesRes.getDouble("last");
+                                                double lowPrice = statesRes.isNull("low") ? 0.0 : statesRes.getDouble("low");
+                                                double bitPrice = statesRes.isNull("bidPrice") ? 0.0 : statesRes.getDouble("bidPrice");
+                                                double highPrice = statesRes.isNull("high") ? 0.0 : statesRes.getDouble("high");
+                                                double midPrice = statesRes.isNull("mid") ? 0.0 : statesRes.getDouble("mid");
+                                                double openPrice = statesRes.isNull("open") ? 0.0 : statesRes.getDouble("open");
+                                                double prevClose = statesRes.isNull("prevClose") ? 0.0 : statesRes.getDouble("prevClose");
+                                                int volume = statesRes.getInt("volume");
+                                                statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", currentPrice), "current"));
+                                                statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", lowPrice), "low"));
+                                                statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", bitPrice), "bid"));
+                                                statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", openPrice), "open"));
+                                                statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", midPrice), "mid"));
+                                                statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", highPrice), "high"));
+                                                statesPriceStrList.add(new StatesAreaPriceStr(String.format("%d.00", volume), "volume"));
+                                                setStatesArea();
+                                                Log.i(TAG, "States area data fetched & set");
+                                                priceChange = currentPrice - prevClose;
+                                                setSummaryArea();
+                                                Log.i(TAG, "Summary area data fetched & set");
+                                                setPortfolioArea();
+                                                Log.i(TAG, "Portfolio area data fetched & set");
+
+
+                                            } catch (JSONException statesE) {
+                                                statesE.printStackTrace();
+                                            }
+                                        }
+                                    }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError statesError) {
+                                    Log.i(TAG, "onErrorResponse: LatestPrice Req failed -- " + statesError.toString());
+                                }
+                            });
+                            queue.add(statesObjReq);
+
+
+                        } catch (JSONException summaryE) {
+                            summaryE.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError summaryError) {
+                Log.i(TAG, "onErrorResponse: Summary Req failed -- " + summaryError.toString());
+            }
+        });
+        queue.add(summaryObjReq);
     }
 
     private void setSummaryArea() {
