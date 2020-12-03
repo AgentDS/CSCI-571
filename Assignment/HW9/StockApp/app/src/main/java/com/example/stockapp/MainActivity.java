@@ -16,6 +16,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -40,14 +43,16 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapt
 public class MainActivity extends AppCompatActivity {
 
     private SectionedRecyclerViewAdapter sectionedAdapter;
+    private RecyclerView recyclerView;
     private List<Stock> portfolioList = new ArrayList<>();
     private List<Stock> favoriteList = new ArrayList<>();
     private List<LocalStock> localPortfolio = new ArrayList<>();
     private List<LocalStock> localFavorite = new ArrayList<>();
     private String TAG = "MainActivity";
-    private BackendUrlMaker urlMaker;
     private RequestQueue queue;
+    private LinearLayout progressBarArea;
     final AtomicInteger requestsCounter = new AtomicInteger(2);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,15 +90,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        queue = Volley.newRequestQueue(this);
 
         sectionedAdapter = new SectionedRecyclerViewAdapter();
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        progressBarArea = (LinearLayout) findViewById(R.id.progressbar_area);
+        progressBarArea.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
 
-//        initLists();
+
+        queue = Volley.newRequestQueue(this);
+
+
+
+        // TODO: for UI test
+        initLists();
+        setAllSections();
+
 
         // TODO: Add your Sections, real API
-        makeLocalLists();
-        fetchLatestPrice();
+//        makeLocalLists();
+//        fetchLatestPrice();
         Log.i(TAG, "onResume");
     }
 
@@ -147,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
         localPortfolio.add(s3);
         LocalStock s4 = new LocalStock("FB", "Facebook", 0);
         localPortfolio.add(s4);
-
 
         LocalStock s5 = new LocalStock("TSLA", "Tesla Inc", 40);
         localFavorite.add(s5);
@@ -264,7 +279,9 @@ public class MainActivity extends AppCompatActivity {
             if (requestsCounter.get() == 0) {
                 setAllSections(); // feed data and set sections
 
-                // TODO: close spinner, set visibility GONE
+                // TODO: close spinner, set visibility GONE for progress bar, show recyclerView
+                progressBarArea.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -275,7 +292,6 @@ public class MainActivity extends AppCompatActivity {
         sectionedAdapter.addSection(new FavoriteSection(favoriteList));
         sectionedAdapter.addSection(new TiingoSection());
 
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(sectionedAdapter);
     }
