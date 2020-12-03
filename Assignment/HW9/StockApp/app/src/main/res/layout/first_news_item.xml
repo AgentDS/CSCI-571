@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
     android:background="@drawable/rounded_corners_without_border"
-    android:layout_marginBottom="10dp">
+    app:cardCornerRadius="15dp"
+    app:cardElevation="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,17 +15,24 @@
         android:paddingBottom="10dp">
 
 
-        <ImageView
-            android:id="@+id/imageView"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/imgCard"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/rounded_corners_without_border"
-            android:scaleType="fitXY"
-            android:src="@drawable/news_img1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="0dp">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/news_img1" />
+        </androidx.cardview.widget.CardView>
+
 
         <TextView
             android:id="@+id/source_Tv"
@@ -35,7 +44,7 @@
             android:textColor="@color/gray"
             android:textFontWeight="700"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/imgCard" />
 
         <TextView
             android:id="@+id/timeAgo_Tv"
@@ -45,7 +54,7 @@
             android:text="2 mins ago"
             android:textColor="@color/gray"
             app:layout_constraintStart_toEndOf="@+id/source_Tv"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/imgCard" />
 
         <TextView
             android:id="@+id/title_Tv"
