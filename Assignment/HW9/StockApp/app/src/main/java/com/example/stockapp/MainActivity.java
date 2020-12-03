@@ -60,19 +60,14 @@ public class MainActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
 
         sectionedAdapter = new SectionedRecyclerViewAdapter();
-        // TODO: Add your Sections, need real API
+
 //        initLists();
+
+        // TODO: Add your Sections, real API
         makeLocalLists();
         fetchLatestPrice();
 
-//        sectionedAdapter.addSection(new DateSection());
-//        sectionedAdapter.addSection(new PortfolioSection(portfolioList));
-//        sectionedAdapter.addSection(new FavoriteSection(favoriteList));
-//        sectionedAdapter.addSection(new TiingoSection());
-//
-//        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(sectionedAdapter);
+
 
         Log.i(TAG, "onCreate");
 
@@ -192,6 +187,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray portRes) {
                         try {
+
+                            // TODO: set order according to localList
+                            
+
+
                             for (int j = 0; j < portRes.length(); j++) {
                                 JSONObject jsonStock = portRes.getJSONObject(j);
                                 Double currentPrice = jsonStock.getDouble("last");
@@ -260,18 +260,21 @@ public class MainActivity extends AppCompatActivity {
         queue.addRequestFinishedListener(req -> {
             requestsCounter.decrementAndGet();
             if (requestsCounter.get()==0) {
-                sectionedAdapter.addSection(new DateSection());
-                sectionedAdapter.addSection(new PortfolioSection(portfolioList));
-                sectionedAdapter.addSection(new FavoriteSection(favoriteList));
-                sectionedAdapter.addSection(new TiingoSection());
+                setAllSections(); // feed data and set sections
 
-                final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-                recyclerView.setLayoutManager(new LinearLayoutManager(this));
-                recyclerView.setAdapter(sectionedAdapter);
+                // TODO: close spinner, set visibility GONE
             }
         });
+    }
 
+    private void setAllSections() {
+        sectionedAdapter.addSection(new DateSection());
+        sectionedAdapter.addSection(new PortfolioSection(portfolioList));
+        sectionedAdapter.addSection(new FavoriteSection(favoriteList));
+        sectionedAdapter.addSection(new TiingoSection());
 
-
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(sectionedAdapter);
     }
 }
