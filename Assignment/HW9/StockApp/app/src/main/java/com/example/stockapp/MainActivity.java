@@ -56,18 +56,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        queue = Volley.newRequestQueue(this);
-
-        sectionedAdapter = new SectionedRecyclerViewAdapter();
-
-//        initLists();
-
-        // TODO: Add your Sections, real API
-        makeLocalLists();
-        fetchLatestPrice();
-
-
         Log.i(TAG, "onCreate");
 
     }
@@ -97,6 +85,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        queue = Volley.newRequestQueue(this);
+
+        sectionedAdapter = new SectionedRecyclerViewAdapter();
+
+//        initLists();
+
+        // TODO: Add your Sections, real API
+        makeLocalLists();
+        fetchLatestPrice();
         Log.i(TAG, "onResume");
     }
 
