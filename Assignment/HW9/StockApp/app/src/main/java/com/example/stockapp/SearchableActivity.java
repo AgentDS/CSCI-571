@@ -66,6 +66,7 @@ public class SearchableActivity extends AppCompatActivity {
     private double marketValue;
     private GridView statesAreaGridView;
     private List<StatesAreaPriceStr> statesPriceStrList = new ArrayList<>();
+    private List<News> newsList = new ArrayList<>();
     private StatesAreaPriceStrAdapter gridViewAdapter;
     private BackendUrlMaker urlMaker;
     private RequestQueue queue;
@@ -185,6 +186,8 @@ public class SearchableActivity extends AppCompatActivity {
 //            initSummary_Portfolio_StatesArea();
 //            initChartsArea();
 
+            // TODO: for test fake newsList
+            initNewsList();
 
 
         }
@@ -403,6 +406,35 @@ public class SearchableActivity extends AppCompatActivity {
         statesPriceStrList.add(new StatesAreaPriceStr(String.format("%d.00", volume), "volume"));
     }
 
+
+    private void initNewsList() {
+        News n1 = new News("https://9to5mac.com/wp-content/uploads/sites/6/2020/11/tech-stocks-up.jpg?quality=82&strip=all",
+                "9to5Mac",
+                "AAPL and other tech stocks up in possible response to election uncertainty",
+                "2020-11-04T14:01:01Z",
+                "https://9to5mac.com/2020/11/04/aapl-and-other-tech-stocks-up-in-possible-response-to-election-uncertainty/");
+        News n2 = new News("https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/kxuwkqycl44kvhtcfqt3.jpg",
+                "Gizmodo.com",
+                "Apple's Still Getting Punished on Wall Street for Not Selling Enough iPhones",
+                "2020-11-02T21:22:00Z",
+                "https://gizmodo.com/apples-still-getting-punished-on-wall-street-for-not-se-1845554650");
+
+        News n3 = new News("https://9to5mac.com/wp-content/uploads/sites/6/2020/11/Judge-allows-lawsuit-from-AAPL-investors.jpg?quality=82&strip=all",
+                "9to5Mac",
+                "Judge allows lawsuit from AAPL investors over ‘credible’ claims of being misled",
+                "2020-11-06T14:23:33Z",
+                "https://9to5mac.com/2020/11/06/judge-allows-lawsuit-from-aapl-investors-over-credible-claims-of-being-misled/");
+        News n4 = new News("https://static.reuters.com/resources/r/?m=02&d=20201112&t=2&i=1540933035&r=LYNXMPEGAB0DM&w=800",
+                "Reuters",
+                "Apple supplier Foxconn posts $1.1 billion quarterly profit; beats estimates - Reuters India",
+                "2020-11-12T06:29:00Z",
+                "https://in.reuters.com/article/foxconn-results-idINKBN27S0OE");
+        newsList.add(n1);
+        newsList.add(n2);
+        newsList.add(n3);
+        newsList.add(n4);
+
+    }
 
 
 }
