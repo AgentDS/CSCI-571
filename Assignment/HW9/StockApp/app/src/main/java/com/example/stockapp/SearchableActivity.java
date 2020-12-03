@@ -160,12 +160,12 @@ public class SearchableActivity extends AppCompatActivity {
             // TODO: real API call
 //            fetchSummary_Portfolio_StatesArea();
 //            fetchChartsArea();
+//            fetchNewsArea();
 
             // TODO: for test fake newsList
-            // TODO: News Area set
-//            initNewsList();
-//            setNewsArea();
-            fetchNewsArea();
+            initNewsList();
+            setNewsArea();
+
 
 
         }
@@ -212,13 +212,44 @@ public class SearchableActivity extends AppCompatActivity {
         // TODO: modify local storage ------ End
 
     }
-    
-    private void fetchNewsArea() {
-        // TODO: fetch news --- Begin
-        
 
-        // TODO: fetch news --- End
-        setNewsArea();
+    private void fetchNewsArea() {
+        JsonArrayRequest newsReq = new JsonArrayRequest(Request.Method.GET,
+                urlMaker.getNewsUrl(),
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray newsRes) {
+                        try {
+                            
+                            for (int i = 0; i < newsRes.length(); i++) {
+                                JSONObject jsonNews = newsRes.getJSONObject(i);
+                                String urlToImage = jsonNews.getString("urlToImage");
+                                String sourceName = jsonNews.getJSONObject("source").getString("name");
+                                String title = jsonNews.getString("title");
+                                String publishedAt = jsonNews.getString("publishedAt");  // strings like "2020-11-04T14:01:01Z"
+                                String url = jsonNews.getString("url");  // for sharing
+                                News news = new News(urlToImage,
+                                        sourceName,
+                                        title,
+                                        publishedAt,
+                                        url);
+                                newsList.add(news);
+                            }
+                            Log.i(TAG, "onResponse: News fetch DONE");
+                            setNewsArea();
+                        } catch (JSONException newsE) {
+                            newsE.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError newsError) {
+                newsError.printStackTrace();
+                Log.i(TAG, "onErrorResponse: News fetch FAILED: " + newsError.toString());
+            }
+        });
+        queue.add(newsReq);
     }
 
     private void fetchSummary_Portfolio_StatesArea() {
