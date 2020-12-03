@@ -63,6 +63,8 @@
             android:layout_marginStart="12dp"
             android:fontFamily="sans-serif"
             android:gravity="left"
+            android:maxLines="3"
+            android:ellipsize="end"
             android:text="AAPL and other tech stocks up in possible response to election uncertainty"
             android:textColor="@color/black"
             android:textFontWeight="700"

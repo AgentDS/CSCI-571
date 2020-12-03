@@ -61,6 +61,8 @@
             android:layout_marginTop="24dp"
             android:fontFamily="sans-serif"
             android:gravity="left"
+            android:maxLines="3"
+            android:ellipsize="end"
             android:text="Judge allows lawsuit from AAPL investors over ‘credible’ claims of being misled"
             android:textColor="@color/black"
             android:textFontWeight="700"
