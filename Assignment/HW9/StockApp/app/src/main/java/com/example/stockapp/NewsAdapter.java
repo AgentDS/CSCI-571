@@ -1,5 +1,6 @@
 package com.example.stockapp;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -59,8 +62,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         holder.source_Tv.setText(news.getSourceName());
         holder.title_Tv.setText(news.getTitle());
         holder.timeAgo_Tv.setText(news.getTimeAgo());
-        // TODO: set Image for first news
-//                holder.imageView.setImageResource();
+        // TODO: set Image for news
+        Context itemContext = holder.newsView.getContext();
+        Picasso.with(itemContext).load(news.getUrlToImage()).placeholder(R.drawable.noimage2).error(R.drawable.noimage2).into(holder.imageView);
+
         holder.newsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
