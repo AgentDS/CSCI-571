@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         fetchLatestPrice();
 
 
-
         Log.i(TAG, "onCreate");
 
     }
@@ -189,25 +188,26 @@ public class MainActivity extends AppCompatActivity {
                         try {
 
                             // TODO: set order according to localList
-                            
-
-
-                            for (int j = 0; j < portRes.length(); j++) {
-                                JSONObject jsonStock = portRes.getJSONObject(j);
+                            for (int j = 0; j < localPortfolio.size(); j++) {
+                                LocalStock localItem = localPortfolio.get(j);
+                                String companyName = localItem.getCompanyName();
+                                String ticker = localItem.getTickerName();
+                                int shareNum = localItem.getShareNum();
+                                JSONObject jsonStock = portRes.getJSONObject(0); // init as first obj
+                                for (int jj = 0; jj < portRes.length(); jj++) {
+                                    jsonStock = portRes.getJSONObject(jj);
+                                    if (jsonStock.getString("ticker").equals(ticker)) {
+                                        break;
+                                    } else {
+                                        continue;
+                                    }
+                                }
                                 Double currentPrice = jsonStock.getDouble("last");
                                 Double prevClose = jsonStock.getDouble("prevClose");
-                                String ticker = jsonStock.getString("ticker");
                                 Double change = currentPrice - prevClose;
-                                LocalStock foundItem = localPortfolio.stream()
-                                        .filter(s -> s.getTickerName().equals(ticker))
-                                        .collect(Collectors.toList())
-                                        .get(0);
-                                String companyName = foundItem.getCompanyName();
-                                int shareNum = foundItem.getShareNum();
                                 Stock stock = new Stock(ticker, companyName, change, currentPrice, shareNum);
                                 portfolioList.add(stock);
                             }
-
                         } catch (JSONException portE) {
                             portE.printStackTrace();
                         }
@@ -229,18 +229,23 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray favRes) {
                         try {
-                            for (int j = 0; j < favRes.length(); j++) {
-                                JSONObject jsonStock = favRes.getJSONObject(j);
+                            for (int j = 0; j < localFavorite.size(); j++) {
+                                LocalStock localItem = localFavorite.get(j);
+                                String companyName = localItem.getCompanyName();
+                                String ticker = localItem.getTickerName();
+                                int shareNum = localItem.getShareNum();
+                                JSONObject jsonStock = favRes.getJSONObject(0); // init as first obj
+                                for (int jj = 0; jj < favRes.length(); jj++) {
+                                    jsonStock = favRes.getJSONObject(jj);
+                                    if (jsonStock.getString("ticker").equals(ticker)) {
+                                        break;
+                                    } else {
+                                        continue;
+                                    }
+                                }
                                 Double currentPrice = jsonStock.getDouble("last");
                                 Double prevClose = jsonStock.getDouble("prevClose");
-                                String ticker = jsonStock.getString("ticker");
                                 Double change = currentPrice - prevClose;
-                                LocalStock foundItem = localFavorite.stream()
-                                        .filter(s -> s.getTickerName().equals(ticker))
-                                        .collect(Collectors.toList())
-                                        .get(0);
-                                String companyName = foundItem.getCompanyName();
-                                int shareNum = foundItem.getShareNum();
                                 Stock stock = new Stock(ticker, companyName, change, currentPrice, shareNum);
                                 favoriteList.add(stock);
                             }
@@ -259,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
         queue.add(favReq);
         queue.addRequestFinishedListener(req -> {
             requestsCounter.decrementAndGet();
-            if (requestsCounter.get()==0) {
+            if (requestsCounter.get() == 0) {
                 setAllSections(); // feed data and set sections
 
                 // TODO: close spinner, set visibility GONE
