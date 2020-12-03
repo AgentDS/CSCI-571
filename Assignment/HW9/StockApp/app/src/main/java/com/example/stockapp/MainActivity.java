@@ -97,19 +97,16 @@ public class MainActivity extends AppCompatActivity {
         progressBarArea.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
 
-
         queue = Volley.newRequestQueue(this);
 
-
-
         // TODO: for UI test
-        initLists();
-        setAllSections();
+//        initLists();
+//        setAllSections();
 
 
         // TODO: Add your Sections, real API
-//        makeLocalLists();
-//        fetchLatestPrice();
+        makeLocalLists();
+        fetchLatestPrice();
         Log.i(TAG, "onResume");
     }
 

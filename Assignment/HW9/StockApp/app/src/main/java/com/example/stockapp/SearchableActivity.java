@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +50,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -66,18 +69,18 @@ public class SearchableActivity extends AppCompatActivity {
     private double currentPrice;
     private double priceChange;
     private double marketValue;
+    private double prevClose;
     private GridView statesAreaGridView;
     private RecyclerView newsAreaRecyclerView;
     private List<StatesAreaPriceStr> statesPriceStrList = new ArrayList<>();
     private List<News> newsList = new ArrayList<>();
     private StatesAreaPriceStrAdapter gridViewAdapter;
+    private LinearLayout progressBarArea;
+    private NestedScrollView nestedScrollView;
     private NewsAdapter newsAdapter;
     private BackendUrlMaker urlMaker;
     private RequestQueue queue;
-
-    private String tiingoAPIKey = "be37d86b75ad931e483aaab61f620653921a7517";
-    //    private String tiingoAPIKey = "dea471cb1109196d1921d429284606624f433067";
-    private String newsAPIkey = "83d88b3f4f9d44ccad89772a6ef0e218";
+    final AtomicInteger requestsCounter = new AtomicInteger(3);
 
 
     @Override
@@ -93,6 +96,12 @@ public class SearchableActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        nestedScrollView = (NestedScrollView) findViewById(R.id.detail_content);  // detail contents
+        progressBarArea = (LinearLayout) findViewById(R.id.progressbar_area);   // progress bar area
+        progressBarArea.setVisibility(View.VISIBLE);    // show progress bar area
+        nestedScrollView.setVisibility(View.GONE);  // hide content
+
+
         // TODO: check local storage and set 'stared' ------ Begin
         //
         //
@@ -102,28 +111,24 @@ public class SearchableActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        Log.i(TAG, "onStart start");
         super.onStart();
         Log.i(TAG, "onStart end");
     }
 
     @Override
     protected void onResume() {
-        Log.i(TAG, "onResume start");
         super.onResume();
         Log.i(TAG, "onResume end");
     }
 
     @Override
     protected void onPause() {
-        Log.i(TAG, "onPause start");
         super.onPause();
         Log.i(TAG, "onPause end");
     }
 
     @Override
     protected void onStop() {
-        Log.i(TAG, "onStop start");
         super.onStop();
         Log.i(TAG, "onStop end");
     }
@@ -142,30 +147,37 @@ public class SearchableActivity extends AppCompatActivity {
             queue = Volley.newRequestQueue(this);
             urlMaker = new BackendUrlMaker(ticker);
 
-            // SearchutilUrl back: [{"name":"Apple Inc","ticker":"AAPL","permaTicker":"US000000000038","openFIGIComposite":"BBG000B9XRY4","assetType":"Stock","isActive":true,"countryCode":"US"}]
             Log.i(TAG, "searchutilUrl: " + urlMaker.getSearchutilUrl());
-
-            // summaryUrl back: {"endDate":"2020-12-01","name":"Apple Inc","exchangeCode":"NASDAQ","description":"Apple Inc. (Apple) designs, manufactures and markets mobile communication and media devices, personal computers, and portable digital music players, and a variety of related software, services, peripherals, networking solutions, and third-party digital content and applications. The Company's products and services include iPhone, iPad, Mac, iPod, Apple TV, a portfolio of consumer and professional software applications, the iOS and OS X operating systems, iCloud, and a variety of accessory, service and support offerings. The Company also delivers digital content and applications through the iTunes Store, App StoreSM, iBookstoreSM, and Mac App Store. The Company distributes its products worldwide through its retail stores, online stores, and direct sales force, as well as through third-party cellular network carriers, wholesalers, retailers, and value-added resellers. In February 2012, the Company acquired app-search engine Chomp.","startDate":"1980-12-12","ticker":"AAPL"}
             Log.i(TAG, "summaryUrl: " + urlMaker.getMetadataUrl());
-
-            // statesUrl back: {"last":122.72,"quoteTimestamp":"2020-12-01T21:00:00+00:00","bidPrice":null,"bidSize":null,"mid":null,"high":123.4693,"lastSize":null,"tngoLast":122.72,"lastSaleTimestamp":"2020-12-01T21:00:00+00:00","open":121.01,"askSize":null,"low":120.01,"volume":125920963,"timestamp":"2020-12-01T21:00:00+00:00","prevClose":119.05,"askPrice":null,"ticker":"AAPL"}
             Log.i(TAG, "statesUrl: " + urlMaker.getLatestPriceUrl());
-
-            // newsUrl back: [{"source":{"id":null,"name":"9to5Mac"},"author":"Ben Lovejoy","title":"AAPL and other tech stocks up in possible response to election uncertainty","description":"AAPL is up around 4% in pre-market trading, with other tech stocks up too. One theory being suggested is that tech giants are the new safe haven in uncertain times … \n more…\nThe post AAPL and other tech stocks up in possible response to election uncertainty a…","url":"https://9to5mac.com/2020/11/04/aapl-and-other-tech-stocks-up-in-possible-response-to-election-uncertainty/","urlToImage":"https://9to5mac.com/wp-content/uploads/sites/6/2020/11/tech-stocks-up.jpg?quality=82&strip=all","publishedAt":"2020-11-04T14:01:01Z","content":"AAPL is up around 4% in pre-market trading, with other tech stocks up too. One theory being suggested is that tech giants are the new safe haven in uncertain times … \r\nTechCrunchreports.\r\nOn the back… [+2232 chars]"}, ...]
             Log.i(TAG, "newsUrl: " + urlMaker.getNewsUrl());
-
-            // sample back: [{"date":"2018-12-03T00:00:00.000Z","close":184.82,"high":184.94,"low":181.21,"open":184.46,"volume":40798002,"adjClose":45.1285861362,"adjHigh":45.1578872418,"adjLow":44.2471112095,"adjOpen":45.0406828194,"adjVolume":163192008,"divCash":0,"splitFactor":1}, ...]
             Log.i(TAG, "chartsUrl: " + urlMaker.getHistChartsUrl());
 
             // TODO: real API call
-//            fetchSummary_Portfolio_StatesArea();
-//            fetchChartsArea();
-//            fetchNewsArea();
+            fetchChartsArea();
+            fetchNewsArea();
+            fetchStatesArea();
+            fetchSummaryArea();
+
 
             // TODO: for test fake newsList
-            initNewsList();
-            setNewsArea();
+//            initNewsList();
+//            setNewsArea();
 
+            queue.addRequestFinishedListener(req -> {
+                requestsCounter.decrementAndGet();
+                if (requestsCounter.get() == 0) {
+                    priceChange = currentPrice - prevClose;
+                    setSummaryArea();
+                    setStatesArea();
+                    setPortfolioArea();
+                    setAboutArea();
+
+                    // set visibility GONE for progress bar, show nestedScrollView
+                    progressBarArea.setVisibility(View.GONE);
+                    nestedScrollView.setVisibility(View.VISIBLE);
+                }
+            });
 
 
         }
@@ -221,7 +233,7 @@ public class SearchableActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray newsRes) {
                         try {
-                            
+
                             for (int i = 0; i < newsRes.length(); i++) {
                                 JSONObject jsonNews = newsRes.getJSONObject(i);
                                 String urlToImage = jsonNews.getString("urlToImage");
@@ -252,57 +264,49 @@ public class SearchableActivity extends AppCompatActivity {
         queue.add(newsReq);
     }
 
-    private void fetchSummary_Portfolio_StatesArea() {
+
+    private void fetchStatesArea() {
+        JsonObjectRequest statesObjReq = new JsonObjectRequest(Request.Method.GET, urlMaker.getLatestPriceUrl(), null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject statesRes) {
+                        try {
+                            currentPrice = statesRes.isNull("last") ? 0.0 : statesRes.getDouble("last");
+                            double lowPrice = statesRes.isNull("low") ? 0.0 : statesRes.getDouble("low");
+                            double bitPrice = statesRes.isNull("bidPrice") ? 0.0 : statesRes.getDouble("bidPrice");
+                            double highPrice = statesRes.isNull("high") ? 0.0 : statesRes.getDouble("high");
+                            double midPrice = statesRes.isNull("mid") ? 0.0 : statesRes.getDouble("mid");
+                            double openPrice = statesRes.isNull("open") ? 0.0 : statesRes.getDouble("open");
+                            prevClose = statesRes.isNull("prevClose") ? 0.0 : statesRes.getDouble("prevClose");
+                            int volume = statesRes.getInt("volume");
+                            statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", currentPrice), "current"));
+                            statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", lowPrice), "low"));
+                            statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", bitPrice), "bid"));
+                            statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", openPrice), "open"));
+                            statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", midPrice), "mid"));
+                            statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", highPrice), "high"));
+                            statesPriceStrList.add(new StatesAreaPriceStr(String.format("%d.00", volume), "volume"));
+                        } catch (JSONException statesE) {
+                            statesE.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError statesError) {
+                Log.i(TAG, "onErrorResponse: LatestPrice Req failed -- " + statesError.toString());
+            }
+        });
+        queue.add(statesObjReq);
+    }
+
+    private void fetchSummaryArea() {
         JsonObjectRequest summaryObjReq = new JsonObjectRequest(Request.Method.GET, urlMaker.getMetadataUrl(), null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject summaryRes) {
                         try {
                             companyDescription = summaryRes.getString("description");
-                            setAboutArea();
                             companyName = summaryRes.getString("name");
-                            JsonObjectRequest statesObjReq = new JsonObjectRequest(Request.Method.GET, urlMaker.getLatestPriceUrl(), null,
-                                    new Response.Listener<JSONObject>() {
-                                        @Override
-                                        public void onResponse(JSONObject statesRes) {
-                                            try {
-                                                currentPrice = statesRes.isNull("last") ? 0.0 : statesRes.getDouble("last");
-                                                double lowPrice = statesRes.isNull("low") ? 0.0 : statesRes.getDouble("low");
-                                                double bitPrice = statesRes.isNull("bidPrice") ? 0.0 : statesRes.getDouble("bidPrice");
-                                                double highPrice = statesRes.isNull("high") ? 0.0 : statesRes.getDouble("high");
-                                                double midPrice = statesRes.isNull("mid") ? 0.0 : statesRes.getDouble("mid");
-                                                double openPrice = statesRes.isNull("open") ? 0.0 : statesRes.getDouble("open");
-                                                double prevClose = statesRes.isNull("prevClose") ? 0.0 : statesRes.getDouble("prevClose");
-                                                int volume = statesRes.getInt("volume");
-                                                statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", currentPrice), "current"));
-                                                statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", lowPrice), "low"));
-                                                statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", bitPrice), "bid"));
-                                                statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", openPrice), "open"));
-                                                statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", midPrice), "mid"));
-                                                statesPriceStrList.add(new StatesAreaPriceStr(String.format("%.2f", highPrice), "high"));
-                                                statesPriceStrList.add(new StatesAreaPriceStr(String.format("%d.00", volume), "volume"));
-                                                setStatesArea();
-                                                Log.i(TAG, "States area data fetched & set");
-                                                priceChange = currentPrice - prevClose;
-                                                setSummaryArea();
-                                                Log.i(TAG, "Summary area data fetched & set");
-                                                setPortfolioArea();
-                                                Log.i(TAG, "Portfolio area data fetched & set");
-
-
-                                            } catch (JSONException statesE) {
-                                                statesE.printStackTrace();
-                                            }
-                                        }
-                                    }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError statesError) {
-                                    Log.i(TAG, "onErrorResponse: LatestPrice Req failed -- " + statesError.toString());
-                                }
-                            });
-                            queue.add(statesObjReq);
-
-
                         } catch (JSONException summaryE) {
                             summaryE.printStackTrace();
                         }
