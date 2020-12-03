@@ -17,7 +17,7 @@
 
     <!--    area content-->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/news_area_news"
+        android:id="@+id/news_area_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/detail_area_content_paddingHorizontal" />

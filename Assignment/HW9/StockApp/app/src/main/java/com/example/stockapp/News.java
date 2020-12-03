@@ -59,5 +59,27 @@ public class News {
         }
     }
 
+    public String getPublishedAt() {
+        return publishedAt;
+    }
 
+    public String getSourceName() {
+        return sourceName;
+    }
+
+    public String getTimeAgo() {
+        return timeAgo;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getUrlToImage() {
+        return urlToImage;
+    }
 }

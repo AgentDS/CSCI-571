@@ -49,7 +49,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <TextView
-            android:id="@+id/news_title"
+            android:id="@+id/title_Tv"
             android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"

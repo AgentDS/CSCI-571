@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -65,9 +67,11 @@ public class SearchableActivity extends AppCompatActivity {
     private double priceChange;
     private double marketValue;
     private GridView statesAreaGridView;
+    private RecyclerView newsAreaRecyclerView;
     private List<StatesAreaPriceStr> statesPriceStrList = new ArrayList<>();
     private List<News> newsList = new ArrayList<>();
     private StatesAreaPriceStrAdapter gridViewAdapter;
+    private NewsAdapter newsAdapter;
     private BackendUrlMaker urlMaker;
     private RequestQueue queue;
 
@@ -93,35 +97,6 @@ public class SearchableActivity extends AppCompatActivity {
         //
         //
         // TODO: check local storage and set 'stared' ------ End
-
-
-        // set Summary area
-//        setSummaryArea();
-
-
-        // set Charts area
-        // TODO: set Charts area ------ Begin//
-        //
-        //
-        // TODO: set Charts area ------ End
-
-
-        // set States area gridView
-//        initStatesPriceStrs();  // init data for States area
-//        setStatesArea();
-
-        // set About area
-//        companyDescription = getString(R.string.about_test); // R.string.about_test for long string, R.string.about_test2 for short string
-//        setAboutArea();
-        // set Portfolio area
-//        setPortfolioArea();
-
-
-        // set News area
-        // TODO: set News area ------ Begin
-        //
-        //
-        // TODO: set News area ------ End
 
     }
 
@@ -187,7 +162,9 @@ public class SearchableActivity extends AppCompatActivity {
 //            initChartsArea();
 
             // TODO: for test fake newsList
+            // TODO: News Area set
             initNewsList();
+            setNewsArea();
 
 
         }
@@ -358,11 +335,12 @@ public class SearchableActivity extends AppCompatActivity {
         expTextView.setText(companyDescription);
     }
 
-
-    private void fetchSetCharts() {
-        // TODO: handling charts JSONArray and feed to charts ---- Begin
-        //
-        // TODO: handling charts JSONArray and feed to charts ---- End
+    private void setNewsArea() {
+        newsAreaRecyclerView = (RecyclerView) findViewById(R.id.news_area).findViewById(R.id.news_area_recyclerView);
+        newsAdapter = new NewsAdapter(newsList);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        newsAreaRecyclerView.setLayoutManager(layoutManager);
+        newsAreaRecyclerView.setAdapter(newsAdapter);
     }
 
     private void initChartsArea() {
@@ -433,7 +411,6 @@ public class SearchableActivity extends AppCompatActivity {
         newsList.add(n2);
         newsList.add(n3);
         newsList.add(n4);
-
     }
 
 
