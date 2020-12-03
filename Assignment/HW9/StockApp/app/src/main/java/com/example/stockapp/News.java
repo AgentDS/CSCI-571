@@ -26,6 +26,7 @@ public class News {
         this.title = title;
         this.publishedAt = publishedAt;
         this.url = url;
+        this.setTimeAgo();
     }
 
     private void setTimeAgo() {
