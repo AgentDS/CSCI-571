@@ -44,14 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
     private SectionedRecyclerViewAdapter sectionedAdapter;
     private RecyclerView recyclerView;
-    private List<Stock> portfolioList = new ArrayList<>();
-    private List<Stock> favoriteList = new ArrayList<>();
+    private List<Stock> portfolioList;
+    private List<Stock> favoriteList;
     private List<LocalStock> localPortfolio = new ArrayList<>();
     private List<LocalStock> localFavorite = new ArrayList<>();
     private String TAG = "MainActivity";
     private RequestQueue queue;
     private LinearLayout progressBarArea;
-    final AtomicInteger requestsCounter = new AtomicInteger(2);
+    AtomicInteger requestsCounter;
 
 
     @Override
@@ -90,6 +90,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        // initial before request queue
+        requestsCounter = new AtomicInteger(2);
+        portfolioList = new ArrayList<>();
+        favoriteList = new ArrayList<>();
 
         sectionedAdapter = new SectionedRecyclerViewAdapter();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
@@ -152,6 +157,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void makeLocalLists() {
+        localPortfolio = new ArrayList<>();
+        localFavorite = new ArrayList<>();
+
         LocalStock s1 = new LocalStock("AAPL", "Apple Corp.", 0);
         localPortfolio.add(s1);
         LocalStock s2 = new LocalStock("DIS", "Disney Company", 100);
