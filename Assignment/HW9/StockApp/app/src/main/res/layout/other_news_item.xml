@@ -3,7 +3,6 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/detail_area_content_paddingHorizontal"
     android:background="@drawable/rounded_corners_without_border"
     android:layout_marginBottom="10dp">
 
@@ -54,7 +53,7 @@
             android:layout_marginTop="24dp"
             android:fontFamily="sans-serif"
             android:gravity="left"
-            android:text="Apple's Still Getting Punished on Wall Street for Not Selling Enough iPhones"
+            android:text="Judge allows lawsuit from AAPL investors over ‘credible’ claims of being misled"
             android:textColor="@color/black"
             android:textFontWeight="700"
             app:layout_constraintStart_toStartOf="parent"

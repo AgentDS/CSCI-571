@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/detail_area_content_paddingHorizontal"
     android:background="@drawable/rounded_corners_without_border"
     android:layout_marginBottom="10dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp">
@@ -52,12 +51,12 @@
             android:id="@+id/title_Tv"
             android:layout_width="370dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:fontFamily="sans-serif"
             android:gravity="left"
             android:text="AAPL and other tech stocks up in possible response to election uncertainty"
             android:textColor="@color/black"
             android:textFontWeight="700"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/timeAgo_Tv" />
 
