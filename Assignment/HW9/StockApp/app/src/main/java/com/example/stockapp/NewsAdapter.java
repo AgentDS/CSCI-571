@@ -2,6 +2,7 @@ package com.example.stockapp;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             @Override
             public void onClick(View v) {
                 // TODO: make share dialog
+                String newsLogMsg = "News " + position + "\noriginal url: " + news.getUrlToImage() + "\npicasso url: " + imgUrl ;
+                Log.w("News card: ", newsLogMsg);
                 Toast.makeText(v.getContext(), "Clicked News " + position, Toast.LENGTH_SHORT).show();
             }
         });
