@@ -157,7 +157,7 @@ public class SearchableActivity extends AppCompatActivity {
 
             // TODO: real API call
 //            fetchChartsArea();
-            fetchNewsArea();
+//            fetchNewsArea();
 //            fetchStatesArea();
 //            fetchSummaryArea();
 
@@ -165,8 +165,8 @@ public class SearchableActivity extends AppCompatActivity {
             // TODO: for test fake newsList
             progressBarArea.setVisibility(View.GONE);
             nestedScrollView.setVisibility(View.VISIBLE);
-//            initNewsList();
-//            setNewsArea();
+            initNewsList();
+            setNewsArea();
 
 
             queue.addRequestFinishedListener(req -> {

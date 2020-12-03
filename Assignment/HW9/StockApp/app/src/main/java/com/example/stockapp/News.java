@@ -2,13 +2,16 @@ package com.example.stockapp;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import java.util.TimeZone;
 
-public class News {
+
+// Serializable for Dialog data pass
+public class News implements Serializable {
     private String urlToImage;
     private String sourceName;
     private String title;

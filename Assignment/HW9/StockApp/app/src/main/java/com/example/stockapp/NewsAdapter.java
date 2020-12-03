@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -70,15 +71,28 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 .buildUpon()
                 .build()
                 .toString();
-        Picasso.with(itemContext).load(imgUrl).placeholder(R.drawable.noimage2).error(R.drawable.noimage2).into(holder.imageView);
+        Picasso.with(itemContext)
+                .load(imgUrl)
+                .placeholder(R.drawable.noimage2)
+                .error(R.drawable.noimage2)
+                .into(holder.imageView);
 
         holder.newsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO: make share dialog
                 String newsLogMsg = "News " + position + "\noriginal url: " + news.getUrlToImage() + "\npicasso url: " + imgUrl ;
-                Log.w("News card: ", newsLogMsg);
-                Toast.makeText(v.getContext(), "Clicked News " + position, Toast.LENGTH_SHORT).show();
+                Log.i("News card: ", newsLogMsg);
+//                Toast.makeText(v.getContext(), "Clicked News " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.newsView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                NewsShareDialog newsShareDialog = NewsShareDialog.newInstance(news);
+                newsShareDialog.show(((AppCompatActivity) itemContext).getSupportFragmentManager(), "NewsShareDialog");
+                return true;
             }
         });
     }
