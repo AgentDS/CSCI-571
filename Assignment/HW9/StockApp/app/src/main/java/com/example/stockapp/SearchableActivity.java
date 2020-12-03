@@ -80,7 +80,7 @@ public class SearchableActivity extends AppCompatActivity {
     private NewsAdapter newsAdapter;
     private BackendUrlMaker urlMaker;
     private RequestQueue queue;
-    final AtomicInteger requestsCounter = new AtomicInteger(3);
+    AtomicInteger requestsCounter;
 
 
     @Override
@@ -144,8 +144,10 @@ public class SearchableActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             ticker = intent.getStringExtra(SearchManager.QUERY).toUpperCase();
             Log.i(TAG, "handleIntent: ticker entered : " + ticker);
-            queue = Volley.newRequestQueue(this);
+
             urlMaker = new BackendUrlMaker(ticker);
+            queue = Volley.newRequestQueue(this);
+            requestsCounter = new AtomicInteger(3);  // initial for request queue
 
             Log.i(TAG, "searchutilUrl: " + urlMaker.getSearchutilUrl());
             Log.i(TAG, "summaryUrl: " + urlMaker.getMetadataUrl());
@@ -154,15 +156,18 @@ public class SearchableActivity extends AppCompatActivity {
             Log.i(TAG, "chartsUrl: " + urlMaker.getHistChartsUrl());
 
             // TODO: real API call
-            fetchChartsArea();
+//            fetchChartsArea();
             fetchNewsArea();
-            fetchStatesArea();
-            fetchSummaryArea();
+//            fetchStatesArea();
+//            fetchSummaryArea();
 
 
             // TODO: for test fake newsList
+            progressBarArea.setVisibility(View.GONE);
+            nestedScrollView.setVisibility(View.VISIBLE);
 //            initNewsList();
 //            setNewsArea();
+
 
             queue.addRequestFinishedListener(req -> {
                 requestsCounter.decrementAndGet();

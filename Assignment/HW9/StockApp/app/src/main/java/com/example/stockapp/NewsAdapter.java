@@ -1,6 +1,7 @@
 package com.example.stockapp;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,13 +65,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         holder.timeAgo_Tv.setText(news.getTimeAgo());
         // TODO: set Image for news
         Context itemContext = holder.newsView.getContext();
-        Picasso.with(itemContext).load(news.getUrlToImage()).placeholder(R.drawable.noimage2).error(R.drawable.noimage2).into(holder.imageView);
+        String imgUrl = Uri.parse(news.getUrlToImage())
+                .buildUpon()
+                .build()
+                .toString();
+        Picasso.with(itemContext).load(imgUrl).placeholder(R.drawable.noimage2).error(R.drawable.noimage2).into(holder.imageView);
 
         holder.newsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO: make share dialog
-                Toast.makeText(v.getContext(),"Clicked News " + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Clicked News " + position, Toast.LENGTH_SHORT).show();
             }
         });
     }
