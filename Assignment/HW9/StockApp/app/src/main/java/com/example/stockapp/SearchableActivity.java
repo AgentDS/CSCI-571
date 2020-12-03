@@ -158,13 +158,14 @@ public class SearchableActivity extends AppCompatActivity {
             Log.i(TAG, "chartsUrl: " + urlMaker.getHistChartsUrl());
 
             // TODO: real API call
-//            initSummary_Portfolio_StatesArea();
-//            initChartsArea();
+//            fetchSummary_Portfolio_StatesArea();
+//            fetchChartsArea();
 
             // TODO: for test fake newsList
             // TODO: News Area set
-            initNewsList();
-            setNewsArea();
+//            initNewsList();
+//            setNewsArea();
+            fetchNewsArea();
 
 
         }
@@ -211,8 +212,16 @@ public class SearchableActivity extends AppCompatActivity {
         // TODO: modify local storage ------ End
 
     }
+    
+    private void fetchNewsArea() {
+        // TODO: fetch news --- Begin
+        
 
-    private void initSummary_Portfolio_StatesArea() {
+        // TODO: fetch news --- End
+        setNewsArea();
+    }
+
+    private void fetchSummary_Portfolio_StatesArea() {
         JsonObjectRequest summaryObjReq = new JsonObjectRequest(Request.Method.GET, urlMaker.getMetadataUrl(), null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -343,7 +352,7 @@ public class SearchableActivity extends AppCompatActivity {
         newsAreaRecyclerView.setAdapter(newsAdapter);
     }
 
-    private void initChartsArea() {
+    private void fetchChartsArea() {
         WebView webView;
         webView = (WebView) findViewById(R.id.charts_area).findViewById(R.id.chart_area_webView);
         WebSettings settings = webView.getSettings();
