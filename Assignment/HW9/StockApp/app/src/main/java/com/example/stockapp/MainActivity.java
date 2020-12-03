@@ -105,13 +105,15 @@ public class MainActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
 
         // TODO: for UI test
-//        initLists();
-//        setAllSections();
+        progressBarArea.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+        initLists();
+        setAllSections();
 
 
         // TODO: call real API
-        makeLocalLists();
-        fetchLatestPrice();
+//        makeLocalLists();
+//        fetchLatestPrice();
         Log.i(TAG, "onResume");
     }
 

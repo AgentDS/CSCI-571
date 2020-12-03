@@ -3,6 +3,7 @@ package com.example.stockapp;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import androidx.fragment.app.DialogFragment;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class NewsShareDialog extends DialogFragment {
     String TAG = "News Dialog";
@@ -75,13 +78,22 @@ public class NewsShareDialog extends DialogFragment {
     }
 
     private String makeChromeUrl() {
-        // TODO: URL parse for Chrome????
+        // TODO: URL parse for Chrome seems done
         return newsItem.getUrl();
     }
 
     private String makeTwitterUrl() {
         // TODO: URL parse for Twitter???
-        return newsItem.getUrl();
+        String url;
+        try {
+            url = "https://twitter.com/intent/tweet?text=" + URLEncoder.encode(newsItem.getTitle(), "UTF-8") + "&url=" + URLEncoder.encode(newsItem.getUrl(), "UTF-8");
+        } catch (UnsupportedEncodingException uee) {
+            uee.getStackTrace();
+            url = newsItem.getUrl();
+        }
+        Log.i(TAG, "makeTwitterUrl: \n" + url);
+        return url;
+
     }
 
     private void bindView(View view) {
