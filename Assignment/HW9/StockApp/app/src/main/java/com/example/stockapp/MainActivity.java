@@ -105,13 +105,13 @@ public class MainActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
 
         // TODO: for UI test
-        initLists();
-        setAllSections();
+//        initLists();
+//        setAllSections();
 
 
-        // TODO: Add your Sections, real API
-//        makeLocalLists();
-//        fetchLatestPrice();
+        // TODO: call real API
+        makeLocalLists();
+        fetchLatestPrice();
         Log.i(TAG, "onResume");
     }
 

@@ -85,6 +85,7 @@ public class SearchableActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "onCreate: start");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.searchable_layout);
 
@@ -107,16 +108,22 @@ public class SearchableActivity extends AppCompatActivity {
         //
         // TODO: check local storage and set 'stared' ------ End
 
+        handleIntent(getIntent());
+        Log.i(TAG, "onCreate: end");
+
+
     }
 
     @Override
     protected void onStart() {
+        Log.i(TAG, "onStart: start");
         super.onStart();
         Log.i(TAG, "onStart end");
     }
 
     @Override
     protected void onResume() {
+        Log.i(TAG, "onResume: start");
         super.onResume();
         Log.i(TAG, "onResume end");
     }
@@ -124,20 +131,21 @@ public class SearchableActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i(TAG, "onPause end");
+        Log.i(TAG, "onPause: end");
     }
 
     @Override
     protected void onStop() {
+        Log.i(TAG, "onStop: start");
         super.onStop();
-        Log.i(TAG, "onStop end");
+        Log.i(TAG, "onStop: end");
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        setIntent(intent);
-        handleIntent(getIntent());
+//        setIntent(intent);
+//        handleIntent(getIntent());
     }
 
     private void handleIntent(Intent intent) {

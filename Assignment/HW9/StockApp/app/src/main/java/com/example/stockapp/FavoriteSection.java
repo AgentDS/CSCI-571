@@ -1,5 +1,7 @@
 package com.example.stockapp;
 
+import android.app.SearchManager;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
 
@@ -61,6 +63,22 @@ final class FavoriteSection extends Section {
             itemHolder.price_change.setTextColor(Color.rgb(167, 167, 169)); // grey
             // no need for trending img
         }
+
+        itemHolder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(Intent.ACTION_SEARCH);
+//                intent.putExtra(SearchManager.QUERY,stock.getTickerName());
+//                v.getContext()
+                Intent intent = new Intent(v.getContext(),SearchableActivity.class);
+                intent.setAction(Intent.ACTION_SEARCH);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.putExtra(SearchManager.QUERY, stock.getTickerName());
+                v.getContext().startActivity(intent);
+                // TODO: Wrong
+            }
+        });
+
 
     }
 
