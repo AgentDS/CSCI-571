@@ -30,17 +30,19 @@
         android:layout_height="50dp"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:src="@drawable/ic_twitter_logo_dialog"
-            android:id="@+id/news_share_twitter"/>
+            android:id="@+id/news_share_twitter"
+            android:background="@drawable/colored_bolder"/>
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:src="@drawable/ic_chrome"
-            android:id="@+id/news_share_chrome"/>
+            android:id="@+id/news_share_chrome"
+            android:background="@drawable/colored_bolder"/>
 
     </LinearLayout>
 
