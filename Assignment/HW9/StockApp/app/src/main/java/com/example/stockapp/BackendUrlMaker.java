@@ -12,12 +12,14 @@ public class BackendUrlMaker {
     private String latestPricePre = HOST + "api/v1.0.0/latestprice/";
     private String newsPre = HOST + "api/v1.0.0/news/";
     private String histChartsPre = HOST + "api/v1.0.0/histcharts/";
+    private String ticker;
 
     private String searchutilUrl;
     private String metadataUrl;
     private String latestPriceUrl;
     private String newsUrl;
     private String histChartsUrl;
+    private String multiLatestUrl;
 
 
     public BackendUrlMaker(String ticker) {
@@ -27,6 +29,7 @@ public class BackendUrlMaker {
         latestPriceUrl = latestPricePre + ticker;
         newsUrl = newsPre + ticker;
         histChartsUrl = histChartsPre + ticker + "/date/" + startDate;
+        this.ticker = ticker;
     }
 
     public String getSearchutilUrl() {
@@ -56,5 +59,11 @@ public class BackendUrlMaker {
         SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
         String twoYearsAgoStr = simpleDate.format(twoYearsAgo);
         return twoYearsAgoStr;
+    }
+
+    public String getMultiLatestUrl() {
+        // ticker should be "AAPL,BABA"
+        multiLatestUrl = "http://cs571hw8yitaojin-back-v04.wl.r.appspot.com/summary/" + ticker;
+        return multiLatestUrl;
     }
 }

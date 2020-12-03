@@ -17,9 +17,23 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 
@@ -28,7 +42,12 @@ public class MainActivity extends AppCompatActivity {
     private SectionedRecyclerViewAdapter sectionedAdapter;
     private List<Stock> portfolioList = new ArrayList<>();
     private List<Stock> favoriteList = new ArrayList<>();
+    private List<LocalStock> localPortfolio = new ArrayList<>();
+    private List<LocalStock> localFavorite = new ArrayList<>();
     private String TAG = "MainActivity";
+    private BackendUrlMaker urlMaker;
+    private RequestQueue queue;
+    final AtomicInteger requestsCounter = new AtomicInteger(2);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +57,22 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        sectionedAdapter = new SectionedRecyclerViewAdapter();
-        // Add your Sections
-        initLists();
-        sectionedAdapter.addSection(new DateSection());
-        sectionedAdapter.addSection(new PortfolioSection(portfolioList));
-        sectionedAdapter.addSection(new FavoriteSection(favoriteList));
-        sectionedAdapter.addSection(new TiingoSection());
+        queue = Volley.newRequestQueue(this);
 
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(sectionedAdapter);
+        sectionedAdapter = new SectionedRecyclerViewAdapter();
+        // TODO: Add your Sections, need real API
+//        initLists();
+        makeLocalLists();
+        fetchLatestPrice();
+
+//        sectionedAdapter.addSection(new DateSection());
+//        sectionedAdapter.addSection(new PortfolioSection(portfolioList));
+//        sectionedAdapter.addSection(new FavoriteSection(favoriteList));
+//        sectionedAdapter.addSection(new TiingoSection());
+//
+//        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(sectionedAdapter);
 
         Log.i(TAG, "onCreate");
 
@@ -113,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
         portfolioList.add(stock_tmp);
 
 
-
         for (int i = 0; i < 10; i++) {
             Random random = new Random();
             float price = random.nextFloat() * 5000;
@@ -122,5 +145,133 @@ public class MainActivity extends AppCompatActivity {
             Stock stock = new Stock("DIS", "Disney Land", change, price, shareNum);
             favoriteList.add(stock);
         }
+    }
+
+    private void makeLocalLists() {
+        LocalStock s1 = new LocalStock("AAPL", "Apple Corp.", 0);
+        localPortfolio.add(s1);
+        LocalStock s2 = new LocalStock("DIS", "Disney Company", 100);
+        localPortfolio.add(s2);
+        LocalStock s3 = new LocalStock("TWX", "Apple Corp.", 20);
+        localPortfolio.add(s3);
+        LocalStock s4 = new LocalStock("FB", "Facebook", 0);
+        localPortfolio.add(s4);
+
+
+        LocalStock s5 = new LocalStock("TSLA", "Tesla Inc", 40);
+        localFavorite.add(s5);
+        LocalStock s6 = new LocalStock("DIS", "Disney Company", 60);
+        localFavorite.add(s6);
+        LocalStock s7 = new LocalStock("GOOGL", "Alphabet Inc Class A", 0);
+        localFavorite.add(s7);
+    }
+
+    private void fetchLatestPrice() {
+        String favTicker = "";
+        String portTicker = "";
+
+        for (int i = 0; i < localFavorite.size(); i++) {
+            favTicker = favTicker + "," + localFavorite.get(i).getTickerName();
+        }
+        for (int i = 0; i < localPortfolio.size(); i++) {
+            portTicker = portTicker + "," + localPortfolio.get(i).getTickerName();
+        }
+
+        BackendUrlMaker portUrlMaker = new BackendUrlMaker(portTicker);
+        BackendUrlMaker favUrlMaker = new BackendUrlMaker(favTicker);
+
+        String portUrl = portUrlMaker.getMultiLatestUrl();
+        String favUrl = favUrlMaker.getMultiLatestUrl();
+
+        // TODO: fetch portReq
+        JsonArrayRequest portReq = new JsonArrayRequest(
+                Request.Method.GET,
+                portUrl,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray portRes) {
+                        try {
+                            for (int j = 0; j < portRes.length(); j++) {
+                                JSONObject jsonStock = portRes.getJSONObject(j);
+                                Double currentPrice = jsonStock.getDouble("last");
+                                Double prevClose = jsonStock.getDouble("prevClose");
+                                String ticker = jsonStock.getString("ticker");
+                                Double change = currentPrice - prevClose;
+                                LocalStock foundItem = localPortfolio.stream()
+                                        .filter(s -> s.getTickerName().equals(ticker))
+                                        .collect(Collectors.toList())
+                                        .get(0);
+                                String companyName = foundItem.getCompanyName();
+                                int shareNum = foundItem.getShareNum();
+                                Stock stock = new Stock(ticker, companyName, change, currentPrice, shareNum);
+                                portfolioList.add(stock);
+                            }
+
+                        } catch (JSONException portE) {
+                            portE.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError portError) {
+                Log.i(TAG, "onErrorResponse: Portfolio fetch FAILED: " + portError.toString());
+            }
+        });
+
+
+        // TODO: fetch favReq
+        JsonArrayRequest favReq = new JsonArrayRequest(
+                Request.Method.GET,
+                favUrl,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray favRes) {
+                        try {
+                            for (int j = 0; j < favRes.length(); j++) {
+                                JSONObject jsonStock = favRes.getJSONObject(j);
+                                Double currentPrice = jsonStock.getDouble("last");
+                                Double prevClose = jsonStock.getDouble("prevClose");
+                                String ticker = jsonStock.getString("ticker");
+                                Double change = currentPrice - prevClose;
+                                LocalStock foundItem = localFavorite.stream()
+                                        .filter(s -> s.getTickerName().equals(ticker))
+                                        .collect(Collectors.toList())
+                                        .get(0);
+                                String companyName = foundItem.getCompanyName();
+                                int shareNum = foundItem.getShareNum();
+                                Stock stock = new Stock(ticker, companyName, change, currentPrice, shareNum);
+                                favoriteList.add(stock);
+                            }
+                        } catch (JSONException favE) {
+                            favE.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError favError) {
+                Log.i(TAG, "onErrorResponse: Favorites fetch FAILED: " + favError.toString());
+            }
+        });
+
+        queue.add(portReq);
+        queue.add(favReq);
+        queue.addRequestFinishedListener(req -> {
+            requestsCounter.decrementAndGet();
+            if (requestsCounter.get()==0) {
+                sectionedAdapter.addSection(new DateSection());
+                sectionedAdapter.addSection(new PortfolioSection(portfolioList));
+                sectionedAdapter.addSection(new FavoriteSection(favoriteList));
+                sectionedAdapter.addSection(new TiingoSection());
+
+                final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setAdapter(sectionedAdapter);
+            }
+        });
+
+
+
     }
 }
