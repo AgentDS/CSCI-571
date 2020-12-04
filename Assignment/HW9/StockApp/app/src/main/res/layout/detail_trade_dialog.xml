@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:paddingHorizontal="20dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/detail_trade_dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="sans-serif"
+        android:text="Trade Microsoft Corporation shares"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textFontWeight="700"
+        android:textSize="18dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/detail_trade_Et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:background="@drawable/edittext_bottom_line"
+            android:hint="0"
+            android:inputType="numberDecimal"
+            android:textSize="29dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:text="shares"
+            android:textColor="@color/black"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/detail_trade_calculate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="placeholder num x price /share = $ amount"
+        android:textSize="11dp" />
+
+    <TextView
+        android:id="@+id/detail_trade_balance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center_horizontal"
+        android:text="$9313.46 available to buy MSFT"
+        android:textFontWeight="600"
+        android:textSize="12dp" />
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/detail_trade_buy_btn"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/rounded_corners_without_border"
+            android:backgroundTint="@color/upTrend"
+            android:text="buy"
+            android:textColor="@color/white"
+            android:textSize="11dp" />
+
+        <Button
+            android:id="@+id/detail_trade_sell_btn"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/rounded_corners_without_border"
+            android:backgroundTint="@color/upTrend"
+            android:text="sell"
+            android:textColor="@color/white"
+            android:textSize="11dp" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -21,6 +21,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -175,6 +176,7 @@ public class SearchableActivity extends AppCompatActivity {
             nestedScrollView.setVisibility(View.VISIBLE);
             initNewsList();
             setNewsArea();
+            setPortfolioArea();
 
 
             queue.addRequestFinishedListener(req -> {
@@ -360,6 +362,7 @@ public class SearchableActivity extends AppCompatActivity {
 
     private void setPortfolioArea() {
         View portfolioView = (View) findViewById(R.id.portfolio_area);
+        Button tradeBtn = (Button) portfolioView.findViewById(R.id.trade_button);
         TextView firstTextView = (TextView) portfolioView.findViewById(R.id.portfolio_text_first_line);
         TextView secondTextView = (TextView) portfolioView.findViewById(R.id.portfolio_text_second_line);
 
@@ -376,6 +379,16 @@ public class SearchableActivity extends AppCompatActivity {
         }
         firstTextView.setText(firstLine);
         secondTextView.setText(secondLine);
+
+        tradeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TradeItem tradeItem = new TradeItem(2000.0, ticker, companyName, currentPrice);
+                TradeDialog tradeDialog = TradeDialog.newInstance(tradeItem);
+                Toast.makeText(v.getContext(), "Trade button clicked", Toast.LENGTH_SHORT).show();
+                tradeDialog.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), "TradeDialog");
+            }
+        });
     }
 
 
@@ -443,6 +456,10 @@ public class SearchableActivity extends AppCompatActivity {
 
 
     private void initNewsList() {
+        currentPrice = 200.0;
+        ticker = "AAPL";
+        companyName = "Apple Corp";
+        sharesNum = 100;
         News n1 = new News("https://9to5mac.com/wp-content/uploads/sites/6/2020/11/tech-stocks-up.jpg?quality=82&strip=all",
                 "9to5Mac",
                 "AAPL and other tech stocks up in possible response to election uncertainty",
