@@ -105,15 +105,15 @@ public class MainActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
 
         // TODO: for UI test
-        progressBarArea.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-        initLists();
-        setAllSections();
+//        progressBarArea.setVisibility(View.GONE);
+//        recyclerView.setVisibility(View.VISIBLE);
+//        initLists();
+//        setAllSections();
 
 
         // TODO: call real API
-//        makeLocalLists();
-//        fetchLatestPrice();
+        makeLocalLists();
+        fetchLatestPrice();
         Log.i(TAG, "onResume");
     }
 
@@ -162,21 +162,16 @@ public class MainActivity extends AppCompatActivity {
         localPortfolio = new ArrayList<>();
         localFavorite = new ArrayList<>();
 
-        LocalStock s1 = new LocalStock("AAPL", "Apple Corp.", 0);
+        LocalStock s1 = new LocalStock("AAPL", "Apple Inc", 1);
         localPortfolio.add(s1);
-        LocalStock s2 = new LocalStock("DIS", "Disney Company", 100);
+        LocalStock s2 = new LocalStock("TSLA", "Tesla Inc", 1);
         localPortfolio.add(s2);
-        LocalStock s3 = new LocalStock("TWX", "Apple Corp.", 20);
-        localPortfolio.add(s3);
-        LocalStock s4 = new LocalStock("FB", "Facebook", 0);
-        localPortfolio.add(s4);
 
-        LocalStock s5 = new LocalStock("TSLA", "Tesla Inc", 40);
+
+        LocalStock s5 = new LocalStock("MSFT", "Microsoft Corporation", 0);
         localFavorite.add(s5);
-        LocalStock s6 = new LocalStock("DIS", "Disney Company", 60);
+        LocalStock s6 = new LocalStock("NVDA", "NVIDIA Corporation", 0);
         localFavorite.add(s6);
-        LocalStock s7 = new LocalStock("GOOGL", "Alphabet Inc Class A", 0);
-        localFavorite.add(s7);
     }
 
     private void fetchLatestPrice() {

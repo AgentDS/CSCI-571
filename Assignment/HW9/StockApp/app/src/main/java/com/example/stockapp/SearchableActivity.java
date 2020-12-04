@@ -31,7 +31,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -62,8 +61,13 @@ public class SearchableActivity extends AppCompatActivity {
 
     String TAG = "SearchableActivity";
     private Menu menu;
-    public boolean stared = false;
-    private int sharesNum = 400;
+    public boolean stared;
+
+    private List<LocalStock> localPortfolio = new ArrayList<>();
+    private List<LocalStock> localFavorite = new ArrayList<>();
+
+
+    private int sharesNum;
     private String ticker;
     private String companyName;
     private String companyDescription;
@@ -81,6 +85,7 @@ public class SearchableActivity extends AppCompatActivity {
     private NewsAdapter newsAdapter;
     private BackendUrlMaker urlMaker;
     private RequestQueue queue;
+    MenuItem starItem;
     AtomicInteger requestsCounter;
 
 
@@ -98,22 +103,18 @@ public class SearchableActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         nestedScrollView = (NestedScrollView) findViewById(R.id.detail_content);  // detail contents
         progressBarArea = (LinearLayout) findViewById(R.id.progressbar_area);   // progress bar area
         progressBarArea.setVisibility(View.VISIBLE);    // show progress bar area
         nestedScrollView.setVisibility(View.GONE);  // hide content
 
 
-        // TODO: check local storage and set 'stared' ------ Begin
-        //
-        //
-        // TODO: check local storage and set 'stared' ------ End
-
         handleIntent(getIntent());
         Log.i(TAG, "onCreate: end");
 
-
     }
+
 
     @Override
     protected void onStart() {
@@ -150,6 +151,8 @@ public class SearchableActivity extends AppCompatActivity {
     }
 
     private void handleIntent(Intent intent) {
+
+
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             ticker = intent.getStringExtra(SearchManager.QUERY).toUpperCase();
             Log.i(TAG, "handleIntent: ticker entered : " + ticker);
@@ -158,6 +161,7 @@ public class SearchableActivity extends AppCompatActivity {
             queue = Volley.newRequestQueue(this);
             requestsCounter = new AtomicInteger(3);  // initial for request queue
 
+
             Log.i(TAG, "searchutilUrl: " + urlMaker.getSearchutilUrl());
             Log.i(TAG, "summaryUrl: " + urlMaker.getMetadataUrl());
             Log.i(TAG, "statesUrl: " + urlMaker.getLatestPriceUrl());
@@ -165,28 +169,31 @@ public class SearchableActivity extends AppCompatActivity {
             Log.i(TAG, "chartsUrl: " + urlMaker.getHistChartsUrl());
 
             // TODO: real API call
-//            fetchChartsArea();
-//            fetchNewsArea();
-//            fetchStatesArea();
-//            fetchSummaryArea();
+            fetchChartsArea();
+            fetchNewsArea();
+            fetchStatesArea();  // include portfolio area data
+            fetchSummaryArea();
 
 
             // TODO: for test fake newsList
-            progressBarArea.setVisibility(View.GONE);
-            nestedScrollView.setVisibility(View.VISIBLE);
-            initNewsList();
-            setNewsArea();
-            setPortfolioArea();
+//            progressBarArea.setVisibility(View.GONE);
+//            nestedScrollView.setVisibility(View.VISIBLE);
+//            initNewsList();
+//            setNewsArea();
+//            setPortfolioArea();
 
 
             queue.addRequestFinishedListener(req -> {
                 requestsCounter.decrementAndGet();
                 if (requestsCounter.get() == 0) {
                     priceChange = currentPrice - prevClose;
+
                     setSummaryArea();
                     setStatesArea();
                     setPortfolioArea();
                     setAboutArea();
+
+
 
                     // set visibility GONE for progress bar, show nestedScrollView
                     progressBarArea.setVisibility(View.GONE);
@@ -201,9 +208,15 @@ public class SearchableActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // todo: fake local data
+        makeLocalLists();
+
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.detail_toolbar, menu);
         this.menu = menu;
+        starItem = this.menu.findItem(R.id.star);
+        initStar();  // init star from local storage
+
         return true;
     }
 
@@ -221,19 +234,64 @@ public class SearchableActivity extends AppCompatActivity {
         return true;
     }
 
-    private void switchStar() {
-        // switch icon of star when clicked
-        MenuItem starItem = menu.findItem(R.id.star);
-        stared = !stared;
+    private boolean initStar() {
+        LocalStock s;
+        Log.i(TAG, "initStar: " + localFavorite.toString());
+        for (int j = 0; j < localFavorite.size(); j++) {
+            if (localFavorite.get(j).getTickerName().equals(ticker)) {
+                stared = true;
+                setStar();
+                return true;
+            }
+        }
+        stared = false;
+        setStar();
+        return true;
+    }
 
+//    private boolean isInFavorite(S)
+
+    private void setStar() {
         if (stared) {
-            Toast.makeText(this, "\"" + ticker + "\" was added to favorites", Toast.LENGTH_SHORT).show();
             starItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_star_24));
         } else {
-            Toast.makeText(this, "\"" + ticker + "\" was removed from favorites", Toast.LENGTH_SHORT).show();
             starItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_star_border_24));
         }
+    }
+
+    private void setSharesNum() {
+        int idx = 0;
+        for (; idx < localPortfolio.size(); idx++) {
+            if (localPortfolio.get(idx).getTickerName().equals(ticker)) {
+                sharesNum = localPortfolio.get(idx).getShareNum();
+                break;
+            }
+        }
+        sharesNum = 0;
+    }
+
+    private void switchStar() {
+        // switch icon of star when clicked
+
+        stared = !stared;
+        setStar();
+        if (stared) {
+            Toast.makeText(this, "\"" + ticker + "\" was added to favorites", Toast.LENGTH_SHORT).show();
+            LocalStock s = new LocalStock(ticker, companyName, 0);
+            localFavorite.add(s);
+        } else {
+            Toast.makeText(this, "\"" + ticker + "\" was removed from favorites", Toast.LENGTH_SHORT).show();
+            int idx = 0;
+            for (; idx < localFavorite.size(); idx++) {
+                if (localFavorite.get(idx).getTickerName() == ticker) {
+                    localFavorite.remove(idx);
+                    break;
+                }
+            }
+
+        }
         // TODO: modify local storage ------ Begin
+
         //
         //
         // TODO: modify local storage ------ End
@@ -369,6 +427,8 @@ public class SearchableActivity extends AppCompatActivity {
         String firstLine;
         String secondLine;
 
+        setSharesNum(); // set shareNum from local storage
+
         if (sharesNum == 0) {
             firstLine = String.format("You have 0 shares of %s.", ticker);
             secondLine = "Start trading!";
@@ -456,6 +516,7 @@ public class SearchableActivity extends AppCompatActivity {
 
 
     private void initNewsList() {
+        // fake news
         currentPrice = 200.0;
         ticker = "AAPL";
         companyName = "Apple Corp";
@@ -485,6 +546,22 @@ public class SearchableActivity extends AppCompatActivity {
         newsList.add(n2);
         newsList.add(n3);
         newsList.add(n4);
+    }
+
+    private void makeLocalLists() {
+        localPortfolio = new ArrayList<>();
+        localFavorite = new ArrayList<>();
+
+        LocalStock s1 = new LocalStock("AAPL", "Apple Inc", 1);
+        localPortfolio.add(s1);
+        LocalStock s2 = new LocalStock("TSLA", "Tesla Inc", 1);
+        localPortfolio.add(s2);
+
+
+        LocalStock s5 = new LocalStock("MSFT", "Microsoft Corporation", 0);
+        localFavorite.add(s5);
+        LocalStock s6 = new LocalStock("NVDA", "NVIDIA Corporation", 0);
+        localFavorite.add(s6);
     }
 
 
