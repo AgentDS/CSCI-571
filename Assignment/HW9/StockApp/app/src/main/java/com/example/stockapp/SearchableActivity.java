@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import org.json.JSONArray;
@@ -63,8 +66,8 @@ public class SearchableActivity extends AppCompatActivity {
     private Menu menu;
     public boolean stared;
 
-    private List<LocalStock> localPortfolio = new ArrayList<>();
-    private List<LocalStock> localFavorite = new ArrayList<>();
+    private List<LocalStock> localPortfolio;
+    private List<LocalStock> localFavorite;
 
 
     private int sharesNum;
@@ -77,8 +80,8 @@ public class SearchableActivity extends AppCompatActivity {
     private double prevClose;
     private GridView statesAreaGridView;
     private RecyclerView newsAreaRecyclerView;
-    private List<StatesAreaPriceStr> statesPriceStrList = new ArrayList<>();
-    private List<News> newsList = new ArrayList<>();
+    private List<StatesAreaPriceStr> statesPriceStrList;
+    private List<News> newsList;
     private StatesAreaPriceStrAdapter gridViewAdapter;
     private LinearLayout progressBarArea;
     private NestedScrollView nestedScrollView;
@@ -193,8 +196,6 @@ public class SearchableActivity extends AppCompatActivity {
                     setPortfolioArea();
                     setAboutArea();
 
-
-
                     // set visibility GONE for progress bar, show nestedScrollView
                     progressBarArea.setVisibility(View.GONE);
                     nestedScrollView.setVisibility(View.VISIBLE);
@@ -208,8 +209,10 @@ public class SearchableActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // todo: fake local data
-        makeLocalLists();
+        // read local data
+        localPortfolio = new ArrayList<>();
+        localFavorite = new ArrayList<>();
+        readListsFromLocal();
 
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.detail_toolbar, menu);
@@ -235,7 +238,6 @@ public class SearchableActivity extends AppCompatActivity {
     }
 
     private boolean initStar() {
-        LocalStock s;
         Log.i(TAG, "initStar: " + localFavorite.toString());
         for (int j = 0; j < localFavorite.size(); j++) {
             if (localFavorite.get(j).getTickerName().equals(ticker)) {
@@ -276,7 +278,7 @@ public class SearchableActivity extends AppCompatActivity {
         setStar();
         if (stared) {
             Toast.makeText(this, "\"" + ticker + "\" was added to favorites", Toast.LENGTH_SHORT).show();
-            LocalStock s = new LocalStock(ticker, companyName, 0);
+            LocalStock s = new LocalStock(ticker, companyName, sharesNum);
             localFavorite.add(s);
         } else {
             Toast.makeText(this, "\"" + ticker + "\" was removed from favorites", Toast.LENGTH_SHORT).show();
@@ -287,14 +289,35 @@ public class SearchableActivity extends AppCompatActivity {
                     break;
                 }
             }
-
         }
-        // TODO: modify local storage ------ Begin
+        writeListsToLocal();
+    }
 
-        //
-        //
-        // TODO: modify local storage ------ End
+    private void readListsFromLocal() {
+        SharedPreferences sharedPreferences = getSharedPreferences("LocalStorage", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson1 = new Gson();
+        String favResponse = sharedPreferences.getString("localFavorite", "");
+        localFavorite = gson1.fromJson(favResponse,
+                new TypeToken<List<LocalStock>>() {
+                }.getType());
+        Gson gson2 = new Gson();
+        String portResponse = sharedPreferences.getString("localPortfolio", "");
+        localPortfolio = gson2.fromJson(portResponse,
+                new TypeToken<List<LocalStock>>() {
+                }.getType());
+    }
 
+    private void writeListsToLocal() {
+        // write
+        SharedPreferences sharedPreferences = getSharedPreferences("LocalStorage", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String jsonlocalFavorite = gson.toJson(localFavorite);
+        editor.putString("localFavorite", jsonlocalFavorite);
+        String jsonlocalPortfolio = gson.toJson(localPortfolio);
+        editor.putString("localPortfolio", jsonlocalPortfolio);
+        editor.commit();
     }
 
     private void fetchNewsArea() {
@@ -305,7 +328,7 @@ public class SearchableActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray newsRes) {
                         try {
-
+                            newsList = new ArrayList<>();
                             for (int i = 0; i < newsRes.length(); i++) {
                                 JSONObject jsonNews = newsRes.getJSONObject(i);
                                 String urlToImage = jsonNews.getString("urlToImage");
@@ -343,6 +366,8 @@ public class SearchableActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject statesRes) {
                         try {
+                            statesPriceStrList = new ArrayList<>();  // init
+
                             currentPrice = statesRes.isNull("last") ? 0.0 : statesRes.getDouble("last");
                             double lowPrice = statesRes.isNull("low") ? 0.0 : statesRes.getDouble("low");
                             double bitPrice = statesRes.isNull("bidPrice") ? 0.0 : statesRes.getDouble("bidPrice");

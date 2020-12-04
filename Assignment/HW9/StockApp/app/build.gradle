@@ -37,6 +37,8 @@ dependencies {
     compile 'com.ms-square:expandableTextView:0.1.4'
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.google.code.gson:gson:2.8.6'
+
 
 
     testImplementation 'junit:junit:4.+'

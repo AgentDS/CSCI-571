@@ -11,6 +11,7 @@ import android.app.SearchManager;
 import android.app.SearchableInfo;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -26,12 +27,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -109,12 +113,13 @@ public class MainActivity extends AppCompatActivity {
 //        recyclerView.setVisibility(View.VISIBLE);
 //        initLists();
 //        setAllSections();
+//        makeLocalLists();  //
+
 
 
         // TODO: call real API
-        makeLocalLists();
+        readListsFromLocal();
         fetchLatestPrice();
-        Log.i(TAG, "onResume");
     }
 
     @Override
@@ -172,7 +177,39 @@ public class MainActivity extends AppCompatActivity {
         localFavorite.add(s5);
         LocalStock s6 = new LocalStock("NVDA", "NVIDIA Corporation", 0);
         localFavorite.add(s6);
+
+        writeListsToLocal();
     }
+
+    private void readListsFromLocal() {
+        SharedPreferences sharedPreferences = getSharedPreferences("LocalStorage", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson1 = new Gson();
+        String favResponse = sharedPreferences.getString("localFavorite", "[]");
+        localFavorite = gson1.fromJson(favResponse,
+                new TypeToken<List<LocalStock>>() {
+                }.getType());
+        String portResponse = sharedPreferences.getString("localPortfolio", "[]");
+        Gson gson2 = new Gson();
+        localPortfolio = gson2.fromJson(portResponse,
+                new TypeToken<List<LocalStock>>() {
+                }.getType());
+        Log.w(TAG, "readListsFromLocal: localPortfolio: " + localPortfolio.toString());
+    }
+
+    private void writeListsToLocal() {
+        // write
+        SharedPreferences sharedPreferences = getSharedPreferences("LocalStorage", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson1 = new Gson();
+        Gson gson2 = new Gson();
+        String jsonlocalFavorite = gson1.toJson(localFavorite);
+        editor.putString("localFavorite", jsonlocalFavorite);
+        String jsonlocalPortfolio = gson2.toJson(localPortfolio);
+        editor.putString("localPortfolio", jsonlocalPortfolio);
+        editor.commit();
+    }
+
 
     private void fetchLatestPrice() {
         String favTicker = "";
@@ -191,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
         String portUrl = portUrlMaker.getMultiLatestUrl();
         String favUrl = favUrlMaker.getMultiLatestUrl();
 
-        // TODO: fetch portReq
+
         JsonArrayRequest portReq = new JsonArrayRequest(
                 Request.Method.GET,
                 portUrl,

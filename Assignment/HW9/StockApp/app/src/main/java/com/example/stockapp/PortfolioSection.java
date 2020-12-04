@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
 
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Arrays;
@@ -27,6 +28,8 @@ final class PortfolioSection extends Section {
                 .build());
         stockList = portfolioList;
     }
+
+
 
     @Override
     public int getContentItemsTotal() {
@@ -77,7 +80,11 @@ final class PortfolioSection extends Section {
             }
         });
 
+
+
     }
+
+
 
     @Override
     public RecyclerView.ViewHolder getHeaderViewHolder(final View view) {
@@ -89,8 +96,13 @@ final class PortfolioSection extends Section {
         final HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
 
         headerHolder.tvTitle.setText(sectionTitle);
-
     }
+
+
+
+
+
+
 
 
 }

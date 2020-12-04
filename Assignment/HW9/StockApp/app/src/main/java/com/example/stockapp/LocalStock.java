@@ -1,6 +1,8 @@
 package com.example.stockapp;
 
-public class LocalStock {
+import java.io.Serializable;
+
+public class LocalStock implements Serializable {
     private String tickerName;
     private String companyName;
     private int shareNum;  // number of shares if in portfolio
