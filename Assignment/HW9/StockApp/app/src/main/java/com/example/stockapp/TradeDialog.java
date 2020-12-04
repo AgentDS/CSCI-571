@@ -77,14 +77,15 @@ public class TradeDialog extends DialogFragment {
 
     private void bindView(View view) {
         title_Tv = view.findViewById(R.id.detail_trade_dialog_title);
-//        title_Tv.setText("Trade " + mTradeData.getCompanyName() + " shares");
+        title_Tv.setText("Trade " + mTradeData.getCompanyName() + " shares");
 
         balance_Tv = view.findViewById(R.id.detail_trade_balance);
-//        balance_Tv.setText("$ " + mTradeData.getBalance() + " available to buy" + mTradeData.getTickerName());
+        balance_Tv.setText("$ " + mTradeData.getBalance() + " available to buy" + mTradeData.getTickerName());
 
         calculate_Tv = view.findViewById(R.id.detail_trade_calculate);
-        Double numShare = 0.0;
-        Double totalValue = 0.0;
-//        calculate_Tv.setText(0 + " x $" + String.format("%.2f", mTradeData.getCurrentPrice()) + "/share= $" + String.format("%.2f", totalValue));
+        double input = 0.0;
+        int numShare = (int) (input);
+        Double totalValue = numShare * mTradeData.getCurrentPrice();
+        calculate_Tv.setText(String.format("%d", ((int) numShare)) + " x $" + String.format("%.2f", mTradeData.getCurrentPrice()) + "/share= $" + String.format("%.2f", totalValue));
     }
 }
