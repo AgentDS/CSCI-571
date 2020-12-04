@@ -241,15 +241,14 @@ public class SearchableActivity extends AppCompatActivity {
             if (localFavorite.get(j).getTickerName().equals(ticker)) {
                 stared = true;
                 setStar();
-                return true;
+                return stared;
             }
         }
         stared = false;
         setStar();
-        return true;
+        return stared;
     }
 
-//    private boolean isInFavorite(S)
 
     private void setStar() {
         if (stared) {
@@ -259,20 +258,20 @@ public class SearchableActivity extends AppCompatActivity {
         }
     }
 
-    private void setSharesNum() {
+    private boolean setSharesNum() {
         int idx = 0;
         for (; idx < localPortfolio.size(); idx++) {
             if (localPortfolio.get(idx).getTickerName().equals(ticker)) {
                 sharesNum = localPortfolio.get(idx).getShareNum();
-                break;
+                return true;
             }
         }
         sharesNum = 0;
+        return false;
     }
 
     private void switchStar() {
         // switch icon of star when clicked
-
         stared = !stared;
         setStar();
         if (stared) {
