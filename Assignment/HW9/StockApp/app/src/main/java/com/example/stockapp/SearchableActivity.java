@@ -165,7 +165,7 @@ public class SearchableActivity extends AppCompatActivity {
             requestsCounter = new AtomicInteger(3);  // initial for request queue
 
 
-            Log.i(TAG, "searchutilUrl: " + urlMaker.getSearchutilUrl());
+//            Log.i(TAG, "searchutilUrl: " + urlMaker.getSearchutilUrl());
             Log.i(TAG, "summaryUrl: " + urlMaker.getMetadataUrl());
             Log.i(TAG, "statesUrl: " + urlMaker.getLatestPriceUrl());
             Log.i(TAG, "newsUrl: " + urlMaker.getNewsUrl());
