@@ -124,15 +124,7 @@ Tips:
 __Resources:__
 
 - https://api.tiingo.com/
-  - user name: siqiliang
-  - email: liangsiq@usc.edu
-  - password: liangsiqi1101
-  - API token: ``be37d86b75ad931e483aaab61f620653921a7517``
 - https://newsapi.org/docs
-  - First name: Siqi
-  - email: liangsiq@usc.edu
-  - password: liangsiqi1101
-  - API token: ``166945ff132b43c2a1a395898628ab48``
 - Arrow up: https://csci571.com/hw/hw6/images/GreenArrowUp.jpg
 - Arrow down: https://csci571.com/hw/hw6/images/RedArrowDown.jpg
 
@@ -153,7 +145,6 @@ __Resources:__
   - Do not use jQuery!!!!!
   - use Python!!!!!
   - use cloud server!!!!
-    - will be verified with an additional link in the Table of exercises, showing a sample API call to your “cloud” service and verifying the corresponding JSON result  __<u>what is this...????</u>__
 
 
 
@@ -189,18 +180,11 @@ __Resources:__
 #### Tiingo API
 
 - https://api.tiingo.com/
-  - user name: siqiliang
-  - email: liangsiq@usc.edu
-  - password: liangsiqi1101
-  - API token: ``be37d86b75ad931e483aaab61f620653921a7517``
   - time zone: __the timestamp is East Time, 4 hours offset need to be fixed__
 
 #### Latest News
 
-- ```python
-  # newsAPIkey = '83d88b3f4f9d44ccad89772a6ef0e218'  # zsxx56.12@163.com
-  newsAPIkey = '166945ff132b43c2a1a395898628ab48'  # liangsiq@usc.edu
-  ```
+- https://newsapi.org/docs
 
 
 
@@ -212,13 +196,12 @@ __Resources:__
 
 
 
-
-
 backend: https://csci571-hw8backend.wl.r.appspot.com/
 
 backend api example: https://csci571-hw8backend.wl.r.appspot.com/api/v1.0.0/metadata/aapl
 
 frontend project id: csci571-hw8frontend
+
 
 ### Homework 9
 
