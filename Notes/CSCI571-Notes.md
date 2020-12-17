@@ -4,30 +4,6 @@
 
 ## Lec1 Course Introduction
 
-### Prof. Marco Papa
-
-- E-mail: papa@usc.edu 
-
-- Office hours: Online Only on **Zoom**: 
-
-  – **Wednesdays 5:00PM-6:00PM PDT (9/2-11/18)** 
-
-  – **Meeting ID: 981 2147 6613** 
-
-  – **Passcode: 188837** 
-
-  – **Calendar available on D2L** 
-
-- Online course is  __Session 3__
-
-- Exam time (PST):
-
-  Exam #1: October 6
-  Exam #2: November 24
-  Final Mobile Project: December 3
-
-
-
 ### Course objectives
 
 __Core technologies__
@@ -2213,7 +2189,7 @@ __What is jQuery?__
 
      ````javascript
     var myButton = document.getElementById("myButton");
-     ````
+    ````
 
     In jQuery, it’s just ``$("#myButton");``
 
@@ -2471,40 +2447,6 @@ __Some new rules:__
 <u>PageSpeed is available in __Google Analytics__.</u>
 
 
-
-## Lec21 React
-
-__ReactJS:__
-
-- A light-weight JavaScript library for building user interfaces 
-- Developed by Facebook
-- React is a **view layer library**, **not** a **framework** like Backbone, Angular, etc
-- You can’t use React to build a fully-functional web app
-
-
-
-__How does React tackle challenges?__
-
-- Use 1-way data binding
-- Virtual DOM ( Efficient for frequent updates )
-- Easy to understand what a component will render
-- JSX - Easy to mix HTML and JS
-- React dev tools and excellent community
-- Server-side rendering (useful for SEO)
-
-
-
-
-
-## Lec22 Mobile App: Android
-
-
-
-
-
-
-
-## Lec23 Mobile App: iOS
 
 
 
