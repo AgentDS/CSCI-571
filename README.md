@@ -3,28 +3,6 @@ USC CSCI 571 2020 fall, Web Technologies, by Prof. Marco Papa
 
 [toc]
 
-- Course homepage:
-  - __Username:__ csci571
-  - __Password:__ notes1
-
-- Piazza access code: lafc3252usc
-
-- Class ID: 17757KtZX
-
-- Homework page: https://agentds.github.io/a1g1t10046.html
-
-- Office Hour: Zoom Meeting
-
-  https://usc.zoom.us/j/98121476613?pwd=VWJMWWRBKy9tTk9FSWpPRldTZGlLdz09
-
-  Meeting ID: 981 2147 6613
-
-  Passcode: 188837
-
-
-
-
-
 ## Homework
 
 ### Homework 1 (UNGRADED)
@@ -335,12 +313,6 @@ try Android!!!
 - iOS: https://youtu.be/7agdj51H4iA
 
 #### Grading
-
-
-
-show more...
-
-show less
 
 
 
